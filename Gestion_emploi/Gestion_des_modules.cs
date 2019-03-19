@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 
@@ -6,7 +7,7 @@ namespace Gestion_emploi
 {
     public partial class Gestion_des_modules : Form
     {
-        string connectionString = "server=localhost;database=emploi_du_temps;uid=root;pwd=xwire";
+        string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
 
         public Gestion_des_modules()
         {

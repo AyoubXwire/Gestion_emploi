@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -6,7 +7,7 @@ namespace Gestion_emploi
 {
     public partial class Gestion_des_formateurs : Form
     {
-        string connectionString = "server=localhost;database=emploi_du_temps;uid=root;pwd=xwire";
+        string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
 
         public Gestion_des_formateurs()
         {
@@ -31,6 +32,7 @@ namespace Gestion_emploi
                     metier_comboBox.Text = "";
                 }
             }
+
             metier_comboBox.Text = "";
         }
 
@@ -43,78 +45,90 @@ namespace Gestion_emploi
 
         private void Ajouter_button_Click(object sender, EventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            string confirmationMessage = nom_textBox.Text + " " + prenom_textBox.Text + " sera ajouté";
+            if (MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
             {
-                connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    command.CommandText = "INSERT INTO formateur(nom, prenom, id_metier) VALUES(@nom, @prenom, @id_metier)";
-                    command.Parameters.AddWithValue("@nom", nom_textBox.Text);
-                    command.Parameters.AddWithValue("@prenom", prenom_textBox.Text);
-                    command.Parameters.AddWithValue("@id_metier", metier_comboBox.SelectedValue);
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand("", connection))
+                    {
+                        command.CommandText = "INSERT INTO formateur(nom, prenom, id_metier) VALUES(@nom, @prenom, @id_metier)";
+                        command.Parameters.AddWithValue("@nom", nom_textBox.Text);
+                        command.Parameters.AddWithValue("@prenom", prenom_textBox.Text);
+                        command.Parameters.AddWithValue("@id_metier", metier_comboBox.SelectedValue);
 
-                    if (command.ExecuteNonQuery() > 0)
-                    {
-                        MessageBox.Show("Le formateur a été bien ajouté");
-                    }
-                    else
-                    {
-                        MessageBox.Show("erreur");
+                        if (command.ExecuteNonQuery() > 0)
+                        {
+                            MessageBox.Show("Formateur ajouté");
+                        }
+                        else
+                        {
+                            MessageBox.Show("erreur");
+                        }
                     }
                 }
-            }
 
-            RemplirDataGridView();
+                RemplirDataGridView();
+            }
         }
 
         private void Modifier_button_Click(object sender, EventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            string confirmationMessage = nom_textBox.Text + " " + prenom_textBox.Text + " sera modifié";
+            if (MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
             {
-                connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    command.CommandText = "update formateur set nom = @nom , prenom = @prenom ,id_metier = @id_metier WHERE id = @id";
-                    command.Parameters.AddWithValue("@id", formateurs_dataGridView.CurrentRow.Cells["id"].Value);
-                    command.Parameters.AddWithValue("@nom", nom_textBox.Text);
-                    command.Parameters.AddWithValue("@prenom", prenom_textBox.Text);
-                    command.Parameters.AddWithValue("@id_metier", int.Parse(metier_comboBox.SelectedValue.ToString()));
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand("", connection))
+                    {
+                        command.CommandText = "update formateur set nom = @nom , prenom = @prenom ,id_metier = @id_metier WHERE id = @id";
+                        command.Parameters.AddWithValue("@id", formateurs_dataGridView.CurrentRow.Cells["id"].Value);
+                        command.Parameters.AddWithValue("@nom", nom_textBox.Text);
+                        command.Parameters.AddWithValue("@prenom", prenom_textBox.Text);
+                        command.Parameters.AddWithValue("@id_metier", int.Parse(metier_comboBox.SelectedValue.ToString()));
 
-                    if (command.ExecuteNonQuery() > 0)
-                    {
-                        MessageBox.Show("Formateur modifié");
-                    }
-                    else
-                    {
-                        MessageBox.Show("erreur");
+                        if (command.ExecuteNonQuery() > 0)
+                        {
+                            MessageBox.Show("Formateur modifié");
+                        }
+                        else
+                        {
+                            MessageBox.Show("erreur");
+                        }
                     }
                 }
-            }
 
-            RemplirDataGridView();
+                RemplirDataGridView();
+            }
         }
 
         private void Supprimer_button_Click(object sender, EventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            string confirmationMessage = nom_textBox.Text + " " + prenom_textBox.Text + " sera supprimé";
+            if (MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
             {
-                connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    command.CommandText = "DELETE FROM formateur WHERE id = @id";
-                    command.Parameters.AddWithValue("@id", formateurs_dataGridView.CurrentRow.Cells["id"].Value);
-                    if (command.ExecuteNonQuery() > 0)
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand("", connection))
                     {
-                        MessageBox.Show("Formateur supprimé");
-                    }
-                    else
-                    {
-                        MessageBox.Show("erreur");
+                        command.CommandText = "DELETE FROM formateur WHERE id = @id";
+                        command.Parameters.AddWithValue("@id", formateurs_dataGridView.CurrentRow.Cells["id"].Value);
+                        if (command.ExecuteNonQuery() > 0)
+                        {
+                            MessageBox.Show("Formateur supprimé");
+                        }
+                        else
+                        {
+                            MessageBox.Show("erreur");
+                        }
                     }
                 }
-            }
 
-            RemplirDataGridView();
+                RemplirDataGridView();
+            }
         }
 
         private void Formateurs_dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -122,6 +136,10 @@ namespace Gestion_emploi
             nom_textBox.Text = formateurs_dataGridView.CurrentRow.Cells["nom"].Value.ToString();
             prenom_textBox.Text = formateurs_dataGridView.CurrentRow.Cells["prenom"].Value.ToString();
             metier_comboBox.Text = formateurs_dataGridView.CurrentRow.Cells["metier"].Value.ToString();
+
+            nom_label.Text = formateurs_dataGridView.CurrentRow.Cells["nom"].Value.ToString();
+            prenom_label.Text = formateurs_dataGridView.CurrentRow.Cells["prenom"].Value.ToString();
+            metier_label.Text = formateurs_dataGridView.CurrentRow.Cells["metier"].Value.ToString();
         }
 
         private void RemplirDataGridView()
@@ -137,6 +155,7 @@ namespace Gestion_emploi
                     formateurs_dataGridView.DataSource = binder;
                 }
             }
+
             formateurs_dataGridView.Columns["id"].Visible = false;
         }
     }

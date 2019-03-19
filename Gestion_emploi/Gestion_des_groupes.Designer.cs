@@ -46,19 +46,19 @@
             this.groupes_dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.groupes_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.groupes_dataGridView.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupes_dataGridView.Location = new System.Drawing.Point(486, 0);
+            this.groupes_dataGridView.Location = new System.Drawing.Point(502, 0);
             this.groupes_dataGridView.MultiSelect = false;
             this.groupes_dataGridView.Name = "groupes_dataGridView";
             this.groupes_dataGridView.ReadOnly = true;
             this.groupes_dataGridView.RowTemplate.Height = 24;
             this.groupes_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.groupes_dataGridView.Size = new System.Drawing.Size(600, 450);
+            this.groupes_dataGridView.Size = new System.Drawing.Size(452, 327);
             this.groupes_dataGridView.TabIndex = 38;
             this.groupes_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Groupes_dataGridView_CellClick);
             // 
             // nombreDeGroupes_numericUpDown
             // 
-            this.nombreDeGroupes_numericUpDown.Location = new System.Drawing.Point(196, 155);
+            this.nombreDeGroupes_numericUpDown.Location = new System.Drawing.Point(194, 75);
             this.nombreDeGroupes_numericUpDown.Margin = new System.Windows.Forms.Padding(4);
             this.nombreDeGroupes_numericUpDown.Maximum = new decimal(new int[] {
             6,
@@ -82,10 +82,10 @@
             // 
             // valider_button
             // 
-            this.valider_button.Location = new System.Drawing.Point(32, 244);
+            this.valider_button.Location = new System.Drawing.Point(32, 250);
             this.valider_button.Margin = new System.Windows.Forms.Padding(4);
             this.valider_button.Name = "valider_button";
-            this.valider_button.Size = new System.Drawing.Size(100, 55);
+            this.valider_button.Size = new System.Drawing.Size(133, 55);
             this.valider_button.TabIndex = 44;
             this.valider_button.Text = "Valider";
             this.valider_button.UseVisualStyleBackColor = true;
@@ -95,7 +95,7 @@
             // 
             this.filiere_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.filiere_comboBox.FormattingEnabled = true;
-            this.filiere_comboBox.Location = new System.Drawing.Point(196, 30);
+            this.filiere_comboBox.Location = new System.Drawing.Point(194, 13);
             this.filiere_comboBox.Margin = new System.Windows.Forms.Padding(4);
             this.filiere_comboBox.Name = "filiere_comboBox";
             this.filiere_comboBox.Size = new System.Drawing.Size(258, 24);
@@ -104,7 +104,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(30, 33);
+            this.label4.Location = new System.Drawing.Point(29, 16);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(50, 17);
@@ -114,7 +114,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 159);
+            this.label3.Location = new System.Drawing.Point(27, 79);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(138, 17);
@@ -124,7 +124,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 91);
+            this.label2.Location = new System.Drawing.Point(27, 47);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 17);
@@ -133,7 +133,7 @@
             // 
             // niveau_numericUpDown
             // 
-            this.niveau_numericUpDown.Location = new System.Drawing.Point(196, 89);
+            this.niveau_numericUpDown.Location = new System.Drawing.Point(194, 45);
             this.niveau_numericUpDown.Margin = new System.Windows.Forms.Padding(4);
             this.niveau_numericUpDown.Maximum = new decimal(new int[] {
             2,
@@ -159,7 +159,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1086, 450);
+            this.ClientSize = new System.Drawing.Size(954, 327);
             this.Controls.Add(this.nombreDeGroupes_numericUpDown);
             this.Controls.Add(this.valider_button);
             this.Controls.Add(this.filiere_comboBox);

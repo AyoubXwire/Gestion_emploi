@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -6,7 +7,7 @@ namespace Gestion_emploi
 {
     public partial class Gestion_des_groupes : Form
     {
-        string connectionString = "server=localhost;database=emploi_du_temps;uid=root;pwd=xwire";
+        string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
         string[] lettres = new string[] { "A", "B", "C", "D", "E", "F" };
 
         public Gestion_des_groupes()

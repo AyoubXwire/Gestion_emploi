@@ -33,8 +33,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Google.Protobuf, Version=3.7.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.7.0\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.0.15.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.15\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,14 +59,62 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Affectation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Affectation.Designer.cs">
+      <DependentUpon>Affectation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gestion_des_filieres.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gestion_des_filieres.Designer.cs">
+      <DependentUpon>Gestion_des_filieres.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gestion_des_formateurs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gestion_des_formateurs.Designer.cs">
+      <DependentUpon>Gestion_des_formateurs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gestion_des_groupes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gestion_des_groupes.Designer.cs">
+      <DependentUpon>Gestion_des_groupes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gestion_des_modules.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gestion_des_modules.Designer.cs">
+      <DependentUpon>Gestion_des_modules.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu.Designer.cs">
+      <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Affectation.resx">
+      <DependentUpon>Affectation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gestion_des_filieres.resx">
+      <DependentUpon>Gestion_des_filieres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gestion_des_formateurs.resx">
+      <DependentUpon>Gestion_des_formateurs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gestion_des_groupes.resx">
+      <DependentUpon>Gestion_des_groupes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gestion_des_modules.resx">
+      <DependentUpon>Gestion_des_modules.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu.resx">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -63,6 +124,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -15,6 +15,8 @@ namespace Gestion_emploi
 
         private void Affectation_Load(object sender, EventArgs e)
         {
+            RemplirDataGridView();
+
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -30,7 +32,7 @@ namespace Gestion_emploi
             }
         }
 
-        private void Filiere_comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void Choisir_button_Click(object sender, EventArgs e)
         {
             // Groupes
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -38,8 +40,9 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT id, chaine FROM groupe WHERE id_filiere=@id_filiere";
+                    command.CommandText = "SELECT id, chaine FROM groupe WHERE id_filiere=@id_filiere AND niveau=@niveau";
                     command.Parameters.AddWithValue("@id_filiere", filiere_comboBox.SelectedValue);
+                    command.Parameters.AddWithValue("@niveau", niveau_numericUpDown.Value);
                     BindingSource binder = new BindingSource();
                     binder.DataSource = command.ExecuteReader();
                     groupe_listBox.ValueMember = "id";
@@ -54,8 +57,9 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT m.id, m.nom FROM module m JOIN module_filiere mf ON m.id=mf.id_module JOIN filiere f ON f.id=mf.id_filiere WHERE id_filiere=@id_filiere";
+                    command.CommandText = "SELECT m.id, m.nom FROM module m JOIN module_filiere mf ON m.id=mf.id_module JOIN filiere f ON f.id=mf.id_filiere WHERE id_filiere=@id_filiere AND niveau=@niveau";
                     command.Parameters.AddWithValue("@id_filiere", filiere_comboBox.SelectedValue);
+                    command.Parameters.AddWithValue("@niveau", niveau_numericUpDown.Value);
                     BindingSource binder = new BindingSource();
                     binder.DataSource = command.ExecuteReader();
                     module_listBox.ValueMember = "id";
@@ -99,5 +103,56 @@ namespace Gestion_emploi
                 }
             }
         }
+
+        private void Affecter_button_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < groupe_listBox.Items.Count; i++)
+            {
+                if (groupe_listBox.GetSelected(i))
+                {
+                    using (MySqlConnection connection = new MySqlConnection(connectionString))
+                    {
+                        connection.Open();
+                        using (MySqlCommand command = new MySqlCommand("", connection))
+                        {
+                            command.CommandText = "INSERT INTO affectation(id_formateur, id_module, id_groupe) VALUES(@id_formateur, @id_module, @id_groupe)";
+                            command.Parameters.AddWithValue("@id_formateur", formateur_listBox.SelectedValue);
+                            command.Parameters.AddWithValue("@id_module", module_listBox.SelectedValue);
+                            command.Parameters.AddWithValue("@id_groupe", groupe_listBox.SelectedValue);
+                            if(command.ExecuteNonQuery() > 0)
+                            {
+                                MessageBox.Show("Affectation ajoutée");
+                            }
+                            else
+                            {
+                                MessageBox.Show("erreur");
+                            }
+                        }
+                    }
+
+                    groupe_listBox.SetSelected(i, false);
+                }
+            }
+
+            RemplirDataGridView();
+        }
+
+        private void RemplirDataGridView()
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "SELECT a.id, g.chaine as groupe, m.nom as module, f.nom as formateur FROM affectation a JOIN formateur f ON a.id_formateur=f.id JOIN module m ON a.id_module=m.id JOIN groupe g ON a.id_groupe=g.id ORDER BY g.id";
+                    BindingSource binder = new BindingSource();
+                    binder.DataSource = command.ExecuteReader();
+                    affectations_dataGridView.DataSource = binder;
+                }
+            }
+
+            affectations_dataGridView.Columns["id"].Visible = false;
+        }
     }
 }
+

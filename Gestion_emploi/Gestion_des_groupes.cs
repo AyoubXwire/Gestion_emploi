@@ -6,7 +6,7 @@ namespace Gestion_emploi
 {
     public partial class Gestion_des_groupes : Form
     {
-        string connectionString = "server=localhost;database=emploi_du_temps;uid=root;pwd=xwire";
+        string connectionString = "server=localhost;database=emploi_du_temps;uid=root;pwd=1234";
         string[] lettres = new string[] { "A", "B", "C", "D", "E", "F" };
 
         public Gestion_des_groupes()

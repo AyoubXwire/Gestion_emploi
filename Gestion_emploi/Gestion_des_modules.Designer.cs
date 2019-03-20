@@ -41,6 +41,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.listBox2 = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.module_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.niveau_numericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mass_horaire_numericUpDown)).BeginInit();
@@ -55,20 +59,19 @@
             this.module_dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.module_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.module_dataGridView.Dock = System.Windows.Forms.DockStyle.Right;
-            this.module_dataGridView.Location = new System.Drawing.Point(546, 0);
+            this.module_dataGridView.Location = new System.Drawing.Point(482, 0);
             this.module_dataGridView.Margin = new System.Windows.Forms.Padding(0);
             this.module_dataGridView.MultiSelect = false;
             this.module_dataGridView.Name = "module_dataGridView";
             this.module_dataGridView.ReadOnly = true;
             this.module_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.module_dataGridView.Size = new System.Drawing.Size(539, 450);
+            this.module_dataGridView.Size = new System.Drawing.Size(404, 385);
             this.module_dataGridView.TabIndex = 2;
             this.module_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Module_dataGridView_CellClick);
             // 
             // niveau_numericUpDown
             // 
-            this.niveau_numericUpDown.Location = new System.Drawing.Point(178, 128);
-            this.niveau_numericUpDown.Margin = new System.Windows.Forms.Padding(4);
+            this.niveau_numericUpDown.Location = new System.Drawing.Point(100, 104);
             this.niveau_numericUpDown.Maximum = new decimal(new int[] {
             2,
             0,
@@ -81,7 +84,7 @@
             0});
             this.niveau_numericUpDown.Name = "niveau_numericUpDown";
             this.niveau_numericUpDown.ReadOnly = true;
-            this.niveau_numericUpDown.Size = new System.Drawing.Size(267, 22);
+            this.niveau_numericUpDown.Size = new System.Drawing.Size(200, 20);
             this.niveau_numericUpDown.TabIndex = 37;
             this.niveau_numericUpDown.Value = new decimal(new int[] {
             1,
@@ -96,33 +99,30 @@
             0,
             0,
             0});
-            this.mass_horaire_numericUpDown.Location = new System.Drawing.Point(178, 185);
-            this.mass_horaire_numericUpDown.Margin = new System.Windows.Forms.Padding(4);
+            this.mass_horaire_numericUpDown.Location = new System.Drawing.Point(100, 150);
             this.mass_horaire_numericUpDown.Maximum = new decimal(new int[] {
             300,
             0,
             0,
             0});
             this.mass_horaire_numericUpDown.Name = "mass_horaire_numericUpDown";
-            this.mass_horaire_numericUpDown.Size = new System.Drawing.Size(267, 22);
+            this.mass_horaire_numericUpDown.Size = new System.Drawing.Size(200, 20);
             this.mass_horaire_numericUpDown.TabIndex = 36;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 187);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(10, 152);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(98, 17);
+            this.label1.Size = new System.Drawing.Size(73, 13);
             this.label1.TabIndex = 35;
             this.label1.Text = "Mass horaire: ";
             // 
             // supprimer_button
             // 
-            this.supprimer_button.Location = new System.Drawing.Point(397, 249);
-            this.supprimer_button.Margin = new System.Windows.Forms.Padding(4);
+            this.supprimer_button.Location = new System.Drawing.Point(298, 202);
             this.supprimer_button.Name = "supprimer_button";
-            this.supprimer_button.Size = new System.Drawing.Size(119, 52);
+            this.supprimer_button.Size = new System.Drawing.Size(89, 42);
             this.supprimer_button.TabIndex = 34;
             this.supprimer_button.Text = "Supprimer";
             this.supprimer_button.UseVisualStyleBackColor = true;
@@ -130,10 +130,9 @@
             // 
             // modifier_button
             // 
-            this.modifier_button.Location = new System.Drawing.Point(266, 249);
-            this.modifier_button.Margin = new System.Windows.Forms.Padding(4);
+            this.modifier_button.Location = new System.Drawing.Point(200, 202);
             this.modifier_button.Name = "modifier_button";
-            this.modifier_button.Size = new System.Drawing.Size(119, 52);
+            this.modifier_button.Size = new System.Drawing.Size(89, 42);
             this.modifier_button.TabIndex = 33;
             this.modifier_button.Text = "Modifier";
             this.modifier_button.UseVisualStyleBackColor = true;
@@ -141,10 +140,9 @@
             // 
             // ajouter_button
             // 
-            this.ajouter_button.Location = new System.Drawing.Point(134, 249);
-            this.ajouter_button.Margin = new System.Windows.Forms.Padding(4);
+            this.ajouter_button.Location = new System.Drawing.Point(100, 202);
             this.ajouter_button.Name = "ajouter_button";
-            this.ajouter_button.Size = new System.Drawing.Size(119, 52);
+            this.ajouter_button.Size = new System.Drawing.Size(89, 42);
             this.ajouter_button.TabIndex = 32;
             this.ajouter_button.Text = "Ajouter";
             this.ajouter_button.UseVisualStyleBackColor = true;
@@ -152,10 +150,9 @@
             // 
             // nouveau_button
             // 
-            this.nouveau_button.Location = new System.Drawing.Point(5, 249);
-            this.nouveau_button.Margin = new System.Windows.Forms.Padding(4);
+            this.nouveau_button.Location = new System.Drawing.Point(4, 202);
             this.nouveau_button.Name = "nouveau_button";
-            this.nouveau_button.Size = new System.Drawing.Size(119, 52);
+            this.nouveau_button.Size = new System.Drawing.Size(89, 42);
             this.nouveau_button.TabIndex = 31;
             this.nouveau_button.Text = "Nouveau";
             this.nouveau_button.UseVisualStyleBackColor = true;
@@ -165,55 +162,90 @@
             // 
             this.metier_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.metier_comboBox.FormattingEnabled = true;
-            this.metier_comboBox.Location = new System.Drawing.Point(178, 21);
-            this.metier_comboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.metier_comboBox.Location = new System.Drawing.Point(100, 17);
             this.metier_comboBox.Name = "metier_comboBox";
-            this.metier_comboBox.Size = new System.Drawing.Size(265, 24);
+            this.metier_comboBox.Size = new System.Drawing.Size(200, 21);
             this.metier_comboBox.TabIndex = 30;
             // 
             // nom_textBox
             // 
-            this.nom_textBox.Location = new System.Drawing.Point(178, 74);
-            this.nom_textBox.Margin = new System.Windows.Forms.Padding(4);
+            this.nom_textBox.Location = new System.Drawing.Point(100, 60);
             this.nom_textBox.Name = "nom_textBox";
-            this.nom_textBox.Size = new System.Drawing.Size(265, 22);
+            this.nom_textBox.Size = new System.Drawing.Size(200, 20);
             this.nom_textBox.TabIndex = 29;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 25);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(10, 20);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(51, 17);
+            this.label4.Size = new System.Drawing.Size(39, 13);
             this.label4.TabIndex = 28;
             this.label4.Text = "Metier:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 128);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(10, 104);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 17);
+            this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 27;
             this.label3.Text = "Niveau: ";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 77);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(10, 63);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 17);
+            this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 26;
             this.label2.Text = "Nom:";
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(370, 17);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.listBox1.Size = new System.Drawing.Size(95, 160);
+            this.listBox1.TabIndex = 38;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(315, 17);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(37, 13);
+            this.label5.TabIndex = 39;
+            this.label5.Text = "Filiere:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(393, 202);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(86, 42);
+            this.button1.TabIndex = 41;
+            this.button1.Text = "affecter des filiere";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.Location = new System.Drawing.Point(370, 265);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(95, 108);
+            this.listBox2.TabIndex = 42;
+            // 
             // Gestion_des_modules
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1085, 450);
+            this.ClientSize = new System.Drawing.Size(886, 385);
+            this.Controls.Add(this.listBox2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.niveau_numericUpDown);
             this.Controls.Add(this.mass_horaire_numericUpDown);
             this.Controls.Add(this.label1);
@@ -227,6 +259,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.module_dataGridView);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Gestion_des_modules";
             this.Text = "Gestion_des_modules";
             this.Load += new System.EventHandler(this.Gestion_des_modules_Load);
@@ -253,5 +286,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ListBox listBox2;
     }
 }

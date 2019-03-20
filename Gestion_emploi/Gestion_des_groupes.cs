@@ -61,7 +61,7 @@ namespace Gestion_emploi
                 }
             }
 
-            if (count == 0)
+            if (count == 0) // If groupe doesnt exist insert normally
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
@@ -83,7 +83,7 @@ namespace Gestion_emploi
                 }
                 MessageBox.Show(commandOutput.ToString() + " groupes ajoutés");
             }
-            else if (count > wanted)
+            else if (count > wanted) // Delete the additional groupes
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
@@ -102,7 +102,7 @@ namespace Gestion_emploi
                 }
                 MessageBox.Show(commandOutput.ToString() + " groupes supprimés");
             }
-            else if (count < wanted)
+            else if (count < wanted) // Insert the missing groupes
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {

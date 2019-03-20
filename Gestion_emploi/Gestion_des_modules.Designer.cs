@@ -45,6 +45,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.listBox2 = new System.Windows.Forms.ListBox();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.module_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.niveau_numericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mass_horaire_numericUpDown)).BeginInit();
@@ -237,11 +238,21 @@
             this.listBox2.Size = new System.Drawing.Size(95, 108);
             this.listBox2.TabIndex = 42;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(180, 265);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(184, 13);
+            this.label6.TabIndex = 43;
+            this.label6.Text = "ce module a été affecter a ces filiere: ";
+            // 
             // Gestion_des_modules
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(886, 385);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label5);
@@ -290,5 +301,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.Label label6;
     }
 }

@@ -44,39 +44,85 @@ namespace Gestion_emploi
 
         private void Valider_button_Click(object sender, EventArgs e)
         {
-            // Delete if groupes already exist
+            // Get the count of the specified groupe from the db
+            int count;
+            int wanted = int.Parse(nombreDeGroupes_numericUpDown.Value.ToString());
+            int commandOutput = 0;
+            
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "DELETE FROM groupe WHERE id_filiere=@id_filiere AND niveau=@niveau";
+                    command.CommandText = "SELECT count(id) FROM groupe WHERE id_filiere=@id_filiere AND niveau=@niveau";
                     command.Parameters.AddWithValue("@niveau", niveau_numericUpDown.Value);
                     command.Parameters.AddWithValue("@id_filiere", int.Parse(filiere_comboBox.SelectedValue.ToString()));
-                    command.ExecuteNonQuery();
+                    count = int.Parse(command.ExecuteScalar().ToString());
                 }
             }
 
-            // Insert the groupes
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            if (count == 0)
             {
-                connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    for (int i = 0; i < nombreDeGroupes_numericUpDown.Value; i++)
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand("", connection))
                     {
-                        command.CommandText = "INSERT INTO groupe (nom, niveau, id_filiere, chaine) VALUES (@nom, @niveau, @id_filiere, @chaine)";
-                        command.Parameters.AddWithValue("@nom", lettres[i]);
-                        command.Parameters.AddWithValue("@niveau", niveau_numericUpDown.Value);
-                        command.Parameters.AddWithValue("@id_filiere", int.Parse(filiere_comboBox.SelectedValue.ToString()));
-                        command.Parameters.AddWithValue("@chaine", filiere_comboBox.Text + niveau_numericUpDown.Value.ToString() + lettres[i]);
-                        if (command.ExecuteNonQuery() > 0)
+                        for (int i = 0; i < wanted; i++)
                         {
-                            MessageBox.Show("ok");
+                            command.CommandText = "INSERT INTO groupe (nom, niveau, id_filiere, chaine) VALUES (@nom, @niveau, @id_filiere, @chaine)";
+                            command.Parameters.AddWithValue("@nom", lettres[i]);
+                            command.Parameters.AddWithValue("@niveau", niveau_numericUpDown.Value);
+                            command.Parameters.AddWithValue("@id_filiere", int.Parse(filiere_comboBox.SelectedValue.ToString()));
+                            command.Parameters.AddWithValue("@chaine", filiere_comboBox.Text + niveau_numericUpDown.Value.ToString() + lettres[i]);
+
+                            commandOutput += command.ExecuteNonQuery();
+                            command.Parameters.Clear();
                         }
-                        command.Parameters.Clear();
                     }
                 }
+                MessageBox.Show(commandOutput.ToString() + " groupes ajoutés");
+            }
+            else if (count > wanted)
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand("", connection))
+                    {
+                        for (int i = wanted; i < count; i++)
+                        {
+                            command.CommandText = "DELETE FROM groupe WHERE chaine=@chaine";
+                            command.Parameters.AddWithValue("@chaine", filiere_comboBox.Text + niveau_numericUpDown.Value.ToString() + lettres[i]);
+
+                            commandOutput += command.ExecuteNonQuery();
+                            command.Parameters.Clear();
+                        }
+                    }
+                }
+                MessageBox.Show(commandOutput.ToString() + " groupes supprimés");
+            }
+            else if (count < wanted)
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand("", connection))
+                    {
+                        for (int i = count; i < wanted; i++)
+                        {
+                            command.CommandText = "INSERT INTO groupe (nom, niveau, id_filiere, chaine) VALUES (@nom, @niveau, @id_filiere, @chaine)";
+                            command.Parameters.AddWithValue("@nom", lettres[i]);
+                            command.Parameters.AddWithValue("@niveau", niveau_numericUpDown.Value);
+                            command.Parameters.AddWithValue("@id_filiere", int.Parse(filiere_comboBox.SelectedValue.ToString()));
+                            command.Parameters.AddWithValue("@chaine", filiere_comboBox.Text + niveau_numericUpDown.Value.ToString() + lettres[i]);
+
+                            commandOutput += command.ExecuteNonQuery();
+                            command.Parameters.Clear();
+                        }
+                    }
+                }
+                MessageBox.Show(commandOutput.ToString() + " groupes ajoutés");
             }
 
             RemplirDataGridView();

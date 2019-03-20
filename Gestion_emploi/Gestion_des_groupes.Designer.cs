@@ -30,7 +30,7 @@
         {
             this.groupes_dataGridView = new System.Windows.Forms.DataGridView();
             this.nombreDeGroupes_numericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.valider_button = new System.Windows.Forms.Button();
+            this.confirmer_button = new System.Windows.Forms.Button();
             this.filiere_comboBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -80,16 +80,16 @@
             0,
             0});
             // 
-            // valider_button
+            // confirmer_button
             // 
-            this.valider_button.Location = new System.Drawing.Point(32, 250);
-            this.valider_button.Margin = new System.Windows.Forms.Padding(4);
-            this.valider_button.Name = "valider_button";
-            this.valider_button.Size = new System.Drawing.Size(133, 55);
-            this.valider_button.TabIndex = 44;
-            this.valider_button.Text = "Valider";
-            this.valider_button.UseVisualStyleBackColor = true;
-            this.valider_button.Click += new System.EventHandler(this.Valider_button_Click);
+            this.confirmer_button.Location = new System.Drawing.Point(30, 122);
+            this.confirmer_button.Margin = new System.Windows.Forms.Padding(4);
+            this.confirmer_button.Name = "confirmer_button";
+            this.confirmer_button.Size = new System.Drawing.Size(133, 55);
+            this.confirmer_button.TabIndex = 44;
+            this.confirmer_button.Text = "Confirmer";
+            this.confirmer_button.UseVisualStyleBackColor = true;
+            this.confirmer_button.Click += new System.EventHandler(this.Valider_button_Click);
             // 
             // filiere_comboBox
             // 
@@ -161,7 +161,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(954, 327);
             this.Controls.Add(this.nombreDeGroupes_numericUpDown);
-            this.Controls.Add(this.valider_button);
+            this.Controls.Add(this.confirmer_button);
             this.Controls.Add(this.filiere_comboBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -183,7 +183,7 @@
 
         private System.Windows.Forms.DataGridView groupes_dataGridView;
         private System.Windows.Forms.NumericUpDown nombreDeGroupes_numericUpDown;
-        private System.Windows.Forms.Button valider_button;
+        private System.Windows.Forms.Button confirmer_button;
         private System.Windows.Forms.ComboBox filiere_comboBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;

@@ -306,54 +306,51 @@ namespace Gestion_emploi
 
                     else
                     {
-                        MessageBox.Show("deja a des affections");
-                        //even the green ones , some of them don't have all the filiere possible , i should be able to add the left ones
+                        if (listBox1.Items.Count == listBox2.Items.Count)
+                        {
+                            MessageBox.Show("ce module est affecter a tous les filiere");
+                        }
 
+                        else { 
+                        using (MySqlCommand command2 = new MySqlCommand("", connection))
+                        {
 
-                        //how i tried it :  
+                            command2.CommandText = "select id_module , id_filiere from module_filiere where id_module =@id_module and id_filiere =@id_filiere";
 
-                        //if (listBox2.Items.Count == listBox1.Items.Count)
-                        //{
-                        //    MessageBox.Show("tous les filieres sont affecter a ce module");
-                        //}
+                            
+                                for (int i = 0; i < listBox1.Items.Count; i++)
+                                {
+                                    if (listBox1.GetSelected(i))
+                                    {
+                                        command2.Parameters.Clear();
+                                        command2.Parameters.AddWithValue("@id_module", module_dataGridView.CurrentRow.Cells[0].Value);
+                                        command2.Parameters.AddWithValue("@id_filiere", listBox1.SelectedValue);
 
-                        //else
-                        //{
-                        //    using (MySqlCommand cmd = new MySqlCommand("", connection))
-                        //    {
+                                        using (MySqlDataReader dr = command2.ExecuteReader())
+                                        {
+                                            if (!dr.HasRows)
+                                            {
+                                                dr.Close();
+                                                using (MySqlCommand command3 = new MySqlCommand("",connection))
+                                                {
+                                                command3.CommandText = "INSERT INTO module_filiere(id_module,id_filiere) VALUES(@id_module, @id_filiere)";
+                                                command3.Parameters.Clear();
+                                                command3.Parameters.AddWithValue("@id_module", module_dataGridView.CurrentRow.Cells[0].Value);
+                                                command3.Parameters.AddWithValue("@id_filiere", listBox1.SelectedValue);
+                                                command3.ExecuteNonQuery();
+                                                }
+                                               
 
-                        //        cmd.CommandText = "INSERT INTO module_filiere(id_module,id_filiere) VALUES(@id_module, @id_filiere)";
+                                            }
+                                        }
+                                       
+                                        
+                                        listBox1.SetSelected(i, false);
+                                    }
+                                }
 
-
-                        //        bool check;
-                        //        for (int i = 0; i < listBox1.Items.Count; i++)
-                        //        {
-                        //            check = false;
-                        //            if (listBox1.GetSelected(i))
-                        //            {
-                        //                for (int j = 0; j < listBox2.Items.Count; j++)
-                        //                {
-                        //                    if (listBox1.SelectedItem == listBox2.Items[j])
-                        //                        check = true;
-                        //                        break;
-                        //                }
-
-                        //                if(check == false) { 
-                        //                cmd.Parameters.Clear();
-                        //                cmd.Parameters.AddWithValue("@id_module", module_dataGridView.CurrentRow.Cells[0].Value);
-                        //                cmd.Parameters.AddWithValue("@id_filiere", listBox1.SelectedValue);
-                        //                cmd.ExecuteNonQuery();
-                        //                }
-
-
-
-
-                        //                listBox1.SetSelected(i, false);
-                        //            }
-                        //        }
-                        //    }
-
-                        //}
+                        }
+                        }
 
                     }
                 } 

@@ -37,7 +37,10 @@
             this.ajouter_button = new System.Windows.Forms.Button();
             this.vider_button = new System.Windows.Forms.Button();
             this.salles_dataGridView = new System.Windows.Forms.DataGridView();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.salles_dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // type_comboBox
@@ -133,11 +136,40 @@
             this.salles_dataGridView.TabIndex = 30;
             this.salles_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Salles_dataGridView_CellClick);
             // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(108, 106);
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 41;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(30, 111);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(48, 13);
+            this.label1.TabIndex = 42;
+            this.label1.Text = "nombre: ";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
             // Gestion_des_salles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 330);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.type_comboBox);
             this.Controls.Add(this.nom_textBox);
             this.Controls.Add(this.label4);
@@ -151,6 +183,7 @@
             this.Text = "Gestion_des_salles";
             this.Load += new System.EventHandler(this.Gestion_des_salles_Load);
             ((System.ComponentModel.ISupportInitialize)(this.salles_dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -167,5 +200,7 @@
         private System.Windows.Forms.Button ajouter_button;
         private System.Windows.Forms.Button vider_button;
         private System.Windows.Forms.DataGridView salles_dataGridView;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label1;
     }
 }

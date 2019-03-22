@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Data;
 using System.Configuration;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
-using System.ComponentModel;
 using System.Drawing;
 
 namespace Gestion_emploi
@@ -45,7 +43,6 @@ namespace Gestion_emploi
                     listBox1.DataSource = binder;
                     listBox1.ValueMember = "id";
                     listBox1.DisplayMember = "nom";
-
                 }
             }
         }
@@ -57,15 +54,12 @@ namespace Gestion_emploi
             niveau_numericUpDown.Value = (int)module_dataGridView.CurrentRow.Cells["niveau"].Value;
             mass_horaire_numericUpDown.Value = (int)module_dataGridView.CurrentRow.Cells["mass_horaire"].Value;
 
-
-
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText =
-                        "select nom from filiere where id in (select id_filiere from module_filiere where id_module = @id_module)";
+                    command.CommandText = "select nom from filiere where id in (select id_filiere from module_filiere where id_module = @id_module)";
                     command.Parameters.AddWithValue("@id_module", module_dataGridView.CurrentRow.Cells[0].Value);
                     using (MySqlDataReader dr = command.ExecuteReader())
                     {
@@ -76,7 +70,6 @@ namespace Gestion_emploi
                             while (dr.Read())
                             {
                                 listBox2.Items.Add(dr[0].ToString());
-
                             }
                         }
                         else
@@ -86,9 +79,7 @@ namespace Gestion_emploi
                         }
                     }
                 }
-
             }
-
         }
 
         private void Nouveau_button_Click(object sender, EventArgs e)
@@ -130,29 +121,21 @@ namespace Gestion_emploi
 
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-
                     command.CommandText = "INSERT INTO module_filiere(id_module,id_filiere) VALUES(@id_module, @id_filiere)";
-
-                        
-                        for (int i = 0; i < listBox1.Items.Count; i++)
-                        {
-                            if (listBox1.GetSelected(i))
-                            { 
-
+                    
+                    for (int i = 0; i < listBox1.Items.Count; i++)
+                    {
+                        if (listBox1.GetSelected(i))
+                        { 
                             command.Parameters.Clear();
                             command.Parameters.AddWithValue("@id_module", id);
                             command.Parameters.AddWithValue("@id_filiere", listBox1.SelectedValue);
-
-
                             command.ExecuteNonQuery();
 
-
-                            listBox1.SetSelected(i, false);
-                            }
+                            listBox1.SetSelected(i, false); 
                         }
+                    }
                 }
-
-
             }
 
             RemplirDataGridView();
@@ -181,11 +164,8 @@ namespace Gestion_emploi
                         MessageBox.Show("erreur");
                     }
                 }
-
             }
-
-
-
+            
             RemplirDataGridView();
         }
 
@@ -220,8 +200,6 @@ namespace Gestion_emploi
             RemplirDataGridView();
         }
 
-
-
         private void RemplirDataGridView()
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -235,6 +213,7 @@ namespace Gestion_emploi
                     module_dataGridView.DataSource = binder;
                 }
             }
+
             module_dataGridView.Columns["id"].Visible = false;
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -242,46 +221,37 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText =
-                        "select nom from filiere where id in (select id_filiere from module_filiere where id_module = @id_module)";
+                    command.CommandText = "select nom from filiere where id in (select id_filiere from module_filiere where id_module = @id_module)";
 
                     foreach (DataGridViewRow row in module_dataGridView.Rows)
                     {
                         command.Parameters.Clear();
                         command.Parameters.AddWithValue("@id_module", row.Cells[0].Value);
 
-                         using (MySqlDataReader dr = command.ExecuteReader())
-                         {
-                             if (dr.HasRows)
-                             {
-                                row.DefaultCellStyle.BackColor = Color.Green;
+                        using (MySqlDataReader dr = command.ExecuteReader())
+                        {
+                            if (dr.HasRows)
+                            {
+                                row.DefaultCellStyle.BackColor = Color.LightSkyBlue;
                             }
-                             else
-                             {
-                                 row.DefaultCellStyle.BackColor = Color.Red;
+                            else
+                            {
+                                row.DefaultCellStyle.BackColor = Color.Red;
                             }
-                        
-                         }
-
+                        }
                     }
                 }
-
-                
             }
-
-
         }
 
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-
                     command.CommandText = "INSERT INTO module_filiere(id_module,id_filiere) VALUES(@id_module, @id_filiere)";
 
                     if(module_dataGridView.CurrentRow.DefaultCellStyle.BackColor == Color.Red) { 
@@ -289,19 +259,14 @@ namespace Gestion_emploi
                         {
                             if (listBox1.GetSelected(i))
                             {
+                                command.Parameters.Clear();
+                                command.Parameters.AddWithValue("@id_module", module_dataGridView.CurrentRow.Cells[0].Value);
+                                command.Parameters.AddWithValue("@id_filiere", listBox1.SelectedValue);
+                                command.ExecuteNonQuery();
                     
-                                    command.Parameters.Clear();
-                                    command.Parameters.AddWithValue("@id_module", module_dataGridView.CurrentRow.Cells[0].Value);
-                                    command.Parameters.AddWithValue("@id_filiere", listBox1.SelectedValue);
-                    
-                    
-                                    command.ExecuteNonQuery();
-                    
-                    
-                                    listBox1.SetSelected(i, false);
+                                listBox1.SetSelected(i, false);
                             }
                         }
-
                     }
 
                     else
@@ -310,13 +275,10 @@ namespace Gestion_emploi
                         {
                             MessageBox.Show("ce module est affecter a tous les filiere");
                         }
-
                         else { 
-                        using (MySqlCommand command2 = new MySqlCommand("", connection))
-                        {
-
-                            command2.CommandText = "select id_module , id_filiere from module_filiere where id_module =@id_module and id_filiere =@id_filiere";
-
+                            using (MySqlCommand command2 = new MySqlCommand("", connection))
+                            {
+                                command2.CommandText = "select id_module , id_filiere from module_filiere where id_module =@id_module and id_filiere =@id_filiere";
                             
                                 for (int i = 0; i < listBox1.Items.Count; i++)
                                 {
@@ -333,30 +295,25 @@ namespace Gestion_emploi
                                                 dr.Close();
                                                 using (MySqlCommand command3 = new MySqlCommand("",connection))
                                                 {
-                                                command3.CommandText = "INSERT INTO module_filiere(id_module,id_filiere) VALUES(@id_module, @id_filiere)";
-                                                command3.Parameters.Clear();
-                                                command3.Parameters.AddWithValue("@id_module", module_dataGridView.CurrentRow.Cells[0].Value);
-                                                command3.Parameters.AddWithValue("@id_filiere", listBox1.SelectedValue);
-                                                command3.ExecuteNonQuery();
+                                                    command3.CommandText = "INSERT INTO module_filiere(id_module,id_filiere) VALUES(@id_module, @id_filiere)";
+                                                    command3.Parameters.Clear();
+                                                    command3.Parameters.AddWithValue("@id_module", module_dataGridView.CurrentRow.Cells[0].Value);
+                                                    command3.Parameters.AddWithValue("@id_filiere", listBox1.SelectedValue);
+                                                    command3.ExecuteNonQuery();
                                                 }
-                                               
-
                                             }
                                         }
-                                       
                                         
                                         listBox1.SetSelected(i, false);
                                     }
                                 }
-
+                            }
                         }
-                        }
-
                     }
                 } 
             }
+
             RemplirDataGridView();
         }
-
     }
 }

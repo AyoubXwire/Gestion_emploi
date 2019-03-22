@@ -214,7 +214,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(315, 17);
+            this.label5.Location = new System.Drawing.Point(327, 17);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(37, 13);
             this.label5.TabIndex = 39;
@@ -226,7 +226,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(86, 42);
             this.button1.TabIndex = 41;
-            this.button1.Text = "affecter des filiere";
+            this.button1.Text = "Affecter a des filieres";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
@@ -241,11 +241,11 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(180, 265);
+            this.label6.Location = new System.Drawing.Point(187, 265);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(184, 13);
+            this.label6.Size = new System.Drawing.Size(177, 13);
             this.label6.TabIndex = 43;
-            this.label6.Text = "ce module a été affecter a ces filiere: ";
+            this.label6.Text = "Ce module est affecté a ces filieres: ";
             // 
             // Gestion_des_modules
             // 

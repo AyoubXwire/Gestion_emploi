@@ -89,6 +89,12 @@
     <Compile Include="Gestion_des_modules.Designer.cs">
       <DependentUpon>Gestion_des_modules.cs</DependentUpon>
     </Compile>
+    <Compile Include="Gestion_des_salles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gestion_des_salles.Designer.cs">
+      <DependentUpon>Gestion_des_salles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Menu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Gestion_des_modules.resx">
       <DependentUpon>Gestion_des_modules.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gestion_des_salles.resx">
+      <DependentUpon>Gestion_des_salles.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>

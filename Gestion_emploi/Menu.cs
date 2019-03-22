@@ -34,7 +34,13 @@ namespace Gestion_emploi
             filieres.Show();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void Button5_Click(object sender, EventArgs e)
+        {
+            Gestion_des_salles salles = new Gestion_des_salles();
+            salles.Show();
+        }
+
+        private void Button6_Click(object sender, EventArgs e)
         {
             Affectation affectation = new Affectation();
             affectation.Show();

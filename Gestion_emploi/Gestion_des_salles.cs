@@ -24,12 +24,16 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, nom FROM type_salle";
-                    BindingSource binder = new BindingSource();
-                    binder.DataSource = command.ExecuteReader();
-                    type_comboBox.DataSource = binder;
-                    type_comboBox.ValueMember = "id";
-                    type_comboBox.DisplayMember = "nom";
-                    type_comboBox.Text = "";
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        type_comboBox.DataSource = binder;
+                        type_comboBox.ValueMember = "id";
+                        type_comboBox.DisplayMember = "nom";
+                        type_comboBox.Text = "";
+                    }
                 }
             }
 
@@ -142,13 +146,16 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "SELECT s.id, s.nom, t.nom as type FROM salle s JOIN type_salle t ON s.id_type_salle=t.id";
-                    BindingSource binder = new BindingSource();
-                    binder.DataSource = command.ExecuteReader();
-                    salles_dataGridView.DataSource = binder;
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        salles_dataGridView.DataSource = binder;
+                        salles_dataGridView.Columns["id"].Visible = false;
+                    }
                 }
             }
-
-            salles_dataGridView.Columns["id"].Visible = false;
         }
     }
 }

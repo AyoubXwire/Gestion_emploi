@@ -23,11 +23,16 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, nom FROM filiere";
-                    BindingSource binder = new BindingSource();
-                    binder.DataSource = command.ExecuteReader();
-                    filiere_comboBox.ValueMember = "id";
-                    filiere_comboBox.DisplayMember = "nom";
-                    filiere_comboBox.DataSource = binder;
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        filiere_comboBox.DataSource = binder;
+                        filiere_comboBox.ValueMember = "id";
+                        filiere_comboBox.DisplayMember = "nom";
+                        filiere_comboBox.Text = "";
+                    }
                 }
             }
         }
@@ -141,16 +146,16 @@ namespace Gestion_emploi
                     command.CommandText = "SELECT a.id, g.chaine as groupe, m.nom as module, m.mass_horaire as mass_horaire, f.nom as formateur, f.nb_heures as nombre_heures FROM affectation a JOIN formateur f ON a.id_formateur=f.id JOIN module m ON a.id_module=m.id JOIN groupe g ON a.id_groupe=g.id WHERE g.id_filiere=@id_filiere AND g.niveau=@niveau ORDER BY a.id";
                     command.Parameters.AddWithValue("@id_filiere", filiere_comboBox.SelectedValue);
                     command.Parameters.AddWithValue("@niveau", niveau_numericUpDown.Value);
-                    BindingSource binder = new BindingSource();
-                    binder.DataSource = command.ExecuteReader();
-                    affectations_dataGridView.DataSource = binder;
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        affectations_dataGridView.DataSource = binder;
+                        affectations_dataGridView.Columns["id"].Visible = false;
+                    }
                 }
             }
-            try
-            {
-                affectations_dataGridView.Columns["id"].Visible = false;
-            }
-            catch { }
         }
     }
 }

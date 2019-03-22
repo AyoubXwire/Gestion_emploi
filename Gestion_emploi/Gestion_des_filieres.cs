@@ -22,9 +22,14 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "select f.nom as filiere, m.nom as module from module_filiere mf JOIN module m ON mf.id_module=m.id JOIN filiere f ON mf.id_filiere=f.id ORDER BY id_filiere";
-                    BindingSource binder = new BindingSource();
-                    binder.DataSource = command.ExecuteReader();
-                    dataGridView1.DataSource = binder;
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        dataGridView1.DataSource = binder;
+                        dataGridView1.Columns["id"].Visible = false;
+                    }
                 }
             }
 
@@ -34,11 +39,16 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, nom FROM filiere";
-                    BindingSource binder = new BindingSource();
-                    binder.DataSource = command.ExecuteReader();
-                    filiere_comboBox.DataSource = binder;
-                    filiere_comboBox.ValueMember = "id";
-                    filiere_comboBox.DisplayMember = "nom";
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        filiere_comboBox.DataSource = binder;
+                        filiere_comboBox.ValueMember = "id";
+                        filiere_comboBox.DisplayMember = "nom";
+                        filiere_comboBox.Text = "";
+                    }
                 }
             }
         }
@@ -52,9 +62,14 @@ namespace Gestion_emploi
                 {
                     command.CommandText = "select f.nom as filiere, m.nom as module, m.niveau as niveau from module_filiere mf JOIN module m ON mf.id_module=m.id JOIN filiere f ON mf.id_filiere=f.id WHERE id_filiere=@id_filiere ORDER BY id_filiere";
                     command.Parameters.AddWithValue("@id_filiere", filiere_comboBox.SelectedValue);
-                    BindingSource binder = new BindingSource();
-                    binder.DataSource = command.ExecuteReader();
-                    dataGridView1.DataSource = binder;
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        dataGridView1.DataSource = binder;
+                        dataGridView1.Columns["id"].Visible = false;
+                    }
                 }
             }
         }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Configuration;
+using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+
 
 namespace Gestion_emploi
 {
@@ -23,17 +25,20 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT id, nom FROM type_salle";
-                    BindingSource binder = new BindingSource();
-                    binder.DataSource = command.ExecuteReader();
-                    type_comboBox.DataSource = binder;
-                    type_comboBox.ValueMember = "id";
+                    command.CommandText = "SELECT * FROM type_salle";
+                    DataTable dt = new DataTable();
+                    dt.Load(command.ExecuteReader());
                     type_comboBox.DisplayMember = "nom";
-                    type_comboBox.Text = "";
+                    type_comboBox.ValueMember = "id";
+                    type_comboBox.DataSource = dt;
+                    
                 }
             }
 
-            type_comboBox.Text = "";
+            RemplirDataGridView();
+
+
+
         }
 
         private void Vider_button_Click(object sender, EventArgs e)
@@ -53,12 +58,19 @@ namespace Gestion_emploi
                     using (MySqlCommand command = new MySqlCommand("", connection))
                     {
                         command.CommandText = "INSERT INTO salle(nom, id_type_salle) VALUES(@nom, @id_type_salle)";
-                        command.Parameters.AddWithValue("@nom", nom_textBox.Text);
-                        command.Parameters.AddWithValue("@id_type_salle", type_comboBox.SelectedValue);
+
+                        //he can add as many salles as he wants , then modify the types.(the name problem there is the name problem)
+                        for (int i = 0; i < numericUpDown1.Value; i++)
+                        {
+                            command.Parameters.Clear();
+                            command.Parameters.AddWithValue("@nom", i+1);
+                            command.Parameters.AddWithValue("@id_type_salle", type_comboBox.SelectedValue);
+                            command.ExecuteNonQuery();
+                        }
 
                         if (command.ExecuteNonQuery() > 0)
                         {
-                            MessageBox.Show("Salle ajouté");
+                            MessageBox.Show("Salle(s) a/sont ajouté");
                         }
                         else
                         {
@@ -148,7 +160,13 @@ namespace Gestion_emploi
                 }
             }
 
-            salles_dataGridView.Columns["id"].Visible = false;
+            if(salles_dataGridView.Columns["id"] !=null)
+                salles_dataGridView.Columns["id"].Visible = false;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

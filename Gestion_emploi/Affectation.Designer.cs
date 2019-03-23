@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.affecter_button = new System.Windows.Forms.Button();
-            this.affectations_dataGridView = new System.Windows.Forms.DataGridView();
             this.module_listBox = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
             this.formateur_listBox = new System.Windows.Forms.ListBox();
@@ -41,8 +40,13 @@
             this.niveau_numericUpDown = new System.Windows.Forms.NumericUpDown();
             this.choisir_button = new System.Windows.Forms.Button();
             this.groupe_listBox = new System.Windows.Forms.ListBox();
-            ((System.ComponentModel.ISupportInitialize)(this.affectations_dataGridView)).BeginInit();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.niveau_numericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // affecter_button
@@ -55,24 +59,6 @@
             this.affecter_button.Text = "Affecter";
             this.affecter_button.UseVisualStyleBackColor = true;
             this.affecter_button.Click += new System.EventHandler(this.Affecter_button_Click);
-            // 
-            // affectations_dataGridView
-            // 
-            this.affectations_dataGridView.AllowUserToAddRows = false;
-            this.affectations_dataGridView.AllowUserToDeleteRows = false;
-            this.affectations_dataGridView.AllowUserToResizeColumns = false;
-            this.affectations_dataGridView.AllowUserToResizeRows = false;
-            this.affectations_dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.affectations_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.affectations_dataGridView.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.affectations_dataGridView.Location = new System.Drawing.Point(0, 292);
-            this.affectations_dataGridView.Margin = new System.Windows.Forms.Padding(0);
-            this.affectations_dataGridView.MultiSelect = false;
-            this.affectations_dataGridView.Name = "affectations_dataGridView";
-            this.affectations_dataGridView.ReadOnly = true;
-            this.affectations_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.affectations_dataGridView.Size = new System.Drawing.Size(600, 250);
-            this.affectations_dataGridView.TabIndex = 64;
             // 
             // module_listBox
             // 
@@ -198,17 +184,66 @@
             this.groupe_listBox.TabIndex = 70;
             this.groupe_listBox.SelectedIndexChanged += new System.EventHandler(this.Groupe_listBox_SelectedIndexChanged);
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(332, 325);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ShowCellErrors = false;
+            this.dataGridView1.ShowRowErrors = false;
+            this.dataGridView1.Size = new System.Drawing.Size(434, 199);
+            this.dataGridView1.TabIndex = 71;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(176, 325);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(125, 199);
+            this.listBox1.TabIndex = 72;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 345);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(0, 13);
+            this.label6.TabIndex = 73;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(68, 342);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 74;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(66, 323);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(70, 13);
+            this.label7.TabIndex = 75;
+            this.label7.Text = "Mass horaire:";
+            // 
             // Affectation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 542);
+            this.ClientSize = new System.Drawing.Size(778, 542);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupe_listBox);
             this.Controls.Add(this.choisir_button);
             this.Controls.Add(this.niveau_numericUpDown);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.affecter_button);
-            this.Controls.Add(this.affectations_dataGridView);
             this.Controls.Add(this.module_listBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.formateur_listBox);
@@ -220,8 +255,8 @@
             this.Name = "Affectation";
             this.Text = "Affectation";
             this.Load += new System.EventHandler(this.Affectation_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.affectations_dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.niveau_numericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -230,7 +265,6 @@
         #endregion
 
         private System.Windows.Forms.Button affecter_button;
-        private System.Windows.Forms.DataGridView affectations_dataGridView;
         private System.Windows.Forms.ListBox module_listBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListBox formateur_listBox;
@@ -242,5 +276,10 @@
         private System.Windows.Forms.NumericUpDown niveau_numericUpDown;
         private System.Windows.Forms.Button choisir_button;
         private System.Windows.Forms.ListBox groupe_listBox;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label7;
     }
 }

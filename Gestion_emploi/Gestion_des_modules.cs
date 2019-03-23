@@ -27,22 +27,31 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, nom FROM metier";
-                    BindingSource binder = new BindingSource();
-                    binder.DataSource = command.ExecuteReader();
-                    metier_comboBox.DataSource = binder;
-                    metier_comboBox.ValueMember = "id";
-                    metier_comboBox.DisplayMember = "nom";
-                    metier_comboBox.Text = "";
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        metier_comboBox.DataSource = binder;
+                        metier_comboBox.ValueMember = "id";
+                        metier_comboBox.DisplayMember = "nom";
+                        metier_comboBox.Text = "";
+                    }
                 }
 
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, nom FROM filiere";
-                    BindingSource binder = new BindingSource();
-                    binder.DataSource = command.ExecuteReader();
-                    listBox1.DataSource = binder;
-                    listBox1.ValueMember = "id";
-                    listBox1.DisplayMember = "nom";
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        listBox1.DataSource = binder;
+                        listBox1.ValueMember = "id";
+                        listBox1.DisplayMember = "nom";
+                        listBox1.Text = "";
+                    }
                 }
             }
         }
@@ -208,13 +217,16 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "SELECT m.id, m.nom, m.niveau, m.mass_horaire, me.nom as metier FROM module m JOIN metier me ON m.id_metier = me.id";
-                    BindingSource binder = new BindingSource();
-                    binder.DataSource = command.ExecuteReader();
-                    module_dataGridView.DataSource = binder;
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        module_dataGridView.DataSource = binder;
+                        module_dataGridView.Columns["id"].Visible = false;
+                    }
                 }
             }
-
-            module_dataGridView.Columns["id"].Visible = false;
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -268,7 +280,6 @@ namespace Gestion_emploi
                             }
                         }
                     }
-
                     else
                     {
                         if (listBox1.Items.Count == listBox2.Items.Count)

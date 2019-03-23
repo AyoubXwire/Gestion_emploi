@@ -26,11 +26,16 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, nom FROM filiere";
-                    BindingSource binder = new BindingSource();
-                    binder.DataSource = command.ExecuteReader();
-                    filiere_comboBox.DataSource = binder;
-                    filiere_comboBox.ValueMember = "id";
-                    filiere_comboBox.DisplayMember = "nom";
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        filiere_comboBox.DataSource = binder;
+                        filiere_comboBox.ValueMember = "id";
+                        filiere_comboBox.DisplayMember = "nom";
+                        filiere_comboBox.Text = "";
+                    }
                 }
             }
         }
@@ -136,9 +141,14 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "SELECT F.nom as filiere, niveau, count(G.id) as nombre FROM groupe G JOIN filiere F ON G.id_filiere = F.id GROUP BY id_filiere, niveau ORDER BY F.nom, niveau";
-                    BindingSource binder = new BindingSource();
-                    binder.DataSource = command.ExecuteReader();
-                    groupes_dataGridView.DataSource = binder;
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        groupes_dataGridView.DataSource = binder;
+                        groupes_dataGridView.Columns["id"].Visible = false;
+                    }
                 }
             }
         }

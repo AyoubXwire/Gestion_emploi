@@ -154,83 +154,26 @@ namespace Gestion_emploi
         }
         //fucntion to colorate listbox items
 
-     
-    
-
-    private void RemplirDataGridView(int id_formateur)
+        private void RemplirDataGridView()
         {
-            //sometimes we need to send an id , from listbox cause we can't filter with binder since it's not global , so when i need an id , i will send it , when i need full data i send -1
-            if (id_formateur < 0)
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    connection.Open();
-                    using (MySqlCommand command = new MySqlCommand("", connection))
-                    {
-                        //here you have the 3 id's of formateur,module,and groupe , all of them hidden if you need'em , only module name and group name are shown
-
-                        command.CommandText = "SELECT g.nom as groupe, m.nom as module , a.id , a.id_formateur , a.id_module , a.id_groupe from affectation a join groupe g on a.id_groupe = g.id join module m on a.id_module = m.id ";
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = command.ExecuteReader();
-                        
-                        dataGridView1.DataSource = binder;
-                    } 
+                    command.CommandText = "SELECT a.id, g.chaine as groupe, m.nom as module, m.mass_horaire as mass_horaire, f.nom as formateur, f.nb_heures as nombre_heures FROM affectation a JOIN formateur f ON a.id_formateur=f.id JOIN module m ON a.id_module=m.id JOIN groupe g ON a.id_groupe=g.id WHERE g.id_filiere=@id_filiere AND g.niveau=@niveau ORDER BY a.id";
+                    command.Parameters.AddWithValue("@id_filiere", filiere_comboBox.SelectedValue);
+                    command.Parameters.AddWithValue("@niveau", niveau_numericUpDown.Value);
+                    BindingSource binder = new BindingSource();
+                    binder.DataSource = command.ExecuteReader();
+                    affectations_dataGridView.DataSource = binder;
                 }
             }
-            else if (id_formateur >= 0)
+            try
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (MySqlCommand command = new MySqlCommand("", connection))
-                    {
-                        //here you have the 3 id's of formateur,module,and groupe , all of them hidden if you need'em , only module name and group name are shown
-
-                        command.CommandText = "SELECT g.nom as groupe, m.nom as module , a.id , a.id_formateur , a.id_module , a.id_groupe from affectation a join groupe g on a.id_groupe = g.id join module m on a.id_module = m.id where id_formateur = " + id_formateur;
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = command.ExecuteReader();
-                       
-                        dataGridView1.DataSource = binder;
-                    }
-
-                    int mass_horaire = 0;
-                    if (dataGridView1.Rows.Count > 0 && listBox1.Items.Count>0)
-                    {
-                        using (MySqlCommand command = new MySqlCommand("", connection))
-                        {
-                            //here you have the 3 id's of formateur,module,and groupe , all of them hidden if you need'em , only module name and group name are shown
-                            for (int i = 0; i < dataGridView1.Rows.Count; i++)
-                            {
-                                command.CommandText = "SELECT mass_horaire from module where id = " + dataGridView1.Rows[i].Cells[2].Value;
-                                int horaire = (int) command.ExecuteScalar();
-                                mass_horaire += horaire;
-                            }
-                            
-                        }
-
-                        textBox1.Text = mass_horaire.ToString();
-
-                    }
-                }
-
+                affectations_dataGridView.Columns["id"].Visible = false;
             }
-
-            if (dataGridView1.Rows.Count != 0 && dataGridView1.Columns["id"] != null && dataGridView1.Columns["id_formateur"] != null)
-            {                                    
-                dataGridView1.Columns["id"].Visible = false;
-                dataGridView1.Columns["id_formateur"].Visible = false;
-                dataGridView1.Columns["id_module"].Visible = false;
-                dataGridView1.Columns["id_groupe"].Visible = false;
-
-            }
-
-            
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RemplirDataGridView((int)listBox1.SelectedValue);
-           
+            catch { }
         }
     }
 }

@@ -24,16 +24,18 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, nom FROM metier";
-                    BindingSource binder = new BindingSource();
-                    binder.DataSource = command.ExecuteReader();
-                    metier_comboBox.DataSource = binder;
-                    metier_comboBox.ValueMember = "id";
-                    metier_comboBox.DisplayMember = "nom";
-                    metier_comboBox.Text = "";
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        metier_comboBox.DataSource = binder;
+                        metier_comboBox.ValueMember = "id";
+                        metier_comboBox.DisplayMember = "nom";
+                        metier_comboBox.Text = "";
+                    }
                 }
             }
-
-            metier_comboBox.Text = "";
         }
 
         private void Nouveau_button_Click(object sender, EventArgs e)
@@ -150,13 +152,16 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "SELECT F.id, F.nom, F.prenom, M.nom AS metier FROM formateur F JOIN metier M ON F.id_metier = M.id";
-                    BindingSource binder = new BindingSource();
-                    binder.DataSource = command.ExecuteReader();
-                    formateurs_dataGridView.DataSource = binder;
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        formateurs_dataGridView.DataSource = binder;
+                        formateurs_dataGridView.Columns["id"].Visible = false;
+                    }
                 }
             }
-
-            formateurs_dataGridView.Columns["id"].Visible = false;
         }
     }
 }

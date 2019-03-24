@@ -151,7 +151,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT F.id, F.nom, F.prenom, M.nom AS metier FROM formateur F JOIN metier M ON F.id_metier = M.id";
+                    command.CommandText = "SELECT F.id, F.nom, F.prenom, M.nom AS metier, nb_heures FROM formateur F JOIN metier M ON F.id_metier = M.id";
                     MySqlDataReader reader = command.ExecuteReader();
                     if (reader.HasRows)
                     {

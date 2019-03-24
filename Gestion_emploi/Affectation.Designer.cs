@@ -40,21 +40,26 @@
             this.niveau_numericUpDown = new System.Windows.Forms.NumericUpDown();
             this.choisir_button = new System.Windows.Forms.Button();
             this.groupe_listBox = new System.Windows.Forms.ListBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.affectations_dataGridView = new System.Windows.Forms.DataGridView();
+            this.formateurs_listBox = new System.Windows.Forms.ListBox();
+            this.nbrHeures_textBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.supprimer_button = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.groupes_listBox = new System.Windows.Forms.ListBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.niveau_numericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.affectations_dataGridView)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // affecter_button
             // 
-            this.affecter_button.Location = new System.Drawing.Point(16, 245);
+            this.affecter_button.Location = new System.Drawing.Point(17, 248);
             this.affecter_button.Margin = new System.Windows.Forms.Padding(2);
             this.affecter_button.Name = "affecter_button";
-            this.affecter_button.Size = new System.Drawing.Size(75, 33);
+            this.affecter_button.Size = new System.Drawing.Size(86, 48);
             this.affecter_button.TabIndex = 65;
             this.affecter_button.Text = "Affecter";
             this.affecter_button.UseVisualStyleBackColor = true;
@@ -184,61 +189,106 @@
             this.groupe_listBox.TabIndex = 70;
             this.groupe_listBox.SelectedIndexChanged += new System.EventHandler(this.Groupe_listBox_SelectedIndexChanged);
             // 
-            // dataGridView1
+            // affectations_dataGridView
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(332, 325);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ShowCellErrors = false;
-            this.dataGridView1.ShowRowErrors = false;
-            this.dataGridView1.Size = new System.Drawing.Size(434, 199);
-            this.dataGridView1.TabIndex = 71;
+            this.affectations_dataGridView.AllowUserToAddRows = false;
+            this.affectations_dataGridView.AllowUserToDeleteRows = false;
+            this.affectations_dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.affectations_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.affectations_dataGridView.Location = new System.Drawing.Point(233, 22);
+            this.affectations_dataGridView.Name = "affectations_dataGridView";
+            this.affectations_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.affectations_dataGridView.ShowCellErrors = false;
+            this.affectations_dataGridView.ShowRowErrors = false;
+            this.affectations_dataGridView.Size = new System.Drawing.Size(328, 292);
+            this.affectations_dataGridView.TabIndex = 71;
             // 
-            // listBox1
+            // formateurs_listBox
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(176, 325);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(125, 199);
-            this.listBox1.TabIndex = 72;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.formateurs_listBox.FormattingEnabled = true;
+            this.formateurs_listBox.Location = new System.Drawing.Point(74, 45);
+            this.formateurs_listBox.Name = "formateurs_listBox";
+            this.formateurs_listBox.Size = new System.Drawing.Size(153, 121);
+            this.formateurs_listBox.TabIndex = 72;
+            this.formateurs_listBox.SelectedIndexChanged += new System.EventHandler(this.Formateurs_listBox_SelectedIndexChanged);
             // 
-            // label6
+            // nbrHeures_textBox
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 345);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(0, 13);
-            this.label6.TabIndex = 73;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(68, 342);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 74;
+            this.nbrHeures_textBox.Location = new System.Drawing.Point(102, 19);
+            this.nbrHeures_textBox.Name = "nbrHeures_textBox";
+            this.nbrHeures_textBox.Size = new System.Drawing.Size(125, 20);
+            this.nbrHeures_textBox.TabIndex = 74;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(66, 323);
+            this.label7.Location = new System.Drawing.Point(6, 22);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(70, 13);
+            this.label7.Size = new System.Drawing.Size(90, 13);
             this.label7.TabIndex = 75;
-            this.label7.Text = "Mass horaire:";
+            this.label7.Text = "Nombre d\'heures:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 45);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(62, 13);
+            this.label8.TabIndex = 76;
+            this.label8.Text = "Formateurs:";
+            // 
+            // supprimer_button
+            // 
+            this.supprimer_button.Location = new System.Drawing.Point(107, 248);
+            this.supprimer_button.Margin = new System.Windows.Forms.Padding(2);
+            this.supprimer_button.Name = "supprimer_button";
+            this.supprimer_button.Size = new System.Drawing.Size(86, 48);
+            this.supprimer_button.TabIndex = 77;
+            this.supprimer_button.Text = "Supprimer";
+            this.supprimer_button.UseVisualStyleBackColor = true;
+            this.supprimer_button.Click += new System.EventHandler(this.Supprimer_button_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 180);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(50, 13);
+            this.label6.TabIndex = 79;
+            this.label6.Text = "Groupes:";
+            // 
+            // groupes_listBox
+            // 
+            this.groupes_listBox.FormattingEnabled = true;
+            this.groupes_listBox.Location = new System.Drawing.Point(74, 180);
+            this.groupes_listBox.Name = "groupes_listBox";
+            this.groupes_listBox.Size = new System.Drawing.Size(153, 134);
+            this.groupes_listBox.TabIndex = 78;
+            this.groupes_listBox.SelectedIndexChanged += new System.EventHandler(this.Groupes_listBox_SelectedIndexChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.nbrHeures_textBox);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.affectations_dataGridView);
+            this.groupBox1.Controls.Add(this.groupes_listBox);
+            this.groupBox1.Controls.Add(this.formateurs_listBox);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Location = new System.Drawing.Point(17, 301);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(567, 318);
+            this.groupBox1.TabIndex = 80;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Informations";
             // 
             // Affectation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(778, 542);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(597, 629);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.supprimer_button);
             this.Controls.Add(this.groupe_listBox);
             this.Controls.Add(this.choisir_button);
             this.Controls.Add(this.niveau_numericUpDown);
@@ -256,7 +306,9 @@
             this.Text = "Affectation";
             this.Load += new System.EventHandler(this.Affectation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.niveau_numericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.affectations_dataGridView)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -276,10 +328,14 @@
         private System.Windows.Forms.NumericUpDown niveau_numericUpDown;
         private System.Windows.Forms.Button choisir_button;
         private System.Windows.Forms.ListBox groupe_listBox;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DataGridView affectations_dataGridView;
+        private System.Windows.Forms.ListBox formateurs_listBox;
+        private System.Windows.Forms.TextBox nbrHeures_textBox;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button supprimer_button;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ListBox groupes_listBox;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

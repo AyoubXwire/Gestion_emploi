@@ -38,37 +38,9 @@ namespace Gestion_emploi
                         filiere_comboBox.Text = "";
                     }
                 }
-
-                // Remplir formateurs_listBox
-                using (MySqlCommand command = new MySqlCommand("", connection))
-                {
-                    command.CommandText = "SELECT id, nom FROM formateur";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        formateurs_listBox.ValueMember = "id";
-                        formateurs_listBox.DisplayMember = "nom";
-                        formateurs_listBox.DataSource = binder;
-                    }
-                }
-
-                // Remplir groupes_listBox
-                using (MySqlCommand command = new MySqlCommand("", connection))
-                {
-                    command.CommandText = "SELECT id, chaine FROM groupe";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        groupes_listBox.ValueMember = "id";
-                        groupes_listBox.DisplayMember = "chaine";
-                        groupes_listBox.DataSource = binder;
-                    }
-                }
             }
+
+            RemplirListBoxesDeFiltre();
         }
 
         private void Choisir_button_Click(object sender, EventArgs e)
@@ -120,6 +92,10 @@ namespace Gestion_emploi
                         module_listBox.DisplayMember = "nom";
                         module_listBox.DataSource = binder;
                     }
+                    else
+                    {
+                        module_listBox.DataSource = null;
+                    }
                 }
             }
         }
@@ -143,6 +119,10 @@ namespace Gestion_emploi
                         formateur_listBox.ValueMember = "id";
                         formateur_listBox.DisplayMember = "nom";
                         formateur_listBox.DataSource = binder;
+                    }
+                    else
+                    {
+                        formateur_listBox.DataSource = null;
                     }
                 }
             }
@@ -179,26 +159,39 @@ namespace Gestion_emploi
             isIndexChangedBlocked = false;
 
             // Update nb_heures of the formateur
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
-                {
-                    command.CommandText =
-                    "UPDATE formateur SET nb_heures=(SELECT SUM(mass_horaire) FROM module m JOIN affectation a ON m.id=a.id_module WHERE id_formateur=@id_formateur) WHERE id=@id_formateur";
-                    command.Parameters.AddWithValue("@id_formateur", formateur_listBox.SelectedValue);
-                    command.ExecuteNonQuery();
-                }
-            }
+            UpdateNombreHeuresDuFormateur((int)formateur_listBox.SelectedValue);
 
-            MessageBox.Show(commandOutput.ToString() + " affectations ajoutés");
+            MessageBox.Show(commandOutput.ToString() + " affectations ajoutées");
+            RemplirListBoxesDeFiltre();
         }
 
         private void Supprimer_button_Click(object sender, EventArgs e)
         {
             // Get id of the selected affectation in affectations_dataGridView
             // Delete the affectation from db by its id
-            // Update nb_heures of the formateur
+            int commandOutput = 0;
+            foreach (DataGridViewRow row in affectations_dataGridView.SelectedRows)
+            {
+                int id_formateur = (int)row.Cells["id_formateur"].Value;
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand("", connection))
+                    {
+                        command.CommandText =
+                        "DELETE FROM affectation WHERE id=@id";
+                        command.Parameters.AddWithValue("@id", row.Cells["id"].Value);
+
+                        commandOutput += command.ExecuteNonQuery();
+                    }
+                }
+
+                // Update nb_heures of the formateur
+                UpdateNombreHeuresDuFormateur(id_formateur);
+            }
+
+            MessageBox.Show(commandOutput.ToString() + " affectations supprimées");
+            RemplirListBoxesDeFiltre();
         }
 
         private void Formateurs_listBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -221,6 +214,58 @@ namespace Gestion_emploi
         private void Groupes_listBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             RemplirDataGridViewParGroupe((int)groupes_listBox.SelectedValue);
+        }
+
+        private void UpdateNombreHeuresDuFormateur(int id_formateur)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText =
+                    "UPDATE formateur SET nb_heures=(SELECT SUM(mass_horaire) FROM module m JOIN affectation a ON m.id=a.id_module WHERE id_formateur=@id_formateur) WHERE id=@id_formateur";
+                    command.Parameters.AddWithValue("@id_formateur", id_formateur);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private void RemplirListBoxesDeFiltre()
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                // Remplir formateurs_listBox
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "SELECT id, nom FROM formateur";
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        formateurs_listBox.ValueMember = "id";
+                        formateurs_listBox.DisplayMember = "nom";
+                        formateurs_listBox.DataSource = binder;
+                    }
+                }
+
+                // Remplir groupes_listBox
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "SELECT id, chaine FROM groupe";
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        groupes_listBox.ValueMember = "id";
+                        groupes_listBox.DisplayMember = "chaine";
+                        groupes_listBox.DataSource = binder;
+                    }
+                }
+            }
         }
 
         private void RemplirDataGridViewParGroupe(int id_groupe)

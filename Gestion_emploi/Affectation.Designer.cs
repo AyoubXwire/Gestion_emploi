@@ -192,7 +192,6 @@
             // affectations_dataGridView
             // 
             this.affectations_dataGridView.AllowUserToAddRows = false;
-            this.affectations_dataGridView.AllowUserToDeleteRows = false;
             this.affectations_dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.affectations_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.affectations_dataGridView.Location = new System.Drawing.Point(233, 22);

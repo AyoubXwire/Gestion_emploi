@@ -93,9 +93,27 @@ namespace Gestion_emploi
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (MySqlCommand command = new MySqlCommand("", connection))
+                    for (int i = wanted; i < count; i++)
                     {
-                        for (int i = wanted; i < count; i++)
+                        int id_groupe;
+                        // Get the groupe's id
+                        using (MySqlCommand command = new MySqlCommand("", connection))
+                        {
+                            command.CommandText = "SELECT id FROM groupe WHERE chaine=@chaine";
+                            command.Parameters.AddWithValue("@chaine", filiere_comboBox.Text + niveau_numericUpDown.Value.ToString() + lettres[i]);
+                            id_groupe = (int)command.ExecuteScalar();
+                        }
+
+                        // Remove all its affectations
+                        using (MySqlCommand command = new MySqlCommand("", connection))
+                        {
+                            command.CommandText = "DELETE FROM affectation WHERE id_groupe = @id_groupe";
+                            command.Parameters.AddWithValue("@id_groupe", id_groupe);
+                            command.ExecuteNonQuery();
+                        }
+
+                        // Remove the groupe
+                        using (MySqlCommand command = new MySqlCommand("", connection))
                         {
                             command.CommandText = "DELETE FROM groupe WHERE chaine=@chaine";
                             command.Parameters.AddWithValue("@chaine", filiere_comboBox.Text + niveau_numericUpDown.Value.ToString() + lettres[i]);
@@ -140,14 +158,13 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT F.id, F.nom as filiere, niveau, count(G.id) as nombre FROM groupe G JOIN filiere F ON G.id_filiere = F.id GROUP BY id_filiere, niveau ORDER BY F.nom, niveau";
+                    command.CommandText = "SELECT F.nom as filiere, niveau, count(G.id) as nombre FROM groupe G JOIN filiere F ON G.id_filiere = F.id GROUP BY id_filiere, niveau ORDER BY F.nom, niveau";
                     MySqlDataReader reader = command.ExecuteReader();
                     if (reader.HasRows)
                     {
                         BindingSource binder = new BindingSource();
                         binder.DataSource = reader;
                         groupes_dataGridView.DataSource = binder;
-                        groupes_dataGridView.Columns["id"].Visible = false;
                     }
                 }
             }

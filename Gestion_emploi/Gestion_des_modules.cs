@@ -205,6 +205,7 @@ namespace Gestion_emploi
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
+                // Remove all module_filiere
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "DELETE FROM module_filiere WHERE id_module = @id_module";
@@ -212,6 +213,15 @@ namespace Gestion_emploi
                     command.ExecuteNonQuery();
                 }
 
+                // Remove all its affectations
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "DELETE FROM affectation WHERE id_module = @id_module";
+                    command.Parameters.AddWithValue("@id_module", module_dataGridView.CurrentRow.Cells["id"].Value);
+                    command.ExecuteNonQuery();
+                }
+
+                // Remove the module
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "DELETE FROM module WHERE id = @id";

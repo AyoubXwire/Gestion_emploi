@@ -113,7 +113,16 @@ namespace Gestion_emploi
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
+                    // Remove all his affectations
                     connection.Open();
+                    using (MySqlCommand command = new MySqlCommand("", connection))
+                    {
+                        command.CommandText = "DELETE FROM affectation WHERE id_formateur = @id_formateur";
+                        command.Parameters.AddWithValue("@id_formateur", formateurs_dataGridView.CurrentRow.Cells["id"].Value);
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Remove formateur
                     using (MySqlCommand command = new MySqlCommand("", connection))
                     {
                         command.CommandText = "DELETE FROM formateur WHERE id = @id";

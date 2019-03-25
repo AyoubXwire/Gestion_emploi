@@ -94,6 +94,19 @@ namespace Gestion_emploi
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
+                // Check if module already exists
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "SELECT COUNT(id) FROM module WHERE nom=@nom";
+                    command.Parameters.AddWithValue("@nom", nom_textBox.Text);
+                    int count = int.Parse(command.ExecuteScalar().ToString());
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Le Module existe deja");
+                        return;
+                    }
+                }
+
                 // Add the module to db
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {

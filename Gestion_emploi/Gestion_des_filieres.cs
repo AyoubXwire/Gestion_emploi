@@ -21,7 +21,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "select f.nom as filiere, m.nom as module from module_filiere mf JOIN module m ON mf.id_module=m.id JOIN filiere f ON mf.id_filiere=f.id ORDER BY id_filiere";
+                    command.CommandText = "select m.id, f.nom as filiere, m.nom as module from module_filiere mf JOIN module m ON mf.id_module=m.id JOIN filiere f ON mf.id_filiere=f.id ORDER BY id_filiere";
                     MySqlDataReader reader = command.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -60,7 +60,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "select f.nom as filiere, m.nom as module, m.niveau as niveau from module_filiere mf JOIN module m ON mf.id_module=m.id JOIN filiere f ON mf.id_filiere=f.id WHERE id_filiere=@id_filiere ORDER BY id_filiere";
+                    command.CommandText = "select m.id, f.nom as filiere, m.nom as module, m.niveau as niveau from module_filiere mf JOIN module m ON mf.id_module=m.id JOIN filiere f ON mf.id_filiere=f.id WHERE id_filiere=@id_filiere ORDER BY id_filiere";
                     command.Parameters.AddWithValue("@id_filiere", filiere_comboBox.SelectedValue);
                     MySqlDataReader reader = command.ExecuteReader();
                     if (reader.HasRows)

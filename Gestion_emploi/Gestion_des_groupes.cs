@@ -140,7 +140,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT F.nom as filiere, niveau, count(G.id) as nombre FROM groupe G JOIN filiere F ON G.id_filiere = F.id GROUP BY id_filiere, niveau ORDER BY F.nom, niveau";
+                    command.CommandText = "SELECT F.id, F.nom as filiere, niveau, count(G.id) as nombre FROM groupe G JOIN filiere F ON G.id_filiere = F.id GROUP BY id_filiere, niveau ORDER BY F.nom, niveau";
                     MySqlDataReader reader = command.ExecuteReader();
                     if (reader.HasRows)
                     {

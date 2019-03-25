@@ -6,7 +6,6 @@ using System.Drawing;
 
 namespace Gestion_emploi
 {
-
     public partial class Gestion_des_modules : Form
     {
         string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
@@ -32,9 +31,9 @@ namespace Gestion_emploi
                     {
                         BindingSource binder = new BindingSource();
                         binder.DataSource = reader;
-                        metier_comboBox.DataSource = binder;
                         metier_comboBox.ValueMember = "id";
                         metier_comboBox.DisplayMember = "nom";
+                        metier_comboBox.DataSource = binder;
                         metier_comboBox.Text = "";
                     }
                 }
@@ -47,9 +46,9 @@ namespace Gestion_emploi
                     {
                         BindingSource binder = new BindingSource();
                         binder.DataSource = reader;
-                        listBox1.DataSource = binder;
                         listBox1.ValueMember = "id";
                         listBox1.DisplayMember = "nom";
+                        listBox1.DataSource = binder;
                         listBox1.Text = "";
                     }
                 }
@@ -103,6 +102,7 @@ namespace Gestion_emploi
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
+                // Add the module to db
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "INSERT INTO module(nom, niveau, mass_horaire,id_metier) VALUES(@nom, @niveau ,@mass_horaire, @id_metier)";
@@ -121,6 +121,7 @@ namespace Gestion_emploi
                     }
                 }
 
+                // Get the added module's id
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "select id from module where nom = @nom";
@@ -128,6 +129,7 @@ namespace Gestion_emploi
                     id = (int)command.ExecuteScalar();
                 }
 
+                // Ad the module_filiere in db
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "INSERT INTO module_filiere(id_module,id_filiere) VALUES(@id_module, @id_filiere)";
@@ -256,8 +258,7 @@ namespace Gestion_emploi
             }
         }
 
-
-        private void button1_Click_1(object sender, EventArgs e)
+        private void Affecter_button_Click(object sender, EventArgs e)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {

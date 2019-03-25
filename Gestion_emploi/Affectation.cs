@@ -163,6 +163,7 @@ namespace Gestion_emploi
 
             MessageBox.Show(commandOutput.ToString() + " affectations ajoutées");
             RemplirListBoxesDeFiltre();
+            Choisir_button_Click(null, null);
         }
 
         private void Supprimer_button_Click(object sender, EventArgs e)
@@ -192,6 +193,7 @@ namespace Gestion_emploi
 
             MessageBox.Show(commandOutput.ToString() + " affectations supprimées");
             RemplirListBoxesDeFiltre();
+            Choisir_button_Click(null, null);
         }
 
         private void Formateurs_listBox_SelectedIndexChanged(object sender, EventArgs e)

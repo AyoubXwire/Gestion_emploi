@@ -43,7 +43,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.affecter_button = new System.Windows.Forms.Button();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.module_dataGridView)).BeginInit();
@@ -60,13 +60,13 @@
             this.module_dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.module_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.module_dataGridView.Dock = System.Windows.Forms.DockStyle.Right;
-            this.module_dataGridView.Location = new System.Drawing.Point(482, 0);
+            this.module_dataGridView.Location = new System.Drawing.Point(499, 0);
             this.module_dataGridView.Margin = new System.Windows.Forms.Padding(0);
             this.module_dataGridView.MultiSelect = false;
             this.module_dataGridView.Name = "module_dataGridView";
             this.module_dataGridView.ReadOnly = true;
             this.module_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.module_dataGridView.Size = new System.Drawing.Size(404, 385);
+            this.module_dataGridView.Size = new System.Drawing.Size(429, 385);
             this.module_dataGridView.TabIndex = 2;
             this.module_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Module_dataGridView_CellClick);
             // 
@@ -208,7 +208,7 @@
             this.listBox1.Location = new System.Drawing.Point(370, 17);
             this.listBox1.Name = "listBox1";
             this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.listBox1.Size = new System.Drawing.Size(95, 160);
+            this.listBox1.Size = new System.Drawing.Size(109, 160);
             this.listBox1.TabIndex = 38;
             // 
             // label5
@@ -220,22 +220,22 @@
             this.label5.TabIndex = 39;
             this.label5.Text = "Filiere:";
             // 
-            // button1
+            // affecter_button
             // 
-            this.button1.Location = new System.Drawing.Point(393, 202);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 42);
-            this.button1.TabIndex = 41;
-            this.button1.Text = "Affecter a des filieres";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.affecter_button.Location = new System.Drawing.Point(393, 202);
+            this.affecter_button.Name = "affecter_button";
+            this.affecter_button.Size = new System.Drawing.Size(86, 42);
+            this.affecter_button.TabIndex = 41;
+            this.affecter_button.Text = "Affecter a des filieres";
+            this.affecter_button.UseVisualStyleBackColor = true;
+            this.affecter_button.Click += new System.EventHandler(this.Affecter_button_Click);
             // 
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
             this.listBox2.Location = new System.Drawing.Point(370, 265);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(95, 108);
+            this.listBox2.Size = new System.Drawing.Size(109, 108);
             this.listBox2.TabIndex = 42;
             // 
             // label6
@@ -251,10 +251,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(886, 385);
+            this.ClientSize = new System.Drawing.Size(928, 385);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.affecter_button);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.niveau_numericUpDown);
@@ -299,7 +299,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button affecter_button;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.Label label6;
     }

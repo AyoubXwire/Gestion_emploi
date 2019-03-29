@@ -36,11 +36,17 @@ namespace Gestion_emploi
 
         private void Button5_Click(object sender, EventArgs e)
         {
+            Gestion_des_metiers metiers = new Gestion_des_metiers();
+            metiers.Show();
+        }
+
+        private void Button6_Click(object sender, EventArgs e)
+        {
             Gestion_des_salles salles = new Gestion_des_salles();
             salles.Show();
         }
 
-        private void Button6_Click(object sender, EventArgs e)
+        private void Button7_Click(object sender, EventArgs e)
         {
             Affectation affectation = new Affectation();
             affectation.Show();

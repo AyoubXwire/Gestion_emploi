@@ -49,6 +49,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.groupes_listBox = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.filtre_checkBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.niveau_numericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.affectations_dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -281,11 +282,25 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Informations";
             // 
+            // filtre_checkBox
+            // 
+            this.filtre_checkBox.AutoSize = true;
+            this.filtre_checkBox.Checked = true;
+            this.filtre_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.filtre_checkBox.Location = new System.Drawing.Point(531, 56);
+            this.filtre_checkBox.Name = "filtre_checkBox";
+            this.filtre_checkBox.Size = new System.Drawing.Size(53, 17);
+            this.filtre_checkBox.TabIndex = 81;
+            this.filtre_checkBox.Text = "Filtres";
+            this.filtre_checkBox.UseVisualStyleBackColor = true;
+            this.filtre_checkBox.CheckedChanged += new System.EventHandler(this.Filtre_checkBox_CheckedChanged);
+            // 
             // Affectation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(597, 629);
+            this.Controls.Add(this.filtre_checkBox);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.supprimer_button);
             this.Controls.Add(this.groupe_listBox);
@@ -336,5 +351,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ListBox groupes_listBox;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox filtre_checkBox;
     }
 }

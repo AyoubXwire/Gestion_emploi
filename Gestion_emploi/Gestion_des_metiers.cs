@@ -1,62 +1,22 @@
 ﻿using System;
 using System.Configuration;
-using MySql.Data.MySqlClient;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace Gestion_emploi
 {
-    public partial class Gestion_des_filieres : Form
+    public partial class Gestion_des_metiers : Form
     {
         string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
 
-        public Gestion_des_filieres()
+        public Gestion_des_metiers()
         {
             InitializeComponent();
         }
 
-        private void Gestion_des_filieres_Load(object sender, EventArgs e)
+        private void Gestion_des_metiers_Load(object sender, EventArgs e)
         {
             RemplirDataGridView();
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
-                {
-                    command.CommandText = "SELECT id, nom FROM secteur";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        secteur_comboBox.DataSource = binder;
-                        secteur_comboBox.ValueMember = "id";
-                        secteur_comboBox.DisplayMember = "nom";
-                        secteur_comboBox.Text = "";
-                    }
-                }
-            }
-        }
-
-        private void Secteur_comboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
-                {
-                    command.CommandText = "select f.id, f.nom, s.nom as secteur FROM filiere f JOIN secteur s ON f.id_secteur = s.id WHERE id_secteur=@id_secteur";
-                    command.Parameters.AddWithValue("@id_secteur", secteur_comboBox.SelectedValue);
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        filieres_dataGridView.DataSource = binder;
-                        filieres_dataGridView.Columns["id"].Visible = false;
-                    }
-                }
-            }
         }
 
         private void Vider_button_Click(object sender, EventArgs e)
@@ -74,12 +34,12 @@ namespace Gestion_emploi
                     connection.Open();
                     using (MySqlCommand command = new MySqlCommand("", connection))
                     {
-                        command.CommandText = "INSERT INTO filiere(nom) VALUES(@nom)";
+                        command.CommandText = "INSERT INTO metier(nom) VALUES(@nom)";
                         command.Parameters.AddWithValue("@nom", nom_textBox.Text);
 
                         if (command.ExecuteNonQuery() > 0)
                         {
-                            MessageBox.Show("Filiere ajouté");
+                            MessageBox.Show("Metier ajouté");
                         }
                         else
                         {
@@ -94,7 +54,7 @@ namespace Gestion_emploi
 
         private void Modifier_button_Click(object sender, EventArgs e)
         {
-            string confirmationMessage = filieres_dataGridView.CurrentRow.Cells["nom"].Value + " sera modifié";
+            string confirmationMessage = metiers_dataGridView.CurrentRow.Cells["nom"].Value + " sera modifié";
             if (MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -102,13 +62,13 @@ namespace Gestion_emploi
                     connection.Open();
                     using (MySqlCommand command = new MySqlCommand("", connection))
                     {
-                        command.CommandText = "update filiere set nom = @nom WHERE id = @id";
-                        command.Parameters.AddWithValue("@id", filieres_dataGridView.CurrentRow.Cells["id"].Value);
+                        command.CommandText = "update metier set nom = @nom WHERE id = @id";
+                        command.Parameters.AddWithValue("@id", metiers_dataGridView.CurrentRow.Cells["id"].Value);
                         command.Parameters.AddWithValue("@nom", nom_textBox.Text);
 
                         if (command.ExecuteNonQuery() > 0)
                         {
-                            MessageBox.Show("Filiere modifié");
+                            MessageBox.Show("Metier modifié");
                         }
                         else
                         {
@@ -133,7 +93,7 @@ namespace Gestion_emploi
                     using (MySqlCommand command = new MySqlCommand("", connection))
                     {
                         command.CommandText = "DELETE FROM formateur WHERE id_metier = @id_metier";
-                        command.Parameters.AddWithValue("@id_metier", filieres_dataGridView.CurrentRow.Cells["id"].Value);
+                        command.Parameters.AddWithValue("@id_metier", metiers_dataGridView.CurrentRow.Cells["id"].Value);
                         command.ExecuteNonQuery();
                     }
 
@@ -141,7 +101,7 @@ namespace Gestion_emploi
                     using (MySqlCommand command = new MySqlCommand("", connection))
                     {
                         command.CommandText = "DELETE FROM module WHERE id_metier = @id_metier";
-                        command.Parameters.AddWithValue("@id_metier", filieres_dataGridView.CurrentRow.Cells["id"].Value);
+                        command.Parameters.AddWithValue("@id_metier", metiers_dataGridView.CurrentRow.Cells["id"].Value);
                         command.ExecuteNonQuery();
                     }
 
@@ -149,7 +109,7 @@ namespace Gestion_emploi
                     using (MySqlCommand command = new MySqlCommand("", connection))
                     {
                         command.CommandText = "DELETE FROM metier WHERE id = @id";
-                        command.Parameters.AddWithValue("@id", filieres_dataGridView.CurrentRow.Cells["id"].Value);
+                        command.Parameters.AddWithValue("@id", metiers_dataGridView.CurrentRow.Cells["id"].Value);
                         if (command.ExecuteNonQuery() > 0)
                         {
                             MessageBox.Show("Metier supprimé");
@@ -165,9 +125,9 @@ namespace Gestion_emploi
             }
         }
 
-        private void Filieres_dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void Metiers_dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            nom_textBox.Text = filieres_dataGridView.CurrentRow.Cells["nom"].Value.ToString();
+            nom_textBox.Text = metiers_dataGridView.CurrentRow.Cells["nom"].Value.ToString();
         }
 
         private void RemplirDataGridView()
@@ -177,14 +137,14 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "select f.id, f.nom, s.nom as secteur FROM filiere f JOIN secteur s ON f.id_secteur = s.id";
+                    command.CommandText = "SELECT id, nom FROM metier";
                     MySqlDataReader reader = command.ExecuteReader();
                     if (reader.HasRows)
                     {
                         BindingSource binder = new BindingSource();
                         binder.DataSource = reader;
-                        filieres_dataGridView.DataSource = binder;
-                        filieres_dataGridView.Columns["id"].Visible = false;
+                        metiers_dataGridView.DataSource = binder;
+                        metiers_dataGridView.Columns["id"].Visible = false;
                     }
                 }
             }

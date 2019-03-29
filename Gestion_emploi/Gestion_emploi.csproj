@@ -83,6 +83,12 @@
     <Compile Include="Gestion_des_groupes.Designer.cs">
       <DependentUpon>Gestion_des_groupes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Gestion_des_metiers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gestion_des_metiers.Designer.cs">
+      <DependentUpon>Gestion_des_metiers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gestion_des_modules.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Gestion_des_groupes.resx">
       <DependentUpon>Gestion_des_groupes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gestion_des_metiers.resx">
+      <DependentUpon>Gestion_des_metiers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Gestion_des_modules.resx">
       <DependentUpon>Gestion_des_modules.cs</DependentUpon>

@@ -29,16 +29,19 @@
         private void InitializeComponent()
         {
             this.button4 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(10, 116);
+            this.button4.Location = new System.Drawing.Point(9, 109);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(152, 92);
             this.button4.TabIndex = 11;
@@ -46,25 +49,25 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(9, 207);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(152, 92);
+            this.button7.TabIndex = 10;
+            this.button7.Text = "Affectation";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.Button7_Click);
+            // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(325, 116);
+            this.button6.Location = new System.Drawing.Point(325, 109);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(152, 92);
-            this.button6.TabIndex = 10;
-            this.button6.Text = "Affectation";
+            this.button6.TabIndex = 9;
+            this.button6.Text = "Gestion des salles";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.Button6_Click);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(168, 116);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(152, 92);
-            this.button5.TabIndex = 9;
-            this.button5.Text = "Gestion des salles";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.Button5_Click);
             // 
             // button3
             // 
@@ -96,14 +99,45 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(167, 109);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(152, 92);
+            this.button5.TabIndex = 14;
+            this.button5.Text = "Gestion des metiers";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.Button5_Click);
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(324, 207);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(152, 92);
+            this.button9.TabIndex = 13;
+            this.button9.Text = "Emploi du temps";
+            this.button9.UseVisualStyleBackColor = true;
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(167, 207);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(152, 92);
+            this.button8.TabIndex = 12;
+            this.button8.Text = "Affectation des seances";
+            this.button8.UseVisualStyleBackColor = true;
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(485, 219);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button6);
+            this.ClientSize = new System.Drawing.Size(485, 307);
             this.Controls.Add(this.button5);
+            this.Controls.Add(this.button9);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -118,11 +152,14 @@
         #endregion
 
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button8;
     }
 }
 

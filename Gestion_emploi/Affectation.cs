@@ -51,8 +51,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText =
-                        "SELECT id, chaine FROM groupe WHERE id_filiere=@id_filiere AND niveau=@niveau";
+                    command.CommandText = "SELECT id, chaine FROM groupe WHERE id_filiere=@id_filiere AND niveau=@niveau";
                     command.Parameters.AddWithValue("@id_filiere", filiere_comboBox.SelectedValue);
                     command.Parameters.AddWithValue("@niveau", niveau_numericUpDown.Value);
                     BindingSource binder = new BindingSource();
@@ -78,8 +77,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText =
-                        "SELECT m.id, m.nom FROM module m JOIN module_filiere mf ON m.id=mf.id_module JOIN filiere f ON f.id=mf.id_filiere WHERE id_filiere=@id_filiere AND niveau=@niveau AND id_module NOT IN (SELECT id_module FROM affectation WHERE id_groupe=@id_groupe);";
+                    command.CommandText = "SELECT id, nom FROM module WHERE id_filiere=@id_filiere AND niveau=@niveau AND id NOT IN (SELECT id_module FROM affectation WHERE id_groupe=@id_groupe)";
                     command.Parameters.AddWithValue("@id_filiere", filiere_comboBox.SelectedValue);
                     command.Parameters.AddWithValue("@niveau", niveau_numericUpDown.Value);
                     command.Parameters.AddWithValue("@id_groupe", groupe_listBox.SelectedValue);
@@ -108,21 +106,41 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText =
-                        "SELECT id, nom FROM formateur WHERE id_metier IN (SELECT m.id_metier FROM module m JOIN module_filiere mf ON m.id=mf.id_module JOIN filiere f ON f.id=mf.id_filiere WHERE m.id=@id_module)";
-                    command.Parameters.AddWithValue("@id_module", module_listBox.SelectedValue);
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    if (filtre_checkBox.Checked)
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        formateur_listBox.ValueMember = "id";
-                        formateur_listBox.DisplayMember = "nom";
-                        formateur_listBox.DataSource = binder;
+                        command.CommandText = "SELECT id, nom FROM formateur WHERE id_metier IN (SELECT id_metier FROM module WHERE id=@id_module)";
+                        command.Parameters.AddWithValue("@id_module", module_listBox.SelectedValue);
+                        MySqlDataReader reader = command.ExecuteReader();
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            formateur_listBox.ValueMember = "id";
+                            formateur_listBox.DisplayMember = "nom";
+                            formateur_listBox.DataSource = binder;
+                        }
+                        else
+                        {
+                            formateur_listBox.DataSource = null;
+                        }
                     }
                     else
                     {
-                        formateur_listBox.DataSource = null;
+                        command.CommandText = "SELECT id, nom FROM formateur";
+                        command.Parameters.AddWithValue("@id_module", module_listBox.SelectedValue);
+                        MySqlDataReader reader = command.ExecuteReader();
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            formateur_listBox.ValueMember = "id";
+                            formateur_listBox.DisplayMember = "nom";
+                            formateur_listBox.DataSource = binder;
+                        }
+                        else
+                        {
+                            formateur_listBox.DataSource = null;
+                        }
                     }
                 }
             }
@@ -153,6 +171,8 @@ namespace Gestion_emploi
                         }
                     }
 
+                    // Update nb_heures of the groupe
+                    UpdateNombreHeuresDuGroupe((int)groupe_listBox.SelectedValue);
                     groupe_listBox.SetSelected(i, false);
                 }
             }
@@ -174,13 +194,13 @@ namespace Gestion_emploi
             foreach (DataGridViewRow row in affectations_dataGridView.SelectedRows)
             {
                 int id_formateur = (int)row.Cells["id_formateur"].Value;
+                int id_groupe = (int)row.Cells["id_groupe"].Value;
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
                     using (MySqlCommand command = new MySqlCommand("", connection))
                     {
-                        command.CommandText =
-                        "DELETE FROM affectation WHERE id=@id";
+                        command.CommandText = "DELETE FROM affectation WHERE id=@id";
                         command.Parameters.AddWithValue("@id", row.Cells["id"].Value);
 
                         commandOutput += command.ExecuteNonQuery();
@@ -189,6 +209,7 @@ namespace Gestion_emploi
 
                 // Update nb_heures of the formateur
                 UpdateNombreHeuresDuFormateur(id_formateur);
+                UpdateNombreHeuresDuGroupe(id_groupe);
             }
 
             MessageBox.Show(commandOutput.ToString() + " affectations supprimées");
@@ -218,6 +239,11 @@ namespace Gestion_emploi
             RemplirDataGridViewParGroupe((int)groupes_listBox.SelectedValue);
         }
 
+        private void Filtre_checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Module_listBox_SelectedIndexChanged(null, null);
+        }
+
         private void UpdateNombreHeuresDuFormateur(int id_formateur)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -225,9 +251,22 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText =
-                    "UPDATE formateur SET nb_heures=(SELECT SUM(mass_horaire) FROM module m JOIN affectation a ON m.id=a.id_module WHERE id_formateur=@id_formateur) WHERE id=@id_formateur";
+                    command.CommandText = "UPDATE formateur SET nb_heures=(SELECT SUM(mass_horaire) FROM module m JOIN affectation a ON m.id=a.id_module WHERE id_formateur=@id_formateur) WHERE id=@id_formateur";
                     command.Parameters.AddWithValue("@id_formateur", id_formateur);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private void UpdateNombreHeuresDuGroupe(int id_groupe)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "UPDATE groupe SET nb_heures=(SELECT SUM(mass_horaire) FROM module m JOIN affectation a ON m.id=a.id_module WHERE id_groupe=@id_groupe) WHERE id=@id_groupe";
+                    command.Parameters.AddWithValue("@id_groupe", id_groupe);
                     command.ExecuteNonQuery();
                 }
             }

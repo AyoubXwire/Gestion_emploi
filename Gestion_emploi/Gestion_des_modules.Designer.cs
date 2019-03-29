@@ -41,8 +41,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.filieres_listBox = new System.Windows.Forms.ListBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.filiere_comboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.module_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.niveau_numericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mass_horaire_numericUpDown)).BeginInit();
@@ -69,7 +69,7 @@
             // 
             // niveau_numericUpDown
             // 
-            this.niveau_numericUpDown.Location = new System.Drawing.Point(100, 104);
+            this.niveau_numericUpDown.Location = new System.Drawing.Point(145, 169);
             this.niveau_numericUpDown.Maximum = new decimal(new int[] {
             2,
             0,
@@ -97,7 +97,7 @@
             0,
             0,
             0});
-            this.mass_horaire_numericUpDown.Location = new System.Drawing.Point(100, 150);
+            this.mass_horaire_numericUpDown.Location = new System.Drawing.Point(145, 215);
             this.mass_horaire_numericUpDown.Maximum = new decimal(new int[] {
             300,
             0,
@@ -110,7 +110,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 152);
+            this.label1.Location = new System.Drawing.Point(55, 217);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 13);
             this.label1.TabIndex = 35;
@@ -118,7 +118,7 @@
             // 
             // supprimer_button
             // 
-            this.supprimer_button.Location = new System.Drawing.Point(309, 219);
+            this.supprimer_button.Location = new System.Drawing.Point(309, 288);
             this.supprimer_button.Name = "supprimer_button";
             this.supprimer_button.Size = new System.Drawing.Size(89, 42);
             this.supprimer_button.TabIndex = 34;
@@ -128,7 +128,7 @@
             // 
             // modifier_button
             // 
-            this.modifier_button.Location = new System.Drawing.Point(211, 219);
+            this.modifier_button.Location = new System.Drawing.Point(211, 288);
             this.modifier_button.Name = "modifier_button";
             this.modifier_button.Size = new System.Drawing.Size(89, 42);
             this.modifier_button.TabIndex = 33;
@@ -138,7 +138,7 @@
             // 
             // ajouter_button
             // 
-            this.ajouter_button.Location = new System.Drawing.Point(111, 219);
+            this.ajouter_button.Location = new System.Drawing.Point(111, 288);
             this.ajouter_button.Name = "ajouter_button";
             this.ajouter_button.Size = new System.Drawing.Size(89, 42);
             this.ajouter_button.TabIndex = 32;
@@ -148,7 +148,7 @@
             // 
             // nouveau_button
             // 
-            this.nouveau_button.Location = new System.Drawing.Point(15, 219);
+            this.nouveau_button.Location = new System.Drawing.Point(15, 288);
             this.nouveau_button.Name = "nouveau_button";
             this.nouveau_button.Size = new System.Drawing.Size(89, 42);
             this.nouveau_button.TabIndex = 31;
@@ -160,14 +160,14 @@
             // 
             this.metier_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.metier_comboBox.FormattingEnabled = true;
-            this.metier_comboBox.Location = new System.Drawing.Point(100, 17);
+            this.metier_comboBox.Location = new System.Drawing.Point(145, 82);
             this.metier_comboBox.Name = "metier_comboBox";
             this.metier_comboBox.Size = new System.Drawing.Size(200, 21);
             this.metier_comboBox.TabIndex = 30;
             // 
             // nom_textBox
             // 
-            this.nom_textBox.Location = new System.Drawing.Point(100, 60);
+            this.nom_textBox.Location = new System.Drawing.Point(145, 125);
             this.nom_textBox.Name = "nom_textBox";
             this.nom_textBox.Size = new System.Drawing.Size(200, 20);
             this.nom_textBox.TabIndex = 29;
@@ -175,7 +175,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 20);
+            this.label4.Location = new System.Drawing.Point(55, 85);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(39, 13);
             this.label4.TabIndex = 28;
@@ -184,7 +184,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 104);
+            this.label3.Location = new System.Drawing.Point(55, 169);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 27;
@@ -193,37 +193,37 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 63);
+            this.label2.Location = new System.Drawing.Point(55, 128);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 26;
             this.label2.Text = "Nom:";
             // 
-            // filieres_listBox
-            // 
-            this.filieres_listBox.FormattingEnabled = true;
-            this.filieres_listBox.Location = new System.Drawing.Point(370, 17);
-            this.filieres_listBox.Name = "filieres_listBox";
-            this.filieres_listBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.filieres_listBox.Size = new System.Drawing.Size(109, 160);
-            this.filieres_listBox.TabIndex = 38;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(327, 17);
+            this.label5.Location = new System.Drawing.Point(55, 42);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(42, 13);
+            this.label5.Size = new System.Drawing.Size(37, 13);
             this.label5.TabIndex = 39;
-            this.label5.Text = "Filieres:";
+            this.label5.Text = "Filiere:";
+            // 
+            // filiere_comboBox
+            // 
+            this.filiere_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.filiere_comboBox.FormattingEnabled = true;
+            this.filiere_comboBox.Location = new System.Drawing.Point(145, 39);
+            this.filiere_comboBox.Name = "filiere_comboBox";
+            this.filiere_comboBox.Size = new System.Drawing.Size(200, 21);
+            this.filiere_comboBox.TabIndex = 40;
             // 
             // Gestion_des_modules
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(928, 354);
+            this.Controls.Add(this.filiere_comboBox);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.filieres_listBox);
             this.Controls.Add(this.niveau_numericUpDown);
             this.Controls.Add(this.mass_horaire_numericUpDown);
             this.Controls.Add(this.label1);
@@ -264,7 +264,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ListBox filieres_listBox;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox filiere_comboBox;
     }
 }

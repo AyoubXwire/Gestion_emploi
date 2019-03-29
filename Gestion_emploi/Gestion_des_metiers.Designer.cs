@@ -1,6 +1,6 @@
 ﻿namespace Gestion_emploi
 {
-    partial class Gestion_des_salles
+    partial class Gestion_des_metiers
     {
         /// <summary>
         /// Required designer variable.
@@ -28,47 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.type_comboBox = new System.Windows.Forms.ComboBox();
             this.nom_textBox = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.supprimer_button = new System.Windows.Forms.Button();
             this.modifier_button = new System.Windows.Forms.Button();
             this.ajouter_button = new System.Windows.Forms.Button();
             this.vider_button = new System.Windows.Forms.Button();
-            this.salles_dataGridView = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.salles_dataGridView)).BeginInit();
+            this.metiers_dataGridView = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.metiers_dataGridView)).BeginInit();
             this.SuspendLayout();
-            // 
-            // type_comboBox
-            // 
-            this.type_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.type_comboBox.FormattingEnabled = true;
-            this.type_comboBox.Location = new System.Drawing.Point(108, 73);
-            this.type_comboBox.Name = "type_comboBox";
-            this.type_comboBox.Size = new System.Drawing.Size(180, 21);
-            this.type_comboBox.TabIndex = 40;
             // 
             // nom_textBox
             // 
-            this.nom_textBox.Location = new System.Drawing.Point(108, 33);
+            this.nom_textBox.Location = new System.Drawing.Point(94, 36);
             this.nom_textBox.Name = "nom_textBox";
             this.nom_textBox.Size = new System.Drawing.Size(180, 20);
             this.nom_textBox.TabIndex = 38;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(30, 76);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(34, 13);
-            this.label4.TabIndex = 37;
-            this.label4.Text = "Type:";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 36);
+            this.label2.Location = new System.Drawing.Point(16, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 35;
@@ -76,7 +56,7 @@
             // 
             // supprimer_button
             // 
-            this.supprimer_button.Location = new System.Drawing.Point(250, 144);
+            this.supprimer_button.Location = new System.Drawing.Point(250, 123);
             this.supprimer_button.Name = "supprimer_button";
             this.supprimer_button.Size = new System.Drawing.Size(72, 42);
             this.supprimer_button.TabIndex = 34;
@@ -86,7 +66,7 @@
             // 
             // modifier_button
             // 
-            this.modifier_button.Location = new System.Drawing.Point(172, 144);
+            this.modifier_button.Location = new System.Drawing.Point(172, 123);
             this.modifier_button.Name = "modifier_button";
             this.modifier_button.Size = new System.Drawing.Size(72, 42);
             this.modifier_button.TabIndex = 33;
@@ -96,7 +76,7 @@
             // 
             // ajouter_button
             // 
-            this.ajouter_button.Location = new System.Drawing.Point(94, 144);
+            this.ajouter_button.Location = new System.Drawing.Point(94, 123);
             this.ajouter_button.Name = "ajouter_button";
             this.ajouter_button.Size = new System.Drawing.Size(72, 42);
             this.ajouter_button.TabIndex = 32;
@@ -106,7 +86,7 @@
             // 
             // vider_button
             // 
-            this.vider_button.Location = new System.Drawing.Point(16, 144);
+            this.vider_button.Location = new System.Drawing.Point(16, 123);
             this.vider_button.Name = "vider_button";
             this.vider_button.Size = new System.Drawing.Size(72, 42);
             this.vider_button.TabIndex = 31;
@@ -114,58 +94,53 @@
             this.vider_button.UseVisualStyleBackColor = true;
             this.vider_button.Click += new System.EventHandler(this.Vider_button_Click);
             // 
-            // salles_dataGridView
+            // metiers_dataGridView
             // 
-            this.salles_dataGridView.AllowUserToAddRows = false;
-            this.salles_dataGridView.AllowUserToDeleteRows = false;
-            this.salles_dataGridView.AllowUserToResizeColumns = false;
-            this.salles_dataGridView.AllowUserToResizeRows = false;
-            this.salles_dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.salles_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.salles_dataGridView.Dock = System.Windows.Forms.DockStyle.Right;
-            this.salles_dataGridView.Location = new System.Drawing.Point(344, 0);
-            this.salles_dataGridView.Margin = new System.Windows.Forms.Padding(0);
-            this.salles_dataGridView.MultiSelect = false;
-            this.salles_dataGridView.Name = "salles_dataGridView";
-            this.salles_dataGridView.ReadOnly = true;
-            this.salles_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.salles_dataGridView.Size = new System.Drawing.Size(456, 330);
-            this.salles_dataGridView.TabIndex = 30;
-            this.salles_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Salles_dataGridView_CellClick);
+            this.metiers_dataGridView.AllowUserToAddRows = false;
+            this.metiers_dataGridView.AllowUserToDeleteRows = false;
+            this.metiers_dataGridView.AllowUserToResizeColumns = false;
+            this.metiers_dataGridView.AllowUserToResizeRows = false;
+            this.metiers_dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.metiers_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.metiers_dataGridView.Dock = System.Windows.Forms.DockStyle.Right;
+            this.metiers_dataGridView.Location = new System.Drawing.Point(344, 0);
+            this.metiers_dataGridView.Margin = new System.Windows.Forms.Padding(0);
+            this.metiers_dataGridView.MultiSelect = false;
+            this.metiers_dataGridView.Name = "metiers_dataGridView";
+            this.metiers_dataGridView.ReadOnly = true;
+            this.metiers_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.metiers_dataGridView.Size = new System.Drawing.Size(456, 205);
+            this.metiers_dataGridView.TabIndex = 30;
+            this.metiers_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Metiers_dataGridView_CellClick);
             // 
-            // Gestion_des_salles
+            // Gestion_des_metiers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 330);
-            this.Controls.Add(this.type_comboBox);
+            this.ClientSize = new System.Drawing.Size(800, 205);
             this.Controls.Add(this.nom_textBox);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.supprimer_button);
             this.Controls.Add(this.modifier_button);
             this.Controls.Add(this.ajouter_button);
             this.Controls.Add(this.vider_button);
-            this.Controls.Add(this.salles_dataGridView);
-            this.Name = "Gestion_des_salles";
-            this.Text = "Gestion_des_salles";
-            this.Load += new System.EventHandler(this.Gestion_des_salles_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.salles_dataGridView)).EndInit();
+            this.Controls.Add(this.metiers_dataGridView);
+            this.Name = "Gestion_des_metiers";
+            this.Text = "Gestion_des_metiers";
+            this.Load += new System.EventHandler(this.Gestion_des_metiers_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.metiers_dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox type_comboBox;
         private System.Windows.Forms.TextBox nom_textBox;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button supprimer_button;
         private System.Windows.Forms.Button modifier_button;
         private System.Windows.Forms.Button ajouter_button;
         private System.Windows.Forms.Button vider_button;
-        private System.Windows.Forms.DataGridView salles_dataGridView;
+        private System.Windows.Forms.DataGridView metiers_dataGridView;
     }
 }

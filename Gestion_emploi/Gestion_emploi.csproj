@@ -59,11 +59,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Affectation.cs">
+    <Compile Include="Gestion_des_affectation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Affectation.Designer.cs">
-      <DependentUpon>Affectation.cs</DependentUpon>
+    <Compile Include="Gestion_des_affectation.Designer.cs">
+      <DependentUpon>Gestion_des_affectation.cs</DependentUpon>
     </Compile>
     <Compile Include="Gestion_des_filieres.cs">
       <SubType>Form</SubType>
@@ -101,6 +101,12 @@
     <Compile Include="Gestion_des_salles.Designer.cs">
       <DependentUpon>Gestion_des_salles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Gestion_des_seances.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gestion_des_seances.Designer.cs">
+      <DependentUpon>Gestion_des_seances.cs</DependentUpon>
+    </Compile>
     <Compile Include="Menu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,8 +115,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Affectation.resx">
-      <DependentUpon>Affectation.cs</DependentUpon>
+    <EmbeddedResource Include="Gestion_des_affectation.resx">
+      <DependentUpon>Gestion_des_affectation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Gestion_des_filieres.resx">
       <DependentUpon>Gestion_des_filieres.cs</DependentUpon>
@@ -129,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Gestion_des_salles.resx">
       <DependentUpon>Gestion_des_salles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gestion_des_seances.resx">
+      <DependentUpon>Gestion_des_seances.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>

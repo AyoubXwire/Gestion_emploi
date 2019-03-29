@@ -48,8 +48,14 @@ namespace Gestion_emploi
 
         private void Button7_Click(object sender, EventArgs e)
         {
-            Affectation affectation = new Affectation();
+            Gestion_des_affectation affectation = new Gestion_des_affectation();
             affectation.Show();
+        }
+
+        private void Button8_Click(object sender, EventArgs e)
+        {
+            Gestion_des_seances seances = new Gestion_des_seances();
+            seances.Show();
         }
     }
 }

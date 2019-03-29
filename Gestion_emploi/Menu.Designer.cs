@@ -55,7 +55,7 @@
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(152, 92);
             this.button7.TabIndex = 10;
-            this.button7.Text = "Affectation";
+            this.button7.Text = "Gestion des affectations";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.Button7_Click);
             // 
@@ -124,8 +124,9 @@
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(152, 92);
             this.button8.TabIndex = 12;
-            this.button8.Text = "Affectation des seances";
+            this.button8.Text = "Gestion des seances";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.Button8_Click);
             // 
             // Menu
             // 

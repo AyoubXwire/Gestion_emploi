@@ -1,6 +1,6 @@
 ﻿namespace Gestion_emploi
 {
-    partial class Affectation
+    partial class Gestion_des_affectation
     {
         /// <summary>
         /// Required designer variable.
@@ -214,6 +214,7 @@
             // 
             // nbrHeures_textBox
             // 
+            this.nbrHeures_textBox.Enabled = false;
             this.nbrHeures_textBox.Location = new System.Drawing.Point(102, 19);
             this.nbrHeures_textBox.Name = "nbrHeures_textBox";
             this.nbrHeures_textBox.Size = new System.Drawing.Size(125, 20);
@@ -295,7 +296,7 @@
             this.filtre_checkBox.UseVisualStyleBackColor = true;
             this.filtre_checkBox.CheckedChanged += new System.EventHandler(this.Filtre_checkBox_CheckedChanged);
             // 
-            // Affectation
+            // Gestion_des_affectation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -316,7 +317,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.filiere_comboBox);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Affectation";
+            this.Name = "Gestion_des_affectation";
             this.Text = "Affectation";
             this.Load += new System.EventHandler(this.Affectation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.niveau_numericUpDown)).EndInit();

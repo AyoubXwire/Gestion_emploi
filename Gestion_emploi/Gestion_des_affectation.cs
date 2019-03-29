@@ -2,23 +2,21 @@
 using System.Configuration;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
-using System.Drawing;
 
 namespace Gestion_emploi
 {
-    public partial class Affectation : Form
+    public partial class Gestion_des_affectation : Form
     {
         string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
         bool isIndexChangedBlocked = false;
 
-        public Affectation()
+        public Gestion_des_affectation()
         {
             InitializeComponent();
         }
 
         private void Affectation_Load(object sender, EventArgs e)
         {
-            nbrHeures_textBox.Enabled = false;
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -162,10 +160,19 @@ namespace Gestion_emploi
                         using (MySqlCommand command = new MySqlCommand("", connection))
                         {
                             command.CommandText =
-                            "INSERT INTO affectation(id_formateur, id_module, id_groupe) VALUES(@id_formateur, @id_module, @id_groupe)";
+                            "INSERT INTO affectation(id_formateur, id_module, id_groupe, nb_heures) VALUES(@id_formateur, @id_module, @id_groupe, @nb_heures)";
                             command.Parameters.AddWithValue("@id_formateur", formateur_listBox.SelectedValue);
                             command.Parameters.AddWithValue("@id_module", module_listBox.SelectedValue);
                             command.Parameters.AddWithValue("@id_groupe", groupe_listBox.SelectedValue);
+                            // Get mass_horaire
+                            float nbHeuresParSemaine;
+                            using (MySqlCommand command2 = new MySqlCommand("", connection))
+                            {
+                                command2.CommandText = "SELECT mass_horaire FROM module WHERE id=@id_module";
+                                command2.Parameters.AddWithValue("@id_module", module_listBox.SelectedValue);
+                                nbHeuresParSemaine = CalculerNombreHeures(float.Parse(command2.ExecuteScalar().ToString()));
+                            }
+                            command.Parameters.AddWithValue("@nb_heures", nbHeuresParSemaine);
 
                             commandOutput += command.ExecuteNonQuery();
                         }
@@ -184,6 +191,11 @@ namespace Gestion_emploi
             MessageBox.Show(commandOutput.ToString() + " affectations ajoutées");
             RemplirListBoxesDeFiltre();
             Choisir_button_Click(null, null);
+        }
+
+        private float CalculerNombreHeures(float massHoraire)
+        {
+            return (float)Math.Ceiling(massHoraire / 35 / 2.5f) * 2.5f;
         }
 
         private void Supprimer_button_Click(object sender, EventArgs e)

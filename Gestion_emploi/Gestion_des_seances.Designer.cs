@@ -39,10 +39,13 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.seances_dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // seances_dataGridView
@@ -54,6 +57,7 @@
             this.seances_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.seances_dataGridView.Size = new System.Drawing.Size(872, 364);
             this.seances_dataGridView.TabIndex = 0;
+            this.seances_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.seances_dataGridView_CellClick);
             // 
             // label6
             // 
@@ -151,22 +155,51 @@
             this.label3.TabIndex = 85;
             this.label3.Text = "Nombre d\'heures par semaine:";
             // 
-            // label1
+            // numericUpDown1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(259, 105);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(681, 13);
-            this.label1.TabIndex = 90;
-            this.label1.Text = "Give the user a way to modify \"nombre de seances\" of any given affectation.. (he " +
-    "can select and modify multiple affectations from datagridview)";
+            this.numericUpDown1.DecimalPlaces = 1;
+            this.numericUpDown1.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            65536});
+            this.numericUpDown1.Location = new System.Drawing.Point(741, 137);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 91;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(561, 137);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(164, 13);
+            this.label2.TabIndex = 92;
+            this.label2.Text = "nombre de sceance par semaine:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(741, 163);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(120, 30);
+            this.button1.TabIndex = 93;
+            this.button1.Text = "Appliquer";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Gestion_des_seances
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1134, 566);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.seances_dataGridView);
@@ -178,6 +211,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -196,6 +230,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button1;
     }
 }

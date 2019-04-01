@@ -186,6 +186,7 @@ namespace Gestion_emploi
             isIndexChangedBlocked = false;
 
             // Update nb_heures of the formateur
+            if(formateur_listBox.SelectedValue !=null)
             UpdateNombreHeuresDuFormateur((int)formateur_listBox.SelectedValue);
 
             MessageBox.Show(commandOutput.ToString() + " affectations ajoutées");

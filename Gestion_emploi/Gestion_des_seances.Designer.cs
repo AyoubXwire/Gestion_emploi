@@ -52,6 +52,7 @@
             this.dateDebut_dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.appliquerDateDebut_button = new System.Windows.Forms.Button();
+            this.nbHeuresRates_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.seances_dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -220,16 +221,16 @@
             // 
             // majAvancementSelectionne_button
             // 
-            this.majAvancementSelectionne_button.Location = new System.Drawing.Point(312, 144);
+            this.majAvancementSelectionne_button.Location = new System.Drawing.Point(824, 12);
             this.majAvancementSelectionne_button.Name = "majAvancementSelectionne_button";
-            this.majAvancementSelectionne_button.Size = new System.Drawing.Size(183, 31);
+            this.majAvancementSelectionne_button.Size = new System.Drawing.Size(183, 46);
             this.majAvancementSelectionne_button.TabIndex = 94;
             this.majAvancementSelectionne_button.Text = "MAJ avancement selectionné";
             this.majAvancementSelectionne_button.UseVisualStyleBackColor = true;
             // 
             // majTousLesAvancements_button
             // 
-            this.majTousLesAvancements_button.Location = new System.Drawing.Point(312, 92);
+            this.majTousLesAvancements_button.Location = new System.Drawing.Point(527, 12);
             this.majTousLesAvancements_button.Name = "majTousLesAvancements_button";
             this.majTousLesAvancements_button.Size = new System.Drawing.Size(183, 46);
             this.majTousLesAvancements_button.TabIndex = 95;
@@ -239,7 +240,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 153);
+            this.label1.Location = new System.Drawing.Point(12, 32);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(120, 13);
             this.label1.TabIndex = 97;
@@ -253,9 +254,9 @@
             0,
             0,
             65536});
-            this.nbHeuresRates_numericUpDown.Location = new System.Drawing.Point(166, 151);
+            this.nbHeuresRates_numericUpDown.Location = new System.Drawing.Point(166, 30);
             this.nbHeuresRates_numericUpDown.Maximum = new decimal(new int[] {
-            30,
+            200,
             0,
             0,
             0});
@@ -265,13 +266,12 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.nbHeuresRates_button);
             this.groupBox4.Controls.Add(this.label1);
-            this.groupBox4.Controls.Add(this.majTousLesAvancements_button);
             this.groupBox4.Controls.Add(this.nbHeuresRates_numericUpDown);
-            this.groupBox4.Controls.Add(this.majAvancementSelectionne_button);
-            this.groupBox4.Location = new System.Drawing.Point(512, 4);
+            this.groupBox4.Location = new System.Drawing.Point(512, 127);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(508, 192);
+            this.groupBox4.Size = new System.Drawing.Size(508, 69);
             this.groupBox4.TabIndex = 95;
             this.groupBox4.TabStop = false;
             // 
@@ -311,6 +311,16 @@
             this.appliquerDateDebut_button.Text = "Appliquer";
             this.appliquerDateDebut_button.UseVisualStyleBackColor = true;
             // 
+            // nbHeuresRates_button
+            // 
+            this.nbHeuresRates_button.Location = new System.Drawing.Point(312, 23);
+            this.nbHeuresRates_button.Name = "nbHeuresRates_button";
+            this.nbHeuresRates_button.Size = new System.Drawing.Size(183, 31);
+            this.nbHeuresRates_button.TabIndex = 98;
+            this.nbHeuresRates_button.Text = "Appliquer";
+            this.nbHeuresRates_button.UseVisualStyleBackColor = true;
+            this.nbHeuresRates_button.Click += new System.EventHandler(this.NbHeuresRates_button_Click);
+            // 
             // Gestion_des_seances
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -318,8 +328,10 @@
             this.ClientSize = new System.Drawing.Size(1030, 655);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.majTousLesAvancements_button);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.majAvancementSelectionne_button);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.seances_dataGridView);
             this.Name = "Gestion_des_seances";
@@ -368,5 +380,6 @@
         private System.Windows.Forms.DateTimePicker dateDebut_dateTimePicker;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button appliquerDateDebut_button;
+        private System.Windows.Forms.Button nbHeuresRates_button;
     }
 }

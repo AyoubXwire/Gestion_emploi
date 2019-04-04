@@ -8,7 +8,7 @@ namespace Gestion_emploi
     public partial class Gestion_des_seances : Form
     {
         string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
-        string remplirPar = "groupe";
+        string remplirPar = "";
 
         public Gestion_des_seances()
         {
@@ -153,6 +153,12 @@ namespace Gestion_emploi
             }
         }
 
+        private void Seances_dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            nbHeures_numericUpDown.Value = Convert.ToDecimal(seances_dataGridView.CurrentRow.Cells["heures_par_semaines"].Value);
+            nbHeuresRates_numericUpDown.Value = Convert.ToDecimal(seances_dataGridView.CurrentRow.Cells["nb_heures_rates"].Value);
+        }
+
         private void AppliquerNbHeures_button_Click(object sender, EventArgs e)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -184,23 +190,67 @@ namespace Gestion_emploi
                         MessageBox.Show("nombre d'heures modifié pour " + counter.ToString() + " affectation");
                     }
 
-                    Groupes_listBox_SelectedIndexChanged(null, null);
-                    Formateurs_listBox_SelectedIndexChanged(null, null);
-                    if(remplirPar == "groupe")
+                    if (remplirPar == "groupe")
                     {
+                        Formateurs_listBox_SelectedIndexChanged(null, null);
+                        Groupes_listBox_SelectedIndexChanged(null, null);
                         RemplirDataGridViewParGroupe((int)groupes_listBox.SelectedValue);
                     }
-                    else if(remplirPar == "formateur")
+                    else if (remplirPar == "formateur")
                     {
+                        Groupes_listBox_SelectedIndexChanged(null, null);
+                        Formateurs_listBox_SelectedIndexChanged(null, null);
                         RemplirDataGridViewParFormateur((int)formateurs_listBox.SelectedValue);
                     }
                 }
             }
         }
 
-        private void Seances_dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void NbHeuresRates_button_Click(object sender, EventArgs e)
         {
-            nbHeures_numericUpDown.Value = Convert.ToInt32(seances_dataGridView.CurrentRow.Cells["heures_par_semaines"].Value);
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "UPDATE affectation set nb_heures_rates = @nb_heures_rates where id = @id";
+                    if (seances_dataGridView.CurrentRow != null)
+                    {
+                        command.Parameters.AddWithValue("@nb_heures_rates", nbHeuresRates_numericUpDown.Value);
+                        command.Parameters.AddWithValue("@id", (int)seances_dataGridView.CurrentRow.Cells["id"].Value);
+                    }
+
+                    int counter = 0;
+                    for (int i = 0; i < seances_dataGridView.RowCount; i++)
+                    {
+                        if (seances_dataGridView.Rows[i].Selected)
+                        {
+                            command.Parameters.Clear();
+                            command.Parameters.AddWithValue("@nb_heures_rates", nbHeuresRates_numericUpDown.Value);
+                            command.Parameters.AddWithValue("@id", (int)seances_dataGridView.Rows[i].Cells["id"].Value);
+                            counter += command.ExecuteNonQuery();
+                        }
+                    }
+
+                    if (counter > 0)
+                    {
+                        MessageBox.Show("nombre d'heures ratées modifié pour " + counter.ToString() + " affectation");
+                    }
+
+                    if (remplirPar == "groupe")
+                    {
+                        Formateurs_listBox_SelectedIndexChanged(null, null);
+                        Groupes_listBox_SelectedIndexChanged(null, null);
+                        RemplirDataGridViewParGroupe((int)groupes_listBox.SelectedValue);
+                    }
+                    else if (remplirPar == "formateur")
+                    {
+                        Groupes_listBox_SelectedIndexChanged(null, null);
+                        Formateurs_listBox_SelectedIndexChanged(null, null);
+                        RemplirDataGridViewParFormateur((int)formateurs_listBox.SelectedValue);
+                    }
+                }
+            }
         }
     }
 }

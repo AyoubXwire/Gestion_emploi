@@ -221,7 +221,7 @@
             // 
             // majAvancementSelectionne_button
             // 
-            this.majAvancementSelectionne_button.Location = new System.Drawing.Point(968, 12);
+            this.majAvancementSelectionne_button.Location = new System.Drawing.Point(955, 12);
             this.majAvancementSelectionne_button.Name = "majAvancementSelectionne_button";
             this.majAvancementSelectionne_button.Size = new System.Drawing.Size(183, 46);
             this.majAvancementSelectionne_button.TabIndex = 94;

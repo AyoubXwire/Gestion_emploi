@@ -57,5 +57,11 @@ namespace Gestion_emploi
             Gestion_des_seances seances = new Gestion_des_seances();
             seances.Show();
         }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            Import i = new Import();
+            i.Show();
+        }
     }
 }

@@ -129,6 +129,10 @@ namespace Gestion_emploi
                 {
                     row.DefaultCellStyle.BackColor = Color.LightSkyBlue;
                 }
+                if(Convert.ToDecimal(row.Cells["avancement"].Value) > Convert.ToDecimal(row.Cells["mass_horaire"].Value))
+                {
+                    row.DefaultCellStyle.BackColor = Color.LightPink;
+                }
             }
         }
 
@@ -350,9 +354,19 @@ namespace Gestion_emploi
             }
 
             TimeSpan ts = DateTime.Now.Date - dateDebut.Date;
+
             float avancement = ((ts.Days / 7) * heuresParSemaine) - heuresRates;
 
-            int nbrSemaines = (int)Math.Ceiling((massHoraire + heuresRates) / heuresParSemaine);
+            int nbrSemaines;
+
+            if (heuresParSemaine != 0)
+            {
+                nbrSemaines = (int)Math.Ceiling((massHoraire + heuresRates) / heuresParSemaine);
+            }
+            else
+            {
+                nbrSemaines = 0;
+            }
 
             DateTime dateFinPrevu = dateDebut.AddDays(nbrSemaines * 7);
 

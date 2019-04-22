@@ -385,5 +385,23 @@ namespace Gestion_emploi
                 }
             }
         }
+
+        private void MajAvancementSelectionne_button_Click(object sender, EventArgs e)
+        {
+            UpdateDateFin((int)seances_dataGridView.CurrentRow.Cells["id"].Value);
+
+            if (remplirPar == "groupe")
+            {
+                Formateurs_listBox_SelectedIndexChanged(null, null);
+                Groupes_listBox_SelectedIndexChanged(null, null);
+                RemplirDataGridViewParGroupe((int)groupes_listBox.SelectedValue);
+            }
+            else if (remplirPar == "formateur")
+            {
+                Groupes_listBox_SelectedIndexChanged(null, null);
+                Formateurs_listBox_SelectedIndexChanged(null, null);
+                RemplirDataGridViewParFormateur((int)formateurs_listBox.SelectedValue);
+            }
+        }
     }
 }

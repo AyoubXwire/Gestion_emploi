@@ -73,6 +73,8 @@ namespace Gestion_emploi
 
         private void button1_Click(object sender, EventArgs e)
         {
+            comboBox1.Items.Clear();
+            dataGridView1.DataSource = null;
 
             using (OpenFileDialog ofd = new OpenFileDialog() {Filter = "Excel Workbook|*.xlsx", ValidateNames = true})
             {

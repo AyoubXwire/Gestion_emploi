@@ -227,6 +227,7 @@
             this.majAvancementSelectionne_button.TabIndex = 94;
             this.majAvancementSelectionne_button.Text = "MAJ avancement selectionné";
             this.majAvancementSelectionne_button.UseVisualStyleBackColor = true;
+            this.majAvancementSelectionne_button.Click += new System.EventHandler(this.MajAvancementSelectionne_button_Click);
             // 
             // majTousLesAvancements_button
             // 

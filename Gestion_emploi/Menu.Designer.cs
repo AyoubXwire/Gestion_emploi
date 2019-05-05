@@ -118,6 +118,7 @@
             this.button9.TabIndex = 13;
             this.button9.Text = "Emploi du temps";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.Button9_Click);
             // 
             // button8
             // 
@@ -137,7 +138,7 @@
             this.button10.TabIndex = 15;
             this.button10.Text = "Import";
             this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
+            this.button10.Click += new System.EventHandler(this.Button10_Click);
             // 
             // Menu
             // 

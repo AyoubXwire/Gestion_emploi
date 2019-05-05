@@ -58,7 +58,13 @@ namespace Gestion_emploi
             seances.Show();
         }
 
-        private void button10_Click(object sender, EventArgs e)
+        private void Button9_Click(object sender, EventArgs e)
+        {
+            Emploi_du_temps emploi = new Emploi_du_temps();
+            emploi.Show();
+        }
+
+        private void Button10_Click(object sender, EventArgs e)
         {
             Import i = new Import();
             i.Show();

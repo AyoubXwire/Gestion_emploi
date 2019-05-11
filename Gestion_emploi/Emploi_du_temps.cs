@@ -54,7 +54,14 @@ namespace Gestion_emploi
         // Remplir affectations_dataGridView
         private void Groupe_comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            RemplirAffectations();
+            RemplirEmploi();
+        }
+
+        private void RemplirAffectations()
+        {
             affectations_dataGridView.Rows.Clear();
+            
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -89,7 +96,57 @@ namespace Gestion_emploi
 
         private void RemplirEmploi()
         {
+            emploi_dataGridView.Rows.Clear();
+            InitializeEmploi();
 
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "SELECT m.nom, id_jour, id_seance FROM emploi e JOIN affectation a ON e.id_affectation = a.id JOIN module m ON m.id = a.id_module WHERE id_groupe = @id_groupe";
+                    command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            int jour = int.Parse(reader[1].ToString()) - 1;
+                            int seance = int.Parse(reader[2].ToString());
+
+                            emploi_dataGridView.Rows[jour].Cells[seance].Value = reader[0].ToString();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void InitializeEmploi()
+        {
+            DataGridViewRow lundiRow = (DataGridViewRow)emploi_dataGridView.Rows[0].Clone();
+            lundiRow.Cells[0].Value = "lundi";
+            emploi_dataGridView.Rows.Add(lundiRow);
+
+            DataGridViewRow mardiRow = (DataGridViewRow)emploi_dataGridView.Rows[0].Clone();
+            mardiRow.Cells[0].Value = "mardi";
+            emploi_dataGridView.Rows.Add(mardiRow);
+
+            DataGridViewRow mercrediRow = (DataGridViewRow)emploi_dataGridView.Rows[0].Clone();
+            mercrediRow.Cells[0].Value = "mercredi";
+            emploi_dataGridView.Rows.Add(mercrediRow);
+
+            DataGridViewRow jeudiRow = (DataGridViewRow)emploi_dataGridView.Rows[0].Clone();
+            jeudiRow.Cells[0].Value = "jeudi";
+            emploi_dataGridView.Rows.Add(jeudiRow);
+
+            DataGridViewRow vendrediRow = (DataGridViewRow)emploi_dataGridView.Rows[0].Clone();
+            vendrediRow.Cells[0].Value = "vendredi";
+            emploi_dataGridView.Rows.Add(vendrediRow);
+
+            DataGridViewRow samediRow = (DataGridViewRow)emploi_dataGridView.Rows[0].Clone();
+            samediRow.Cells[0].Value = "samedi";
+            emploi_dataGridView.Rows.Add(samediRow);
         }
 
         private void RemplirListBoxes()

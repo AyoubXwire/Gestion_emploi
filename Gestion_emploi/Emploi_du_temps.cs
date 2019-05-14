@@ -36,9 +36,17 @@ namespace Gestion_emploi
                         command.Parameters.AddWithValue("@id_seance", seances_listBox.SelectedValue);
                         command.Parameters.AddWithValue("@id_salle", salles_listBox.SelectedValue);
 
-                        if (IsFormateurAvaliable(int.Parse(affectations_dataGridView.CurrentRow.Cells["id"].Value.ToString()), int.Parse(jours_listBox.SelectedValue.ToString()), int.Parse(seances_listBox.SelectedValue.ToString())) && IsSalleAvaliable(int.Parse(affectations_dataGridView.CurrentRow.Cells["id"].Value.ToString()), int.Parse(jours_listBox.SelectedValue.ToString()), int.Parse(seances_listBox.SelectedValue.ToString()), int.Parse(salles_listBox.SelectedValue.ToString())) && IsAvaliable(int.Parse(jours_listBox.SelectedValue.ToString()), int.Parse(seances_listBox.SelectedValue.ToString()), int.Parse(salles_listBox.SelectedValue.ToString())) && IsSeanceAvaliable(int.Parse(affectations_dataGridView.CurrentRow.Cells["id"].Value.ToString()), int.Parse(jours_listBox.SelectedValue.ToString()), int.Parse(seances_listBox.SelectedValue.ToString())))
+                        int affectation = int.Parse(affectations_dataGridView.CurrentRow.Cells["id"].Value.ToString());
+                        int jour = int.Parse(jours_listBox.SelectedValue.ToString());
+                        int seance = int.Parse(seances_listBox.SelectedValue.ToString());
+                        int salle = int.Parse(salles_listBox.SelectedValue.ToString());
+                        string validationResult = Validator(affectation, jour, seance, salle);
+
+                        if (validationResult == "ok")
                         {
                             command.ExecuteNonQuery();
+
+                            // Update the affectation nb_utilise
                             using (MySqlCommand command2 = new MySqlCommand("", connection))
                             {
                                 command2.CommandText = "UPDATE affectation SET nb_utilise = nb_utilise+1 WHERE id = @id_affectation";
@@ -47,23 +55,47 @@ namespace Gestion_emploi
                                 command2.ExecuteNonQuery();
                             }
                         }
-
                         else
-                            MessageBox.Show("la seance ou le formateur ou la salle est deja ocuppé");
+                        {
+                            MessageBox.Show(validationResult);
+                        }
                     }
-
-                    // Update the affectation nb_utilise
-
                 }
             }
             catch (Exception)
             {
-
                 MessageBox.Show("No affectations pour ajouter");
             }
 
             Groupe_comboBox_SelectedIndexChanged(null, null);
             RemplirEmploi();
+        }
+
+        private string Validator(int affectation, int jour, int seance, int salle)
+        {
+            string result = "contraints:";
+
+            if(!IsFormateurAvailable(affectation, jour, seance))
+            {
+                result += " formateur indisponible";
+            }
+            if(!IsSalleAvailable(jour, seance, salle))
+            {
+                result += " salle indisponible";
+            }
+            if(!IsGroupeAvailable(affectation, jour, seance))
+            {
+                result += " groupe indisponible";
+            }
+
+            if(result == "contraints:")
+            {
+                return "ok";
+            }
+            else
+            {
+                return result;
+            }
         }
 
         // Remplir affectations_dataGridView
@@ -230,11 +262,9 @@ namespace Gestion_emploi
                 }
             }
         }
-
-        //check 
-        public bool IsFormateurAvaliable(int affectation , int jour , int seance)
-        {
-            
+ 
+        public bool IsFormateurAvailable(int affectation , int jour , int seance)
+        {            
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -246,22 +276,14 @@ namespace Gestion_emploi
                     command.Parameters.AddWithValue("@seance", seance);
 
                     MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
+
+                    return !reader.HasRows;
                 }
             }
-
         }
 
-        public bool IsSeanceAvaliable(int affectation, int jour, int seance)
+        public bool IsGroupeAvailable(int affectation, int jour, int seance)
         {
-
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -273,73 +295,30 @@ namespace Gestion_emploi
                     command.Parameters.AddWithValue("@seance", seance);
 
                     MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
+
+                    return !reader.HasRows;
                 }
             }
 
         }
 
-        //check the avaliablity in the same emploi
-        public bool IsAvaliable(int jour, int seance, int salle)
+        public bool IsSalleAvailable(int jour, int seance, int salle)
         {
-
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "select * from emploi where  id_jour = @jour and id_seance = @seance and id_salle = @salle";
-                    command.Parameters.AddWithValue("@jour", jour);
-                    command.Parameters.AddWithValue("@seance", seance);
-                    command.Parameters.AddWithValue("@salle", salle);
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                }
-            }
-
-        }
-
-        //check avaliablity of the salle
-        public bool IsSalleAvaliable(int affectation, int jour, int seance,int salle)
-        {
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
-                {
-                    command.CommandText = "select * from emploi where id_affectation = @affectation and id_jour = @jour and id_seance = @seance and id_salle = @salle";
-                    command.Parameters.AddWithValue("@affectation", affectation);
+                    command.CommandText = "select * from emploi where id_jour = @jour and id_seance = @seance and id_salle = @salle";
                     command.Parameters.AddWithValue("@jour", jour);
                     command.Parameters.AddWithValue("@seance", seance);
                     command.Parameters.AddWithValue("@salle", salle);
 
                     MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
+
+                    return !reader.HasRows;
                 }
             }
-
         }
     }
 }

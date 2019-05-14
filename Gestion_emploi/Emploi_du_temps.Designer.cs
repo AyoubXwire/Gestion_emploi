@@ -143,6 +143,7 @@
             this.affectations_dataGridView.Location = new System.Drawing.Point(14, 77);
             this.affectations_dataGridView.MultiSelect = false;
             this.affectations_dataGridView.Name = "affectations_dataGridView";
+            this.affectations_dataGridView.ReadOnly = true;
             this.affectations_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.affectations_dataGridView.Size = new System.Drawing.Size(406, 447);
             this.affectations_dataGridView.TabIndex = 63;
@@ -151,21 +152,25 @@
             // 
             this.id.HeaderText = "id";
             this.id.Name = "id";
+            this.id.ReadOnly = true;
             // 
             // groupe
             // 
             this.groupe.HeaderText = "groupe";
             this.groupe.Name = "groupe";
+            this.groupe.ReadOnly = true;
             // 
             // module
             // 
             this.module.HeaderText = "module";
             this.module.Name = "module";
+            this.module.ReadOnly = true;
             // 
             // formateur
             // 
             this.formateur.HeaderText = "formateur";
             this.formateur.Name = "formateur";
+            this.formateur.ReadOnly = true;
             // 
             // label3
             // 

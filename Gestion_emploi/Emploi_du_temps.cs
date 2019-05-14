@@ -325,5 +325,30 @@ namespace Gestion_emploi
                 }
             }
         }
+
+        private void Emploi_dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    try
+                    {
+                        int affectation = int.Parse(emploi_dataGridView.CurrentCell.Value.ToString());
+                        int jour = ((int)emploi_dataGridView.CurrentCell.RowIndex) + 1;
+                        int seance = emploi_dataGridView.CurrentCell.ColumnIndex;
+
+                        command.CommandText = "select id_salle from emploi where id_affectation = @affectation and id_jour = @jour and id_seance = @seance";
+                        command.Parameters.AddWithValue("@affectation", affectation);
+                        command.Parameters.AddWithValue("@jour", jour);
+                        command.Parameters.AddWithValue("@seance", seance);
+                    
+                        salles_listBox.SelectedValue = command.ExecuteScalar();
+                    }
+                    catch{}
+                }
+            }
+        }
     }
 }

@@ -40,6 +40,7 @@ namespace Gestion_emploi
                         int jour = int.Parse(jours_listBox.SelectedValue.ToString());
                         int seance = int.Parse(seances_listBox.SelectedValue.ToString());
                         int salle = int.Parse(salles_listBox.SelectedValue.ToString());
+
                         string validationResult = Validator(affectation, jour, seance, salle);
 
                         if (validationResult == "ok")
@@ -71,6 +72,7 @@ namespace Gestion_emploi
             RemplirEmploi();
         }
 
+        // Send the user a precise message
         private string Validator(int affectation, int jour, int seance, int salle)
         {
             string result = "contraints:";
@@ -169,6 +171,7 @@ namespace Gestion_emploi
             }
         }
 
+        // Set up emploi table
         private void InitializeEmploi()
         {
             DataGridViewRow lundiRow = (DataGridViewRow)emploi_dataGridView.Rows[0].Clone();
@@ -263,6 +266,7 @@ namespace Gestion_emploi
             }
         }
  
+        // Check formateur availability
         public bool IsFormateurAvailable(int affectation , int jour , int seance)
         {            
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -282,6 +286,7 @@ namespace Gestion_emploi
             }
         }
 
+        // Check groupe availability
         public bool IsGroupeAvailable(int affectation, int jour, int seance)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -302,6 +307,7 @@ namespace Gestion_emploi
 
         }
 
+        // Check salle availability
         public bool IsSalleAvailable(int jour, int seance, int salle)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))

@@ -17,7 +17,35 @@ create table filiere(
     FOREIGN KEY (id_secteur) REFERENCES secteur(id)
 );
 
+create table type_salle(
+	id int NOT NULL AUTO_INCREMENT,
+    nom varchar(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+create table salle(
+	id int NOT NULL AUTO_INCREMENT,
+    nom varchar(255) NOT NULL,
+    id_type_salle int NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_type_salle) REFERENCES type_salle(id)
+);
+
 create table metier(
+	id int NOT NULL AUTO_INCREMENT,
+    nom varchar(255) NOT NULL,
+    id_type_salle int,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_type_salle) REFERENCES type_salle(id)
+);
+
+create table jour(
+	id int NOT NULL AUTO_INCREMENT,
+    nom varchar(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+create table seance(
 	id int NOT NULL AUTO_INCREMENT,
     nom varchar(255) NOT NULL,
     PRIMARY KEY (id)
@@ -74,38 +102,13 @@ create table affectation(
     FOREIGN KEY (id_groupe) REFERENCES groupe(id)
 );
 
-create table type_salle(
-	id int NOT NULL AUTO_INCREMENT,
-    nom varchar(255) NOT NULL,
-    PRIMARY KEY (id)
-);
-
-create table salle(
-	id int NOT NULL AUTO_INCREMENT,
-    nom varchar(255) NOT NULL,
-    id_type_salle int NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (id_type_salle) REFERENCES type_salle(id)
-);
-
-create table jour(
-	id int NOT NULL AUTO_INCREMENT,
-    nom varchar(255) NOT NULL,
-    PRIMARY KEY (id)
-);
-
-create table seance(
-	id int NOT NULL AUTO_INCREMENT,
-    nom varchar(255) NOT NULL,
-    PRIMARY KEY (id)
-);
-
 create table emploi(
 	id_affectation int NOT NULL,
 	id_jour int NOT NULL,
 	id_seance int NOT NULL,
 	id_salle int NOT NULL,
 	chaine varchar(255),
+    PRIMARY KEY (id_jour, id_seance, id_salle),
     FOREIGN KEY (id_affectation) REFERENCES affectation(id),
     FOREIGN KEY (id_jour) REFERENCES jour(id),
     FOREIGN KEY (id_seance) REFERENCES seance(id),

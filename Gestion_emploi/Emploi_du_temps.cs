@@ -65,7 +65,38 @@ namespace Gestion_emploi
             }
             catch (Exception)
             {
-                MessageBox.Show("No affectations pour ajouter");
+                MessageBox.Show("Pas d'affectations a ajouter");
+            }
+
+            Groupe_comboBox_SelectedIndexChanged(null, null);
+            RemplirEmploi();
+        }
+
+        // Supprimer une seance de l'emploi
+        private void Supprimer_button_Click(object sender, EventArgs e)
+        {
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "DELETE FROM emploi WHERE id_affectation = @id_affectation AND id_jour = @id_jour AND id_seance = @id_seance";
+                    command.Parameters.AddWithValue("@id_affectation", emploi_dataGridView.SelectedCells[0].Value);
+                    command.Parameters.AddWithValue("@id_jour", (((int)emploi_dataGridView.CurrentCell.RowIndex) + 1));
+                    command.Parameters.AddWithValue("@id_seance", emploi_dataGridView.CurrentCell.ColumnIndex);
+
+                    command.ExecuteNonQuery();
+
+                    // Update the affectation nb_utilise
+                    using (MySqlCommand command2 = new MySqlCommand("", connection))
+                    {
+                        command2.CommandText = "UPDATE affectation SET nb_utilise = nb_utilise-1 WHERE id = @id_affectation";
+                        command2.Parameters.AddWithValue("@id_affectation", emploi_dataGridView.SelectedCells[0].Value);
+
+                        command2.ExecuteNonQuery();
+                    }
+                }
             }
 
             Groupe_comboBox_SelectedIndexChanged(null, null);
@@ -153,7 +184,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT m.nom, id_jour, id_seance FROM emploi e JOIN affectation a ON e.id_affectation = a.id JOIN module m ON m.id = a.id_module WHERE id_groupe = @id_groupe";
+                    command.CommandText = "SELECT e.id_affectation, id_jour, id_seance FROM emploi e JOIN affectation a ON e.id_affectation = a.id JOIN module m ON m.id = a.id_module WHERE id_groupe = @id_groupe";
                     command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
 
                     MySqlDataReader reader = command.ExecuteReader();
@@ -304,7 +335,6 @@ namespace Gestion_emploi
                     return !reader.HasRows;
                 }
             }
-
         }
 
         // Check salle availability

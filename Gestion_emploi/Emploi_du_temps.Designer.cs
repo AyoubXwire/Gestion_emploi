@@ -50,6 +50,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.ajouter_button = new System.Windows.Forms.Button();
+            this.supprimer_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.emploi_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.affectations_dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -86,6 +87,7 @@
             this.Seance3,
             this.Seance4});
             this.emploi_dataGridView.Location = new System.Drawing.Point(437, 77);
+            this.emploi_dataGridView.MultiSelect = false;
             this.emploi_dataGridView.Name = "emploi_dataGridView";
             this.emploi_dataGridView.ReadOnly = true;
             this.emploi_dataGridView.Size = new System.Drawing.Size(721, 447);
@@ -246,11 +248,22 @@
             this.ajouter_button.UseVisualStyleBackColor = true;
             this.ajouter_button.Click += new System.EventHandler(this.Ajouter_button_Click);
             // 
+            // supprimer_button
+            // 
+            this.supprimer_button.Location = new System.Drawing.Point(437, 623);
+            this.supprimer_button.Name = "supprimer_button";
+            this.supprimer_button.Size = new System.Drawing.Size(91, 53);
+            this.supprimer_button.TabIndex = 72;
+            this.supprimer_button.Text = "Supprimer";
+            this.supprimer_button.UseVisualStyleBackColor = true;
+            this.supprimer_button.Click += new System.EventHandler(this.Supprimer_button_Click);
+            // 
             // Emploi_du_temps
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1170, 762);
+            this.Controls.Add(this.supprimer_button);
             this.Controls.Add(this.ajouter_button);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -298,5 +311,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance4;
+        private System.Windows.Forms.Button supprimer_button;
     }
 }

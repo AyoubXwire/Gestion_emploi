@@ -30,16 +30,16 @@ namespace Gestion_emploi
                     connection.Open();
                     using (MySqlCommand command = new MySqlCommand("", connection))
                     {
-                        command.CommandText = "INSERT INTO emploi(id_affectation, id_jour, id_seance, id_salle) VALUES(@id_affectation, @id_jour, @id_seance, @id_salle)";
-                        command.Parameters.AddWithValue("@id_affectation", affectations_dataGridView.SelectedRows[0].Cells["id"].Value);
-                        command.Parameters.AddWithValue("@id_jour", jours_listBox.SelectedValue);
-                        command.Parameters.AddWithValue("@id_seance", seances_listBox.SelectedValue);
-                        command.Parameters.AddWithValue("@id_salle", salles_listBox.SelectedValue);
-
                         int affectation = int.Parse(affectations_dataGridView.CurrentRow.Cells["id"].Value.ToString());
-                        int jour = int.Parse(jours_listBox.SelectedValue.ToString());
-                        int seance = int.Parse(seances_listBox.SelectedValue.ToString());
+                        int jour = ((int)emploi_dataGridView.CurrentCell.RowIndex) + 1;
+                        int seance = emploi_dataGridView.CurrentCell.ColumnIndex;
                         int salle = int.Parse(salles_listBox.SelectedValue.ToString());
+
+                        command.CommandText = "INSERT INTO emploi(id_affectation, id_jour, id_seance, id_salle) VALUES(@id_affectation, @id_jour, @id_seance, @id_salle)";
+                        command.Parameters.AddWithValue("@id_affectation", affectation);
+                        command.Parameters.AddWithValue("@id_jour", jour);
+                        command.Parameters.AddWithValue("@id_seance", seance);
+                        command.Parameters.AddWithValue("@id_salle", salle);
 
                         string validationResult = Validator(affectation, jour, seance, salle);
 
@@ -75,7 +75,6 @@ namespace Gestion_emploi
         // Supprimer une seance de l'emploi
         private void Supprimer_button_Click(object sender, EventArgs e)
         {
-
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -83,7 +82,7 @@ namespace Gestion_emploi
                 {
                     command.CommandText = "DELETE FROM emploi WHERE id_affectation = @id_affectation AND id_jour = @id_jour AND id_seance = @id_seance";
                     command.Parameters.AddWithValue("@id_affectation", emploi_dataGridView.SelectedCells[0].Value);
-                    command.Parameters.AddWithValue("@id_jour", (((int)emploi_dataGridView.CurrentCell.RowIndex) + 1));
+                    command.Parameters.AddWithValue("@id_jour", ((int)emploi_dataGridView.CurrentCell.RowIndex) + 1);
                     command.Parameters.AddWithValue("@id_seance", emploi_dataGridView.CurrentCell.ColumnIndex);
 
                     command.ExecuteNonQuery();
@@ -247,36 +246,6 @@ namespace Gestion_emploi
                         groupe_comboBox.ValueMember = "id";
                         groupe_comboBox.DisplayMember = "chaine";
                         groupe_comboBox.Text = "";
-                    }
-                }
-
-                // Remplir jours_listBox
-                using (MySqlCommand command = new MySqlCommand("", connection))
-                {
-                    command.CommandText = "SELECT id, nom FROM jour";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        jours_listBox.ValueMember = "id";
-                        jours_listBox.DisplayMember = "nom";
-                        jours_listBox.DataSource = binder;
-                    }
-                }
-
-                // Remplir seances_listBox
-                using (MySqlCommand command = new MySqlCommand("", connection))
-                {
-                    command.CommandText = "SELECT id, nom FROM seance";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        seances_listBox.ValueMember = "id";
-                        seances_listBox.DisplayMember = "nom";
-                        seances_listBox.DataSource = binder;
                     }
                 }
 

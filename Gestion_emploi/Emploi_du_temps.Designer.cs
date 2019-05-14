@@ -44,11 +44,6 @@
             this.formateur = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.salles_listBox = new System.Windows.Forms.ListBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.jours_listBox = new System.Windows.Forms.ListBox();
-            this.seances_listBox = new System.Windows.Forms.ListBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.ajouter_button = new System.Windows.Forms.Button();
             this.supprimer_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.emploi_dataGridView)).BeginInit();
@@ -187,62 +182,16 @@
             // salles_listBox
             // 
             this.salles_listBox.FormattingEnabled = true;
-            this.salles_listBox.Location = new System.Drawing.Point(300, 564);
+            this.salles_listBox.Location = new System.Drawing.Point(14, 530);
             this.salles_listBox.Name = "salles_listBox";
-            this.salles_listBox.Size = new System.Drawing.Size(120, 186);
+            this.salles_listBox.Size = new System.Drawing.Size(406, 186);
             this.salles_listBox.TabIndex = 65;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 548);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(30, 13);
-            this.label4.TabIndex = 66;
-            this.label4.Text = "Jour:";
-            // 
-            // jours_listBox
-            // 
-            this.jours_listBox.FormattingEnabled = true;
-            this.jours_listBox.Location = new System.Drawing.Point(14, 564);
-            this.jours_listBox.Name = "jours_listBox";
-            this.jours_listBox.Size = new System.Drawing.Size(120, 186);
-            this.jours_listBox.TabIndex = 67;
-            // 
-            // seances_listBox
-            // 
-            this.seances_listBox.FormattingEnabled = true;
-            this.seances_listBox.Location = new System.Drawing.Point(156, 564);
-            this.seances_listBox.Name = "seances_listBox";
-            this.seances_listBox.Size = new System.Drawing.Size(120, 186);
-            this.seances_listBox.TabIndex = 68;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(153, 548);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(47, 13);
-            this.label5.TabIndex = 69;
-            this.label5.Text = "Seance:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(297, 548);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(33, 13);
-            this.label6.TabIndex = 70;
-            this.label6.Text = "Salle:";
             // 
             // ajouter_button
             // 
-            this.ajouter_button.Location = new System.Drawing.Point(437, 564);
+            this.ajouter_button.Location = new System.Drawing.Point(437, 530);
             this.ajouter_button.Name = "ajouter_button";
-            this.ajouter_button.Size = new System.Drawing.Size(91, 53);
+            this.ajouter_button.Size = new System.Drawing.Size(121, 78);
             this.ajouter_button.TabIndex = 71;
             this.ajouter_button.Text = "Ajouter";
             this.ajouter_button.UseVisualStyleBackColor = true;
@@ -250,9 +199,9 @@
             // 
             // supprimer_button
             // 
-            this.supprimer_button.Location = new System.Drawing.Point(437, 623);
+            this.supprimer_button.Location = new System.Drawing.Point(564, 530);
             this.supprimer_button.Name = "supprimer_button";
-            this.supprimer_button.Size = new System.Drawing.Size(91, 53);
+            this.supprimer_button.Size = new System.Drawing.Size(121, 78);
             this.supprimer_button.TabIndex = 72;
             this.supprimer_button.Text = "Supprimer";
             this.supprimer_button.UseVisualStyleBackColor = true;
@@ -262,14 +211,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1170, 762);
+            this.ClientSize = new System.Drawing.Size(1170, 727);
             this.Controls.Add(this.supprimer_button);
             this.Controls.Add(this.ajouter_button);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.seances_listBox);
-            this.Controls.Add(this.jours_listBox);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.salles_listBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.affectations_dataGridView);
@@ -300,11 +244,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn formateur;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ListBox salles_listBox;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ListBox jours_listBox;
-        private System.Windows.Forms.ListBox seances_listBox;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button ajouter_button;
         private System.Windows.Forms.DataGridViewTextBoxColumn Jour;
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance1;

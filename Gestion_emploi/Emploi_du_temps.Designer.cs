@@ -46,6 +46,7 @@
             this.salles_listBox = new System.Windows.Forms.ListBox();
             this.ajouter_button = new System.Windows.Forms.Button();
             this.supprimer_button = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.emploi_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.affectations_dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -215,11 +216,22 @@
             this.supprimer_button.UseVisualStyleBackColor = true;
             this.supprimer_button.Click += new System.EventHandler(this.Supprimer_button_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(691, 530);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(121, 78);
+            this.button1.TabIndex = 73;
+            this.button1.Text = "Reset";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Emploi_du_temps
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1170, 727);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.supprimer_button);
             this.Controls.Add(this.ajouter_button);
             this.Controls.Add(this.salles_listBox);
@@ -259,5 +271,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance4;
+        private System.Windows.Forms.Button button1;
     }
 }

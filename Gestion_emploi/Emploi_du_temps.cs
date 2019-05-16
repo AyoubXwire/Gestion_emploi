@@ -388,5 +388,23 @@ namespace Gestion_emploi
             Coloring(int.Parse(affectations_dataGridView.CurrentRow.Cells[0].Value.ToString()));
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "delete from emploi where id_affectation in (select id from affectation  where id = id_affectation) and (select id_groupe from affectation where id = id_affectation) = (select id_groupe from affectation where id = @affectation)";
+
+                    command.Parameters.AddWithValue("@affectation", groupe_comboBox.SelectedValue);
+
+                    command.ExecuteNonQuery();
+                    RemplirEmploi();
+
+                }
+            }
+        }
     }
 }

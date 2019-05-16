@@ -34,9 +34,7 @@ create table salle(
 create table metier(
 	id int NOT NULL AUTO_INCREMENT,
     nom varchar(255) NOT NULL,
-    id_type_salle int,
-    PRIMARY KEY (id),
-    FOREIGN KEY (id_type_salle) REFERENCES type_salle(id)
+    PRIMARY KEY (id)
 );
 
 create table jour(
@@ -255,3 +253,4 @@ INSERT INTO module(nom, niveau, mass_horaire, id_metier, id_filiere) VALUES('emp
 -- select * from groupe;
 -- select * from module;
 -- select * from affectation;
+-- select * from emploi;

@@ -19,7 +19,8 @@ namespace Gestion_emploi
         {
             RemplirListBoxes();
             RemplirEmploi();
-            if (affectations_dataGridView.CurrentRow.Cells[0].Value != null)
+
+            if (affectations_dataGridView.CurrentRow != null && affectations_dataGridView.CurrentRow.Cells[0].Value != null)
                 Coloring(int.Parse(affectations_dataGridView.CurrentRow.Cells[0].Value.ToString()));
         }
         
@@ -73,6 +74,7 @@ namespace Gestion_emploi
 
             Groupe_comboBox_SelectedIndexChanged(null, null);
             RemplirEmploi();
+
             if (affectations_dataGridView.CurrentRow.Cells[0].Value != null)
                 Coloring(int.Parse(affectations_dataGridView.CurrentRow.Cells[0].Value.ToString()));
         }
@@ -107,25 +109,19 @@ namespace Gestion_emploi
             RemplirEmploi();
         }
 
-        //coloring datagridview (still basic can you find the error?)
-
+        // Coloring datagridview
         private void Coloring (int affectation)
         {
-             for (int i = 0; i < emploi_dataGridView.Rows.Count; i++)
-             {
-                for (int j = 0; j < 4; j++)
+            for (int i = 0; i < emploi_dataGridView.Rows.Count; i++)
+            {
+                for (int j = 1; j < 5; j++)
                 {
-                    if (IsFormateurAvailable(affectation, i + 1, j + 1) == false)
+                    if (IsFormateurAvailable(affectation, i + 1, j) == false)
                         emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.Red;
                     else
                         emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.White;
                 }
-                    
-                
-              
-             }
-            
-
+            }
         }
 
         // Send the user a precise message
@@ -377,19 +373,13 @@ namespace Gestion_emploi
             }
         }
 
-        private void affectations_dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void affectations_dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void Affectations_dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if(affectations_dataGridView.CurrentRow.Cells[0].Value != null)
             Coloring(int.Parse(affectations_dataGridView.CurrentRow.Cells[0].Value.ToString()));
-
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Reset_button_Click(object sender, EventArgs e)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -402,7 +392,15 @@ namespace Gestion_emploi
 
                     command.ExecuteNonQuery();
                     RemplirEmploi();
+                }
 
+                // Update the affectation nb_utilise
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "UPDATE affectation SET nb_utilise = nb_utilise-1 WHERE id = @id_affectation";
+                    command.Parameters.AddWithValue("@id_affectation", emploi_dataGridView.SelectedCells[0].Value);
+
+                    command.ExecuteNonQuery();
                 }
             }
         }

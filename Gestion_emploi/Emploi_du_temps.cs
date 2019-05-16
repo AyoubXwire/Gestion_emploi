@@ -93,15 +93,15 @@ namespace Gestion_emploi
                     command.Parameters.AddWithValue("@id_seance", emploi_dataGridView.CurrentCell.ColumnIndex);
 
                     command.ExecuteNonQuery();
+                }
 
-                    // Update the affectation nb_utilise
-                    using (MySqlCommand command2 = new MySqlCommand("", connection))
-                    {
-                        command2.CommandText = "UPDATE affectation SET nb_utilise = nb_utilise-1 WHERE id = @id_affectation";
-                        command2.Parameters.AddWithValue("@id_affectation", emploi_dataGridView.SelectedCells[0].Value);
+                // Update the affectation nb_utilise
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "UPDATE affectation SET nb_utilise = nb_utilise-1 WHERE id = @id_affectation";
+                    command.Parameters.AddWithValue("@id_affectation", emploi_dataGridView.SelectedCells[0].Value);
 
-                        command2.ExecuteNonQuery();
-                    }
+                    command.ExecuteNonQuery();
                 }
             }
 
@@ -387,21 +387,22 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "delete from emploi where id_affectation in (select id from affectation  where id = id_affectation) and (select id_groupe from affectation where id = id_affectation) = (select id_groupe from affectation where id = @affectation)";
-
                     command.Parameters.AddWithValue("@affectation", groupe_comboBox.SelectedValue);
 
                     command.ExecuteNonQuery();
-                    RemplirEmploi();
                 }
 
                 // Update the affectation nb_utilise
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "UPDATE affectation SET nb_utilise = nb_utilise-1 WHERE id = @id_affectation";
-                    command.Parameters.AddWithValue("@id_affectation", emploi_dataGridView.SelectedCells[0].Value);
+                    command.CommandText = "UPDATE affectation SET nb_utilise = 0 WHERE id_groupe = @id_groupe";
+                    command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
 
                     command.ExecuteNonQuery();
                 }
+
+                RemplirAffectations();
+                RemplirEmploi();
             }
         }
     }

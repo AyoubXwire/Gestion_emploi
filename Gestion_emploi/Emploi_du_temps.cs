@@ -2,6 +2,7 @@
 using System;
 using System.Configuration;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Gestion_emploi
 {
@@ -18,6 +19,8 @@ namespace Gestion_emploi
         {
             RemplirListBoxes();
             RemplirEmploi();
+            if (affectations_dataGridView.CurrentRow.Cells[0].Value != null)
+                Coloring(int.Parse(affectations_dataGridView.CurrentRow.Cells[0].Value.ToString()));
         }
         
         // Ajouter une seance dans l'emploi
@@ -70,6 +73,8 @@ namespace Gestion_emploi
 
             Groupe_comboBox_SelectedIndexChanged(null, null);
             RemplirEmploi();
+            if (affectations_dataGridView.CurrentRow.Cells[0].Value != null)
+                Coloring(int.Parse(affectations_dataGridView.CurrentRow.Cells[0].Value.ToString()));
         }
 
         // Supprimer une seance de l'emploi
@@ -100,6 +105,27 @@ namespace Gestion_emploi
 
             Groupe_comboBox_SelectedIndexChanged(null, null);
             RemplirEmploi();
+        }
+
+        //coloring datagridview (still basic can you find the error?)
+
+        private void Coloring (int affectation)
+        {
+             for (int i = 0; i < emploi_dataGridView.Rows.Count; i++)
+             {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (IsFormateurAvailable(affectation, i + 1, j + 1) == false)
+                        emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.Red;
+                    else
+                        emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.White;
+                }
+                    
+                
+              
+             }
+            
+
         }
 
         // Send the user a precise message
@@ -349,6 +375,18 @@ namespace Gestion_emploi
                     catch{}
                 }
             }
+        }
+
+        private void affectations_dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void affectations_dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(affectations_dataGridView.CurrentRow.Cells[0].Value != null)
+            Coloring(int.Parse(affectations_dataGridView.CurrentRow.Cells[0].Value.ToString()));
+
         }
     }
 }

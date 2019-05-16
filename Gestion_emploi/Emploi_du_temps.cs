@@ -23,7 +23,37 @@ namespace Gestion_emploi
             if (affectations_dataGridView.CurrentRow != null && affectations_dataGridView.CurrentRow.Cells[0].Value != null)
                 Coloring(int.Parse(affectations_dataGridView.CurrentRow.Cells[0].Value.ToString()));
         }
-        
+
+        private string GetEmploiChaine(int id_affectation, int id_salle)
+        {
+            string salle;
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "select nom from salle where id = @id_salle";
+                    command.Parameters.AddWithValue("@id_salle", id_salle);
+
+                    salle = command.ExecuteScalar().ToString();
+                }
+
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "select f.nom, m.nom from affectation a join module m on a.id_module = m.id join formateur f on a.id_formateur = f.id where a.id = @id_affectation";
+                    command.Parameters.AddWithValue("@id_affectation", id_affectation);
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        return reader[0].ToString() + " || " + reader[1].ToString() + " || " + salle;
+                    }
+                }
+            }
+
+            return "";
+        }
+
         // Ajouter une seance dans l'emploi
         private void Ajouter_button_Click(object sender, EventArgs e)
         {
@@ -39,11 +69,12 @@ namespace Gestion_emploi
                         int seance = emploi_dataGridView.CurrentCell.ColumnIndex;
                         int salle = int.Parse(salles_listBox.SelectedValue.ToString());
 
-                        command.CommandText = "INSERT INTO emploi(id_affectation, id_jour, id_seance, id_salle) VALUES(@id_affectation, @id_jour, @id_seance, @id_salle)";
+                        command.CommandText = "INSERT INTO emploi(id_affectation, id_jour, id_seance, id_salle, chaine) VALUES(@id_affectation, @id_jour, @id_seance, @id_salle, @chaine)";
                         command.Parameters.AddWithValue("@id_affectation", affectation);
                         command.Parameters.AddWithValue("@id_jour", jour);
                         command.Parameters.AddWithValue("@id_seance", seance);
                         command.Parameters.AddWithValue("@id_salle", salle);
+                        command.Parameters.AddWithValue("@chaine", GetEmploiChaine(affectation, salle));
 
                         string validationResult = Validator(affectation, jour, seance, salle);
 
@@ -67,15 +98,15 @@ namespace Gestion_emploi
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Pas d'affectations a ajouter");
+                MessageBox.Show(ex.Message.ToString());
             }
 
             Groupe_comboBox_SelectedIndexChanged(null, null);
             RemplirEmploi();
 
-            if (affectations_dataGridView.CurrentRow.Cells[0].Value != null)
+            if (affectations_dataGridView.CurrentRow != null && affectations_dataGridView.CurrentRow.Cells[0].Value != null)
                 Coloring(int.Parse(affectations_dataGridView.CurrentRow.Cells[0].Value.ToString()));
         }
 
@@ -117,7 +148,7 @@ namespace Gestion_emploi
                 for (int j = 1; j < 5; j++)
                 {
                     if (IsFormateurAvailable(affectation, i + 1, j) == false)
-                        emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.Red;
+                        emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.LightPink;
                     else
                         emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.White;
                 }
@@ -205,7 +236,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT e.id_affectation, id_jour, id_seance FROM emploi e JOIN affectation a ON e.id_affectation = a.id JOIN module m ON m.id = a.id_module WHERE id_groupe = @id_groupe";
+                    command.CommandText = "SELECT e.chaine, id_jour, id_seance FROM emploi e JOIN affectation a ON e.id_affectation = a.id JOIN module m ON m.id = a.id_module WHERE id_groupe = @id_groupe";
                     command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
 
                     MySqlDataReader reader = command.ExecuteReader();

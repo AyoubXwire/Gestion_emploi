@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Deelete_helper.cs" />
     <Compile Include="Emploi_du_temps.cs">
       <SubType>Form</SubType>
     </Compile>

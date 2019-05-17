@@ -28,10 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.groupe_comboBox = new System.Windows.Forms.ComboBox();
             this.emploi_dataGridView = new System.Windows.Forms.DataGridView();
+            this.Jour = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Seance1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Seance2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Seance3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Seance4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.affectations_dataGridView = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,11 +48,6 @@
             this.ajouter_button = new System.Windows.Forms.Button();
             this.supprimer_button = new System.Windows.Forms.Button();
             this.reset_button = new System.Windows.Forms.Button();
-            this.Jour = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Seance1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Seance2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Seance3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Seance4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.emploi_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.affectations_dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -90,6 +90,43 @@
             this.emploi_dataGridView.Size = new System.Drawing.Size(721, 447);
             this.emploi_dataGridView.TabIndex = 60;
             this.emploi_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Emploi_dataGridView_CellClick);
+            // 
+            // Jour
+            // 
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.Jour.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Jour.HeaderText = "jour";
+            this.Jour.Name = "Jour";
+            this.Jour.ReadOnly = true;
+            this.Jour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Seance1
+            // 
+            this.Seance1.HeaderText = "seance1";
+            this.Seance1.Name = "Seance1";
+            this.Seance1.ReadOnly = true;
+            this.Seance1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Seance2
+            // 
+            this.Seance2.HeaderText = "seance2";
+            this.Seance2.Name = "Seance2";
+            this.Seance2.ReadOnly = true;
+            this.Seance2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Seance3
+            // 
+            this.Seance3.HeaderText = "seance3";
+            this.Seance3.Name = "Seance3";
+            this.Seance3.ReadOnly = true;
+            this.Seance3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Seance4
+            // 
+            this.Seance4.HeaderText = "seance4";
+            this.Seance4.Name = "Seance4";
+            this.Seance4.ReadOnly = true;
+            this.Seance4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // label2
             // 
@@ -190,43 +227,6 @@
             this.reset_button.Text = "Reset";
             this.reset_button.UseVisualStyleBackColor = true;
             this.reset_button.Click += new System.EventHandler(this.Reset_button_Click);
-            // 
-            // Jour
-            // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.Jour.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Jour.HeaderText = "jour";
-            this.Jour.Name = "Jour";
-            this.Jour.ReadOnly = true;
-            this.Jour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Seance1
-            // 
-            this.Seance1.HeaderText = "seance1";
-            this.Seance1.Name = "Seance1";
-            this.Seance1.ReadOnly = true;
-            this.Seance1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Seance2
-            // 
-            this.Seance2.HeaderText = "seance2";
-            this.Seance2.Name = "Seance2";
-            this.Seance2.ReadOnly = true;
-            this.Seance2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Seance3
-            // 
-            this.Seance3.HeaderText = "seance3";
-            this.Seance3.Name = "Seance3";
-            this.Seance3.ReadOnly = true;
-            this.Seance3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Seance4
-            // 
-            this.Seance4.HeaderText = "seance4";
-            this.Seance4.Name = "Seance4";
-            this.Seance4.ReadOnly = true;
-            this.Seance4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Emploi_du_temps
             // 

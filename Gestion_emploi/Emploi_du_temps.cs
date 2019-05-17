@@ -16,9 +16,6 @@ namespace Gestion_emploi
             InitializeComponent();
         }
 
-        List<Deelete_helper> items;
-        string affectation = "";
-
         private void Emploi_du_temps_Load(object sender, EventArgs e)
         {
             RemplirListBoxes();
@@ -28,6 +25,7 @@ namespace Gestion_emploi
                 Coloring(int.Parse(affectations_dataGridView.CurrentRow.Cells[0].Value.ToString()));
         }
 
+        // Create the string to display in emploi
         private string GetEmploiChaine(int id_affectation, int id_salle)
         {
             string salle;
@@ -50,7 +48,7 @@ namespace Gestion_emploi
                     MySqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        return reader[0].ToString() + " || " + reader[1].ToString() + " || " + salle;
+                        return reader[0].ToString() + " | " + reader[1].ToString() + " | " + salle;
                     }
                 }
             }
@@ -102,10 +100,7 @@ namespace Gestion_emploi
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
+            catch { }
 
             Groupe_comboBox_SelectedIndexChanged(null, null);
             RemplirEmploi();
@@ -114,9 +109,39 @@ namespace Gestion_emploi
                 Coloring(int.Parse(affectations_dataGridView.CurrentRow.Cells[0].Value.ToString()));
         }
 
+        // Get id_affectation (id_jour, id_seance, salleName)
+        private int GetAffectationId(int id_jour, int id_seance, string salle)
+        {
+            int id_salle;
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "SELECT id FROM salle WHERE nom = @salle";
+                    command.Parameters.AddWithValue("@salle", salle);
+
+                    id_salle = (int)command.ExecuteScalar();
+                }
+
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "SELECT id_affectation FROM emploi WHERE id_jour = @id_jour AND id_seance = @id_seance AND id_salle = @id_salle";
+                    command.Parameters.AddWithValue("@id_jour", id_jour);
+                    command.Parameters.AddWithValue("@id_seance", id_seance);
+                    command.Parameters.AddWithValue("@id_salle", id_salle);
+
+                    return (int)command.ExecuteScalar();
+                }
+            }
+        }
+
         // Supprimer une seance de l'emploi
         private void Supprimer_button_Click(object sender, EventArgs e)
         {
+            int affectation_id = 0;
+
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -126,32 +151,25 @@ namespace Gestion_emploi
                     {
                         command.CommandText = "DELETE FROM emploi WHERE id_affectation = @id_affectation AND id_jour = @id_jour AND id_seance = @id_seance";
 
-                        foreach (var item in items)
-                        {
-                            if (emploi_dataGridView.CurrentCell.Value.ToString() == item.chaine)
-                            {
-                                affectation = item.id.ToString();
-                                break;
-                            }
-                        }
+                        int id_jour = ((int)emploi_dataGridView.CurrentCell.RowIndex) + 1;
+                        int id_seance = emploi_dataGridView.CurrentCell.ColumnIndex;
+                        string salle = emploi_dataGridView.CurrentCell.Value.ToString().Split('|')[2].ToString().Trim();
+                        affectation_id = GetAffectationId(id_jour, id_seance, salle);
 
-                        command.Parameters.AddWithValue("@id_affectation", affectation);
-                        command.Parameters.AddWithValue("@id_jour", ((int)emploi_dataGridView.CurrentCell.RowIndex) + 1);
-                        command.Parameters.AddWithValue("@id_seance", emploi_dataGridView.CurrentCell.ColumnIndex);
+                        command.Parameters.AddWithValue("@id_affectation", affectation_id);
+                        command.Parameters.AddWithValue("@id_jour", id_jour);
+                        command.Parameters.AddWithValue("@id_seance", id_seance);
 
                         command.ExecuteNonQuery();
                     }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("seance introuvable");
-                    }
+                    catch { }
                 }
 
                 // Update the affectation nb_utilise
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "UPDATE affectation SET nb_utilise = nb_utilise-1 WHERE id = @id_affectation";
-                    command.Parameters.AddWithValue("@id_affectation", affectation);
+                    command.Parameters.AddWithValue("@id_affectation", affectation_id);
 
                     command.ExecuteNonQuery();
                 }
@@ -251,7 +269,6 @@ namespace Gestion_emploi
         {
             emploi_dataGridView.Rows.Clear();
             InitializeEmploi();
-            items = new List<Deelete_helper>();
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -270,7 +287,6 @@ namespace Gestion_emploi
                             int seance = int.Parse(reader[2].ToString());
 
                             emploi_dataGridView.Rows[jour].Cells[seance].Value = reader[0].ToString();
-                            items.Add(new Deelete_helper((int)reader[3], reader[0].ToString()));
                         }
                     }
                 }
@@ -422,7 +438,7 @@ namespace Gestion_emploi
                     
                         salles_listBox.SelectedValue = command.ExecuteScalar();
                     }
-                    catch{}
+                    catch { }
                 }
             }
         }
@@ -435,15 +451,15 @@ namespace Gestion_emploi
 
         private void Reset_button_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("vous etes sur?", "confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Etes-vous sure?", "confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
                     using (MySqlCommand command = new MySqlCommand("", connection))
                     {
-                        command.CommandText = "delete from emploi where id_affectation in (select id from affectation  where id = id_affectation) and (select id_groupe from affectation where id = id_affectation) in (select id_groupe from affectation where id = @affectation)";
-                        command.Parameters.AddWithValue("@affectation", groupe_comboBox.SelectedValue);
+                        command.CommandText = "delete from emploi where id_affectation in (select id from affectation where id_groupe = @id_groupe);";
+                        command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
 
                         command.ExecuteNonQuery();
                     }

@@ -152,7 +152,7 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "UPDATE affectation SET nb_utilise = nb_utilise-1 WHERE id = @id_affectation";
-                    command.Parameters.AddWithValue("@id_affectation", emploi_dataGridView.SelectedCells[0].Value);
+                    command.Parameters.AddWithValue("@id_affectation", affectation);
 
                     command.ExecuteNonQuery();
                 }

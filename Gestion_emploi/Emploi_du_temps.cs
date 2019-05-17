@@ -133,8 +133,8 @@ namespace Gestion_emploi
                                 affectation = item.id.ToString();
                                 break;
                             }
-
                         }
+
                         command.Parameters.AddWithValue("@id_affectation", affectation);
                         command.Parameters.AddWithValue("@id_jour", ((int)emploi_dataGridView.CurrentCell.RowIndex) + 1);
                         command.Parameters.AddWithValue("@id_seance", emploi_dataGridView.CurrentCell.ColumnIndex);
@@ -143,7 +143,6 @@ namespace Gestion_emploi
                     }
                     catch (Exception)
                     {
-
                         MessageBox.Show("seance introuvable");
                     }
                 }
@@ -272,7 +271,6 @@ namespace Gestion_emploi
 
                             emploi_dataGridView.Rows[jour].Cells[seance].Value = reader[0].ToString();
                             items.Add(new Deelete_helper((int)reader[3], reader[0].ToString()));
-                            
                         }
                     }
                 }
@@ -330,7 +328,7 @@ namespace Gestion_emploi
                 // Remplir salles_listBox
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT s.id ,CONCAT(s.nom , ' (' , t.nom , ' )') as nom FROM salle s join type_salle t on s.id = t.id";
+                    command.CommandText = "SELECT s.id, CONCAT(s.nom , ' (' , t.nom , ' )') as nom FROM salle s join type_salle t on s.id_type_salle = t.id";
                     MySqlDataReader reader = command.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -437,33 +435,32 @@ namespace Gestion_emploi
 
         private void Reset_button_Click(object sender, EventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            if (MessageBox.Show("vous etes sur?", "confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    command.CommandText = "delete from emploi where id_affectation in (select id from affectation  where id = id_affectation) and (select id_groupe from affectation where id = id_affectation) in (select id_groupe from affectation where id = @affectation)";
-                    command.Parameters.AddWithValue("@affectation", groupe_comboBox.SelectedValue);
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand("", connection))
+                    {
+                        command.CommandText = "delete from emploi where id_affectation in (select id from affectation  where id = id_affectation) and (select id_groupe from affectation where id = id_affectation) in (select id_groupe from affectation where id = @affectation)";
+                        command.Parameters.AddWithValue("@affectation", groupe_comboBox.SelectedValue);
 
-                    if(MessageBox.Show("vous etes sur?","confirmation",MessageBoxButtons.YesNo) == DialogResult.Yes)
                         command.ExecuteNonQuery();
-                    
-                    
+                    }
+
+                    // Update the affectation nb_utilise
+                    using (MySqlCommand command = new MySqlCommand("", connection))
+                    {
+                        command.CommandText = "UPDATE affectation SET nb_utilise = 0 WHERE id_groupe = @id_groupe";
+                        command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
+
+                        command.ExecuteNonQuery();
+                    }
+
+                    RemplirAffectations();
+                    RemplirEmploi();
                 }
-
-                // Update the affectation nb_utilise
-                using (MySqlCommand command = new MySqlCommand("", connection))
-                {
-                    command.CommandText = "UPDATE affectation SET nb_utilise = 0 WHERE id_groupe = @id_groupe";
-                    command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
-
-                    command.ExecuteNonQuery();
-                }
-
-                RemplirAffectations();
-                RemplirEmploi();
             }
         }
-
     }
 }

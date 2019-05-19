@@ -238,13 +238,13 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT a.id AS id, g.chaine AS groupe, m.nom AS module, f.nom AS formateur, a.nb_heures, a.nb_utilise FROM affectation a JOIN groupe g ON a.id_groupe = g.id JOIN module m ON a.id_module = m.id JOIN formateur f ON a.id_formateur = f.id WHERE a.id_groupe = @id_groupe";
+                    command.CommandText = "SELECT a.id AS id, g.chaine AS groupe, m.nom AS module, f.nom AS formateur, a.nb_heures_semaine, a.nb_utilise FROM affectation a JOIN groupe g ON a.id_groupe = g.id JOIN module m ON a.id_module = m.id JOIN formateur f ON a.id_formateur = f.id WHERE a.id_groupe = @id_groupe";
                     command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
 
                     MySqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        int nbSeances = (int)(float.Parse(reader["nb_heures"].ToString()) / 2.5f);
+                        int nbSeances = (int)(float.Parse(reader["nb_heures_semaine"].ToString()) / 2.5f);
                         int nbUtilise = int.Parse(reader["nb_utilise"].ToString());
 
                         for (int i = nbUtilise; i < nbSeances; i++)

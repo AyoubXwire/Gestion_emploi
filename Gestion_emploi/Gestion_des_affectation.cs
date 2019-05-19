@@ -178,15 +178,15 @@ namespace Gestion_emploi
                         }
                     }
 
-                    // Update nb_heures of the groupe
+                    // Update nb_heures_total of the groupe
                     UpdateNombreHeuresDuGroupe((int)groupe_listBox.SelectedValue);
                     groupe_listBox.SetSelected(i, false);
                 }
             }
             isIndexChangedBlocked = false;
 
-            // Update nb_heures of the formateur
-            if(formateur_listBox.SelectedValue !=null)
+            // Update nb_heures_total of the formateur
+            if (formateur_listBox.SelectedValue !=null)
             UpdateNombreHeuresDuFormateur((int)formateur_listBox.SelectedValue);
 
             MessageBox.Show(commandOutput.ToString() + " affectations ajoutées");
@@ -220,7 +220,7 @@ namespace Gestion_emploi
                     }
                 }
 
-                // Update nb_heures of the formateur
+                // Update nb_heures of the formateur & groupe
                 UpdateNombreHeuresDuFormateur(id_formateur);
                 UpdateNombreHeuresDuGroupe(id_groupe);
             }
@@ -232,15 +232,15 @@ namespace Gestion_emploi
 
         private void Formateurs_listBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Get nb_heures from formateur
+            // Get nb_heures_total from formateur
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT nb_heures FROM formateur WHERE id=@id";
+                    command.CommandText = "SELECT nb_heures_total FROM formateur WHERE id=@id";
                     command.Parameters.AddWithValue("@id", formateurs_listBox.SelectedValue);
-                    nbrHeures_textBox.Text = command.ExecuteScalar().ToString();
+                    nbrHeuresFormateur_textBox.Text = command.ExecuteScalar().ToString();
                 }
             }
 
@@ -249,6 +249,18 @@ namespace Gestion_emploi
 
         private void Groupes_listBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Get nb_heures_total from groupe
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "SELECT nb_heures_total FROM groupe WHERE id=@id";
+                    command.Parameters.AddWithValue("@id", groupes_listBox.SelectedValue);
+                    nbrHeuresGroupe_textBox.Text = command.ExecuteScalar().ToString();
+                }
+            }
+
             RemplirDataGridViewParGroupe((int)groupes_listBox.SelectedValue);
         }
 
@@ -264,7 +276,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "UPDATE formateur SET nb_heures=(SELECT SUM(mass_horaire) FROM module m JOIN affectation a ON m.id=a.id_module WHERE id_formateur=@id_formateur) WHERE id=@id_formateur";
+                    command.CommandText = "UPDATE formateur SET nb_heures_total=(SELECT SUM(mass_horaire) FROM module m JOIN affectation a ON m.id=a.id_module WHERE id_formateur=@id_formateur) WHERE id=@id_formateur";
                     command.Parameters.AddWithValue("@id_formateur", id_formateur);
                     command.ExecuteNonQuery();
                 }
@@ -278,7 +290,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "UPDATE groupe SET nb_heures=(SELECT SUM(mass_horaire) FROM module m JOIN affectation a ON m.id=a.id_module WHERE id_groupe=@id_groupe) WHERE id=@id_groupe";
+                    command.CommandText = "UPDATE groupe SET nb_heures_total=(SELECT SUM(mass_horaire) FROM module m JOIN affectation a ON m.id=a.id_module WHERE id_groupe=@id_groupe) WHERE id=@id_groupe";
                     command.Parameters.AddWithValue("@id_groupe", id_groupe);
                     command.ExecuteNonQuery();
                 }

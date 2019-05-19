@@ -238,7 +238,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT a.id AS id, g.chaine AS groupe, m.nom AS module, f.nom AS formateur, a.nb_heures_semaine, a.nb_utilise FROM affectation a JOIN groupe g ON a.id_groupe = g.id JOIN module m ON a.id_module = m.id JOIN formateur f ON a.id_formateur = f.id WHERE a.id_groupe = @id_groupe";
+                    command.CommandText = "SELECT a.id AS id, g.chaine AS groupe, m.nom AS module, f.nom AS formateur, a.date_debut, a.date_fin, a.nb_heures_semaine, a.nb_utilise FROM affectation a JOIN groupe g ON a.id_groupe = g.id JOIN module m ON a.id_module = m.id JOIN formateur f ON a.id_formateur = f.id WHERE a.id_groupe = @id_groupe";
                     command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
 
                     MySqlDataReader reader = command.ExecuteReader();
@@ -255,6 +255,36 @@ namespace Gestion_emploi
                             row.Cells[1].Value = reader[1].ToString();
                             row.Cells[2].Value = reader[2].ToString();
                             row.Cells[3].Value = reader[3].ToString();
+
+                            string dateDebut;
+                            string dateFin;
+
+                            if (reader[4].ToString() == "" || reader[5].ToString() == "")
+                            {
+                                dateDebut = "";
+                                dateFin = "";
+                            }
+                            else
+                            {
+                                dateDebut = ((DateTime)reader[4]).ToShortDateString();
+                                dateFin = ((DateTime)reader[5]).ToShortDateString();
+                            }
+
+                            row.Cells[4].Value = dateDebut;
+                            row.Cells[5].Value = dateFin;
+
+                            if (dateDebut == "" || dateFin == "")
+                            {
+                                row.DefaultCellStyle.BackColor = Color.LightGray;
+                            }
+                            else if ((DateTime.Parse(dateFin + " 00:00:00")) < DateTime.Now)
+                            {
+                                row.DefaultCellStyle.BackColor = Color.LightPink;
+                            }
+                            else
+                            {
+                                row.DefaultCellStyle.BackColor = Color.White;
+                            }
 
                             affectations_dataGridView.Rows.Add(row);
                         }

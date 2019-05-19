@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.groupe_comboBox = new System.Windows.Forms.ComboBox();
             this.emploi_dataGridView = new System.Windows.Forms.DataGridView();
@@ -43,11 +43,13 @@
             this.groupe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.module = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.formateur = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.date_debut = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.salles_listBox = new System.Windows.Forms.ListBox();
             this.ajouter_button = new System.Windows.Forms.Button();
             this.supprimer_button = new System.Windows.Forms.Button();
             this.reset_button = new System.Windows.Forms.Button();
+            this.date_fin = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.emploi_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.affectations_dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -83,18 +85,18 @@
             this.Seance2,
             this.Seance3,
             this.Seance4});
-            this.emploi_dataGridView.Location = new System.Drawing.Point(437, 77);
+            this.emploi_dataGridView.Location = new System.Drawing.Point(514, 77);
             this.emploi_dataGridView.MultiSelect = false;
             this.emploi_dataGridView.Name = "emploi_dataGridView";
             this.emploi_dataGridView.ReadOnly = true;
-            this.emploi_dataGridView.Size = new System.Drawing.Size(721, 447);
+            this.emploi_dataGridView.Size = new System.Drawing.Size(644, 382);
             this.emploi_dataGridView.TabIndex = 60;
             this.emploi_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Emploi_dataGridView_CellClick);
             // 
             // Jour
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.Jour.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.Jour.DefaultCellStyle = dataGridViewCellStyle1;
             this.Jour.HeaderText = "jour";
             this.Jour.Name = "Jour";
             this.Jour.ReadOnly = true;
@@ -146,13 +148,15 @@
             this.id,
             this.groupe,
             this.module,
-            this.formateur});
+            this.formateur,
+            this.date_debut,
+            this.date_fin});
             this.affectations_dataGridView.Location = new System.Drawing.Point(14, 77);
             this.affectations_dataGridView.MultiSelect = false;
             this.affectations_dataGridView.Name = "affectations_dataGridView";
             this.affectations_dataGridView.ReadOnly = true;
             this.affectations_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.affectations_dataGridView.Size = new System.Drawing.Size(406, 447);
+            this.affectations_dataGridView.Size = new System.Drawing.Size(494, 382);
             this.affectations_dataGridView.TabIndex = 63;
             this.affectations_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Affectations_dataGridView_CellClick);
             // 
@@ -180,10 +184,16 @@
             this.formateur.Name = "formateur";
             this.formateur.ReadOnly = true;
             // 
+            // date_debut
+            // 
+            this.date_debut.HeaderText = "date_debut";
+            this.date_debut.Name = "date_debut";
+            this.date_debut.ReadOnly = true;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(434, 54);
+            this.label3.Location = new System.Drawing.Point(491, 54);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 13);
@@ -193,14 +203,14 @@
             // salles_listBox
             // 
             this.salles_listBox.FormattingEnabled = true;
-            this.salles_listBox.Location = new System.Drawing.Point(14, 530);
+            this.salles_listBox.Location = new System.Drawing.Point(12, 465);
             this.salles_listBox.Name = "salles_listBox";
-            this.salles_listBox.Size = new System.Drawing.Size(406, 186);
+            this.salles_listBox.Size = new System.Drawing.Size(191, 186);
             this.salles_listBox.TabIndex = 65;
             // 
             // ajouter_button
             // 
-            this.ajouter_button.Location = new System.Drawing.Point(437, 530);
+            this.ajouter_button.Location = new System.Drawing.Point(514, 465);
             this.ajouter_button.Name = "ajouter_button";
             this.ajouter_button.Size = new System.Drawing.Size(121, 78);
             this.ajouter_button.TabIndex = 71;
@@ -210,7 +220,7 @@
             // 
             // supprimer_button
             // 
-            this.supprimer_button.Location = new System.Drawing.Point(564, 530);
+            this.supprimer_button.Location = new System.Drawing.Point(641, 465);
             this.supprimer_button.Name = "supprimer_button";
             this.supprimer_button.Size = new System.Drawing.Size(121, 78);
             this.supprimer_button.TabIndex = 72;
@@ -220,7 +230,7 @@
             // 
             // reset_button
             // 
-            this.reset_button.Location = new System.Drawing.Point(691, 530);
+            this.reset_button.Location = new System.Drawing.Point(768, 465);
             this.reset_button.Name = "reset_button";
             this.reset_button.Size = new System.Drawing.Size(121, 78);
             this.reset_button.TabIndex = 73;
@@ -228,11 +238,17 @@
             this.reset_button.UseVisualStyleBackColor = true;
             this.reset_button.Click += new System.EventHandler(this.Reset_button_Click);
             // 
+            // date_fin
+            // 
+            this.date_fin.HeaderText = "date_fin";
+            this.date_fin.Name = "date_fin";
+            this.date_fin.ReadOnly = true;
+            // 
             // Emploi_du_temps
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1170, 727);
+            this.ClientSize = new System.Drawing.Size(1170, 661);
             this.Controls.Add(this.reset_button);
             this.Controls.Add(this.supprimer_button);
             this.Controls.Add(this.ajouter_button);
@@ -274,5 +290,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn date_debut;
+        private System.Windows.Forms.DataGridViewTextBoxColumn date_fin;
     }
 }

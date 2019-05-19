@@ -31,7 +31,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT SUM(nb_heures_semaine) FROM affectation WHERE id_formateur=@id_formateur";
+                    command.CommandText = "SELECT SUM(nb_heures_semaine) FROM affectation WHERE id_formateur=@id_formateur AND date_debut < CURDATE() AND date_fin > CURDATE()";
                     command.Parameters.AddWithValue("@id_formateur", formateurs_listBox.SelectedValue);
 
                     nbHeuresFormateur_textBox.Text = command.ExecuteScalar().ToString();
@@ -49,7 +49,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT SUM(nb_heures_semaine) FROM affectation WHERE id_groupe=@id_groupe";
+                    command.CommandText = "SELECT SUM(nb_heures_semaine) FROM affectation WHERE id_groupe=@id_groupe AND date_debut < CURDATE() AND date_fin > CURDATE()";
                     command.Parameters.AddWithValue("@id_groupe", groupes_listBox.SelectedValue);
 
                     nbHeuresGroupe_textBox.Text = command.ExecuteScalar().ToString();

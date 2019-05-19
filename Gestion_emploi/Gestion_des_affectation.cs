@@ -160,7 +160,7 @@ namespace Gestion_emploi
                         using (MySqlCommand command = new MySqlCommand("", connection))
                         {
                             command.CommandText =
-                            "INSERT INTO affectation(id_formateur, id_module, id_groupe, nb_heures) VALUES(@id_formateur, @id_module, @id_groupe, @nb_heures)";
+                            "INSERT INTO affectation(id_formateur, id_module, id_groupe, nb_heures_semaine) VALUES(@id_formateur, @id_module, @id_groupe, @nb_heures_semaine)";
                             command.Parameters.AddWithValue("@id_formateur", formateur_listBox.SelectedValue);
                             command.Parameters.AddWithValue("@id_module", module_listBox.SelectedValue);
                             command.Parameters.AddWithValue("@id_groupe", groupe_listBox.SelectedValue);
@@ -172,7 +172,7 @@ namespace Gestion_emploi
                                 command2.Parameters.AddWithValue("@id_module", module_listBox.SelectedValue);
                                 nbHeuresParSemaine = CalculerNombreHeures(float.Parse(command2.ExecuteScalar().ToString()));
                             }
-                            command.Parameters.AddWithValue("@nb_heures", nbHeuresParSemaine);
+                            command.Parameters.AddWithValue("@nb_heures_semaine", nbHeuresParSemaine);
 
                             commandOutput += command.ExecuteNonQuery();
                         }

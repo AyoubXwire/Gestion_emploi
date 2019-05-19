@@ -31,7 +31,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT SUM(nb_heures) FROM affectation WHERE id_formateur=@id_formateur";
+                    command.CommandText = "SELECT SUM(nb_heures_semaine) FROM affectation WHERE id_formateur=@id_formateur";
                     command.Parameters.AddWithValue("@id_formateur", formateurs_listBox.SelectedValue);
 
                     nbHeuresFormateur_textBox.Text = command.ExecuteScalar().ToString();
@@ -49,7 +49,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT SUM(nb_heures) FROM affectation WHERE id_groupe=@id_groupe";
+                    command.CommandText = "SELECT SUM(nb_heures_semaine) FROM affectation WHERE id_groupe=@id_groupe";
                     command.Parameters.AddWithValue("@id_groupe", groupes_listBox.SelectedValue);
 
                     nbHeuresGroupe_textBox.Text = command.ExecuteScalar().ToString();
@@ -65,7 +65,7 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText =
-                        "SELECT a.id, g.chaine as groupe, m.nom as module, f.nom as formateur, m.mass_horaire, a.nb_heures as heures_par_semaine, a.nb_heures_rates, a.avancement, a.date_debut, a.date_fin, nb_semaines FROM affectation a join groupe g on a.id_groupe = g.id join module m on a.id_module = m.id join formateur f on f.id=a.id_formateur WHERE a.id_groupe=@id_groupe";
+                        "SELECT a.id, g.chaine as groupe, m.nom as module, f.nom as formateur, m.mass_horaire, a.nb_heures_semaine as heures_par_semaine, a.nb_heures_rates, a.avancement, a.date_debut, a.date_fin, nb_semaines FROM affectation a join groupe g on a.id_groupe = g.id join module m on a.id_module = m.id join formateur f on f.id=a.id_formateur WHERE a.id_groupe=@id_groupe";
                     command.Parameters.AddWithValue("@id_groupe", id_groupe);
                     MySqlDataReader reader = command.ExecuteReader();
                     // if no affectations, the gridView will be empty
@@ -97,7 +97,7 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText =
-                        "SELECT a.id, g.chaine as groupe, m.nom as module, f.nom as formateur, m.mass_horaire, a.nb_heures as heures_par_semaine, a.nb_heures_rates, a.avancement, a.date_debut, a.date_fin, nb_semaines FROM affectation a join groupe g on a.id_groupe = g.id join module m on a.id_module = m.id join formateur f on f.id=a.id_formateur WHERE a.id_formateur=@id_formateur";
+                        "SELECT a.id, g.chaine as groupe, m.nom as module, f.nom as formateur, m.mass_horaire, a.nb_heures_semaine as heures_par_semaine, a.nb_heures_rates, a.avancement, a.date_debut, a.date_fin, nb_semaines FROM affectation a join groupe g on a.id_groupe = g.id join module m on a.id_module = m.id join formateur f on f.id=a.id_formateur WHERE a.id_formateur=@id_formateur";
                     command.Parameters.AddWithValue("@id_formateur", id_formateur);
                     MySqlDataReader reader = command.ExecuteReader();
                     // if no affectations, the gridView will be empty
@@ -199,14 +199,14 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     int counter = 0;
-                    command.CommandText = "UPDATE affectation set nb_heures = @nb_heures where id = @id";
+                    command.CommandText = "UPDATE affectation set nb_heures_semaine = @nb_heures_semaine where id = @id";
 
                     for (int i = 0; i < seances_dataGridView.RowCount; i++)
                     {
                         if (seances_dataGridView.Rows[i].Selected)
                         { 
                             command.Parameters.Clear();
-                            command.Parameters.AddWithValue("@nb_heures", nbHeures_numericUpDown.Value);
+                            command.Parameters.AddWithValue("@nb_heures_semaine", nbHeures_numericUpDown.Value);
                             command.Parameters.AddWithValue("@id", (int)seances_dataGridView.Rows[i].Cells["id"].Value);
                             counter += command.ExecuteNonQuery();
 
@@ -219,19 +219,24 @@ namespace Gestion_emploi
                         MessageBox.Show("nombre d'heures modifié pour " + counter.ToString() + " affectation");
                     }
 
-                    if (remplirPar == "groupe")
-                    {
-                        Formateurs_listBox_SelectedIndexChanged(null, null);
-                        Groupes_listBox_SelectedIndexChanged(null, null);
-                        RemplirDataGridViewParGroupe((int)groupes_listBox.SelectedValue);
-                    }
-                    else if (remplirPar == "formateur")
-                    {
-                        Groupes_listBox_SelectedIndexChanged(null, null);
-                        Formateurs_listBox_SelectedIndexChanged(null, null);
-                        RemplirDataGridViewParFormateur((int)formateurs_listBox.SelectedValue);
-                    }
+                    RemplirDataGridViewAccordingly();
                 }
+            }
+        }
+
+        private void RemplirDataGridViewAccordingly()
+        {
+            if (remplirPar == "groupe")
+            {
+                Formateurs_listBox_SelectedIndexChanged(null, null);
+                Groupes_listBox_SelectedIndexChanged(null, null);
+                RemplirDataGridViewParGroupe((int)groupes_listBox.SelectedValue);
+            }
+            else if (remplirPar == "formateur")
+            {
+                Groupes_listBox_SelectedIndexChanged(null, null);
+                Formateurs_listBox_SelectedIndexChanged(null, null);
+                RemplirDataGridViewParFormateur((int)formateurs_listBox.SelectedValue);
             }
         }
 
@@ -263,18 +268,7 @@ namespace Gestion_emploi
                         MessageBox.Show("nombre d'heures ratées modifié pour " + counter.ToString() + " affectation");
                     }
 
-                    if (remplirPar == "groupe")
-                    {
-                        Formateurs_listBox_SelectedIndexChanged(null, null);
-                        Groupes_listBox_SelectedIndexChanged(null, null);
-                        RemplirDataGridViewParGroupe((int)groupes_listBox.SelectedValue);
-                    }
-                    else if (remplirPar == "formateur")
-                    {
-                        Groupes_listBox_SelectedIndexChanged(null, null);
-                        Formateurs_listBox_SelectedIndexChanged(null, null);
-                        RemplirDataGridViewParFormateur((int)formateurs_listBox.SelectedValue);
-                    }
+                    RemplirDataGridViewAccordingly();
                 }
             }
         }
@@ -307,18 +301,7 @@ namespace Gestion_emploi
                         MessageBox.Show("date debut modifié pour " + counter.ToString() + " affectation");
                     }
 
-                    if (remplirPar == "groupe")
-                    {
-                        Formateurs_listBox_SelectedIndexChanged(null, null);
-                        Groupes_listBox_SelectedIndexChanged(null, null);
-                        RemplirDataGridViewParGroupe((int)groupes_listBox.SelectedValue);
-                    }
-                    else if (remplirPar == "formateur")
-                    {
-                        Groupes_listBox_SelectedIndexChanged(null, null);
-                        Formateurs_listBox_SelectedIndexChanged(null, null);
-                        RemplirDataGridViewParFormateur((int)formateurs_listBox.SelectedValue);
-                    }
+                    RemplirDataGridViewAccordingly();
                 }
             }
         }
@@ -335,7 +318,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT m.mass_horaire, a.nb_heures_rates, a.nb_heures, a.date_debut FROM affectation a JOIN module m ON a.id_module = m.id WHERE a.id = @id";
+                    command.CommandText = "SELECT m.mass_horaire, a.nb_heures_rates, a.nb_heures_semaine, a.date_debut FROM affectation a JOIN module m ON a.id_module = m.id WHERE a.id = @id";
                     command.Parameters.AddWithValue("@id", id_affectation);
                     MySqlDataReader reader = command.ExecuteReader();
                     if (reader.Read())
@@ -390,18 +373,68 @@ namespace Gestion_emploi
         {
             UpdateDateFin((int)seances_dataGridView.CurrentRow.Cells["id"].Value);
 
-            if (remplirPar == "groupe")
+            RemplirDataGridViewAccordingly();
+        }
+
+        private void MajTousLesAvancementsFormateur_button_Click(object sender, EventArgs e)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                Formateurs_listBox_SelectedIndexChanged(null, null);
-                Groupes_listBox_SelectedIndexChanged(null, null);
-                RemplirDataGridViewParGroupe((int)groupes_listBox.SelectedValue);
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "SELECT id FROM affectation WHERE id_formateur = @id_formateur";
+                    command.Parameters.AddWithValue("@id_formateur", formateurs_listBox.SelectedValue);
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        UpdateDateFin((int)reader[0]);
+                    }
+                }
             }
-            else if (remplirPar == "formateur")
+
+            RemplirDataGridViewAccordingly();
+        }
+
+        private void MajTousLesAvancementsGroupe_button_Click(object sender, EventArgs e)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                Groupes_listBox_SelectedIndexChanged(null, null);
-                Formateurs_listBox_SelectedIndexChanged(null, null);
-                RemplirDataGridViewParFormateur((int)formateurs_listBox.SelectedValue);
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "SELECT id FROM affectation WHERE id_groupe = @id_groupe";
+                    command.Parameters.AddWithValue("@id_groupe", groupes_listBox.SelectedValue);
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        UpdateDateFin((int)reader[0]);
+                    }
+                }
             }
+
+            RemplirDataGridViewAccordingly();
+        }
+
+        private void MajTousLesAvancements_button_Click(object sender, EventArgs e)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "SELECT id FROM affectation";
+                    MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        UpdateDateFin((int)reader[0]);
+                    }
+                }
+            }
+
+            RemplirDataGridViewAccordingly();
         }
     }
 }

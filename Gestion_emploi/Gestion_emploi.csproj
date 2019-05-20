@@ -72,6 +72,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="emplois_extract.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="emplois_extract.Designer.cs">
+      <DependentUpon>emplois_extract.cs</DependentUpon>
+    </Compile>
     <Compile Include="Emploi_du_temps.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +146,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="emplois_extract.resx">
+      <DependentUpon>emplois_extract.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Emploi_du_temps.resx">
       <DependentUpon>Emploi_du_temps.cs</DependentUpon>
     </EmbeddedResource>

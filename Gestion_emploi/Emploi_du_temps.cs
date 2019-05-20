@@ -155,6 +155,9 @@ namespace Gestion_emploi
                         int id_seance = emploi_dataGridView.CurrentCell.ColumnIndex;
                         string salle = emploi_dataGridView.CurrentCell.Value.ToString().Split('|')[2].ToString().Trim();
                         affectation_id = GetAffectationId(id_jour, id_seance, salle);
+                        affectation_id = GetAffectationId(id_jour, id_seance, salle);
+                        affectation_id = GetAffectationId(id_jour, id_seance, salle);
+                        affectation_id = GetAffectationId(id_jour, id_seance, salle);
 
                         command.Parameters.AddWithValue("@id_affectation", affectation_id);
                         command.Parameters.AddWithValue("@id_jour", id_jour);
@@ -507,6 +510,12 @@ namespace Gestion_emploi
                     RemplirEmploi();
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            emplois_extract ex = new emplois_extract();
+            ex.Show();
         }
     }
 }

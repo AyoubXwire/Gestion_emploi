@@ -44,12 +44,13 @@
             this.module = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.formateur = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.date_debut = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.date_fin = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.salles_listBox = new System.Windows.Forms.ListBox();
             this.ajouter_button = new System.Windows.Forms.Button();
             this.supprimer_button = new System.Windows.Forms.Button();
             this.reset_button = new System.Windows.Forms.Button();
-            this.date_fin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.emploi_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.affectations_dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -190,6 +191,12 @@
             this.date_debut.Name = "date_debut";
             this.date_debut.ReadOnly = true;
             // 
+            // date_fin
+            // 
+            this.date_fin.HeaderText = "date_fin";
+            this.date_fin.Name = "date_fin";
+            this.date_fin.ReadOnly = true;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -238,17 +245,22 @@
             this.reset_button.UseVisualStyleBackColor = true;
             this.reset_button.Click += new System.EventHandler(this.Reset_button_Click);
             // 
-            // date_fin
+            // button1
             // 
-            this.date_fin.HeaderText = "date_fin";
-            this.date_fin.Name = "date_fin";
-            this.date_fin.ReadOnly = true;
+            this.button1.Location = new System.Drawing.Point(1037, 465);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(121, 78);
+            this.button1.TabIndex = 74;
+            this.button1.Text = "Tous(Extrait)";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Emploi_du_temps
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1170, 661);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.reset_button);
             this.Controls.Add(this.supprimer_button);
             this.Controls.Add(this.ajouter_button);
@@ -292,5 +304,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance4;
         private System.Windows.Forms.DataGridViewTextBoxColumn date_debut;
         private System.Windows.Forms.DataGridViewTextBoxColumn date_fin;
+        private System.Windows.Forms.Button button1;
     }
 }

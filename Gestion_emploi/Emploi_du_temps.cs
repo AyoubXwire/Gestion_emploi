@@ -3,7 +3,6 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using System.Drawing;
-using System.Collections.Generic;
 
 namespace Gestion_emploi
 {
@@ -154,9 +153,6 @@ namespace Gestion_emploi
                         int id_jour = ((int)emploi_dataGridView.CurrentCell.RowIndex) + 1;
                         int id_seance = emploi_dataGridView.CurrentCell.ColumnIndex;
                         string salle = emploi_dataGridView.CurrentCell.Value.ToString().Split('|')[2].ToString().Trim();
-                        affectation_id = GetAffectationId(id_jour, id_seance, salle);
-                        affectation_id = GetAffectationId(id_jour, id_seance, salle);
-                        affectation_id = GetAffectationId(id_jour, id_seance, salle);
                         affectation_id = GetAffectationId(id_jour, id_seance, salle);
 
                         command.Parameters.AddWithValue("@id_affectation", affectation_id);
@@ -512,9 +508,9 @@ namespace Gestion_emploi
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Exporter_button_Click(object sender, EventArgs e)
         {
-            emplois_extract ex = new emplois_extract();
+            Emploi_extract ex = new Emploi_extract();
             ex.Show();
         }
     }

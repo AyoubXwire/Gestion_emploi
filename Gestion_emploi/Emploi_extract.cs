@@ -12,27 +12,19 @@ using System.Windows.Forms;
 
 namespace Gestion_emploi
 {
-    public partial class emplois_extract : Form
+    public partial class Emploi_extract : Form
     {
-        public emplois_extract()
+        readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
+
+        public Emploi_extract()
         {
             InitializeComponent();
         }
-        readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
 
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void emplois_extract_Load(object sender, EventArgs e)
+        private void Emplois_extract_Load(object sender, EventArgs e)
         {
             RemplirListBoxes();
-
-
         }
-
 
         private void RemplirEmploi(string groupe)
         {
@@ -44,7 +36,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT e.chaine, id_jour, id_seance , id_affectation FROM emploi e JOIN affectation a ON e.id_affectation = a.id JOIN module m ON m.id = a.id_module WHERE id_groupe = @id_groupe";
+                    command.CommandText = "SELECT e.chaine, id_jour, id_seance, id_affectation FROM emploi e JOIN affectation a ON e.id_affectation = a.id JOIN module m ON m.id = a.id_module WHERE id_groupe = @id_groupe";
                     command.Parameters.AddWithValue("@id_groupe", groupe);
 
                     MySqlDataReader reader = command.ExecuteReader();
@@ -149,6 +141,7 @@ namespace Gestion_emploi
                 }
             }
         }
+
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             RemplirGroup();
@@ -156,7 +149,7 @@ namespace Gestion_emploi
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(listBox2.SelectedIndex>0)
+            
             RemplirEmploi(listBox2.SelectedValue.ToString());
         }
 
@@ -164,7 +157,6 @@ namespace Gestion_emploi
         {
             if (emploi_dataGridView.Rows.Count > 0)
             {
-
                 Microsoft.Office.Interop.Excel.Application xcelApp = new Microsoft.Office.Interop.Excel.Application();
                 xcelApp.Application.Workbooks.Add(Type.Missing);
 
@@ -172,8 +164,6 @@ namespace Gestion_emploi
                 {
                     xcelApp.Cells[1, i] = emploi_dataGridView.Columns[i - 1].HeaderText;
                 }
-
-
 
                 for (int i = 0; i < emploi_dataGridView.Rows.Count; i++)
                 {
@@ -185,6 +175,7 @@ namespace Gestion_emploi
                             xcelApp.Cells[i + 2, j + 1] = emploi_dataGridView.Rows[i].Cells[j].Value.ToString();
                     }
                 }
+
                 xcelApp.Columns.AutoFit();
                 xcelApp.Visible = true;
             }

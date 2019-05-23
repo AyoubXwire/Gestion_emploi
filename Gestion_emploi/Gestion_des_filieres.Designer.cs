@@ -36,7 +36,6 @@
             this.supprimer_button = new System.Windows.Forms.Button();
             this.modifier_button = new System.Windows.Forms.Button();
             this.ajouter_button = new System.Windows.Forms.Button();
-            this.vider_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.filieres_dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,7 +94,7 @@
             // 
             // supprimer_button
             // 
-            this.supprimer_button.Location = new System.Drawing.Point(241, 164);
+            this.supprimer_button.Location = new System.Drawing.Point(215, 164);
             this.supprimer_button.Name = "supprimer_button";
             this.supprimer_button.Size = new System.Drawing.Size(72, 42);
             this.supprimer_button.TabIndex = 46;
@@ -105,7 +104,7 @@
             // 
             // modifier_button
             // 
-            this.modifier_button.Location = new System.Drawing.Point(163, 164);
+            this.modifier_button.Location = new System.Drawing.Point(137, 164);
             this.modifier_button.Name = "modifier_button";
             this.modifier_button.Size = new System.Drawing.Size(72, 42);
             this.modifier_button.TabIndex = 45;
@@ -115,23 +114,13 @@
             // 
             // ajouter_button
             // 
-            this.ajouter_button.Location = new System.Drawing.Point(85, 164);
+            this.ajouter_button.Location = new System.Drawing.Point(59, 164);
             this.ajouter_button.Name = "ajouter_button";
             this.ajouter_button.Size = new System.Drawing.Size(72, 42);
             this.ajouter_button.TabIndex = 44;
             this.ajouter_button.Text = "Ajouter";
             this.ajouter_button.UseVisualStyleBackColor = true;
             this.ajouter_button.Click += new System.EventHandler(this.Ajouter_button_Click);
-            // 
-            // vider_button
-            // 
-            this.vider_button.Location = new System.Drawing.Point(7, 164);
-            this.vider_button.Name = "vider_button";
-            this.vider_button.Size = new System.Drawing.Size(72, 42);
-            this.vider_button.TabIndex = 43;
-            this.vider_button.Text = "Vider";
-            this.vider_button.UseVisualStyleBackColor = true;
-            this.vider_button.Click += new System.EventHandler(this.Vider_button_Click);
             // 
             // Gestion_des_filieres
             // 
@@ -143,7 +132,6 @@
             this.Controls.Add(this.supprimer_button);
             this.Controls.Add(this.modifier_button);
             this.Controls.Add(this.ajouter_button);
-            this.Controls.Add(this.vider_button);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.secteur_comboBox);
             this.Controls.Add(this.filieres_dataGridView);
@@ -167,6 +155,5 @@
         private System.Windows.Forms.Button supprimer_button;
         private System.Windows.Forms.Button modifier_button;
         private System.Windows.Forms.Button ajouter_button;
-        private System.Windows.Forms.Button vider_button;
     }
 }

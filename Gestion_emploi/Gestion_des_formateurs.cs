@@ -7,7 +7,7 @@ namespace Gestion_emploi
 {
     public partial class Gestion_des_formateurs : Form
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
+        readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
 
         public Gestion_des_formateurs()
         {
@@ -16,8 +16,6 @@ namespace Gestion_emploi
 
         private void Gestion_des_formateurs_Load(object sender, EventArgs e)
         {
-            RemplirDataGridView();
-
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -36,6 +34,8 @@ namespace Gestion_emploi
                     }
                 }
             }
+
+            RemplirDataGridView();
         }
 
         private void Nouveau_button_Click(object sender, EventArgs e)
@@ -47,80 +47,65 @@ namespace Gestion_emploi
 
         private void Ajouter_button_Click(object sender, EventArgs e)
         {
-            string confirmationMessage = nom_textBox.Text + " " + prenom_textBox.Text + " sera ajouté";
-            if (MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    connection.Open();
-                    using (MySqlCommand command = new MySqlCommand("", connection))
-                    {
-                        command.CommandText = "INSERT INTO formateur(nom, prenom, id_metier) VALUES(@nom, @prenom, @id_metier)";
-                        command.Parameters.AddWithValue("@nom", nom_textBox.Text);
-                        command.Parameters.AddWithValue("@prenom", prenom_textBox.Text);
-                        command.Parameters.AddWithValue("@id_metier", metier_comboBox.SelectedValue);
+                    command.CommandText = "INSERT INTO formateur(nom, prenom, id_metier) VALUES(@nom, @prenom, @id_metier)";
+                    command.Parameters.AddWithValue("@nom", nom_textBox.Text);
+                    command.Parameters.AddWithValue("@prenom", prenom_textBox.Text);
+                    command.Parameters.AddWithValue("@id_metier", metier_comboBox.SelectedValue);
 
-                        if (command.ExecuteNonQuery() > 0)
-                        {
-                            MessageBox.Show("Formateur ajouté");
-                        }
-                        else
-                        {
-                            MessageBox.Show("erreur");
-                        }
+                    if (command.ExecuteNonQuery() > 0)
+                    {
+                        MessageBox.Show("Formateur ajouté");
+                    }
+                    else
+                    {
+                        MessageBox.Show("erreur");
                     }
                 }
-
-                RemplirDataGridView();
             }
+
+            RemplirDataGridView();
         }
 
         private void Modifier_button_Click(object sender, EventArgs e)
         {
-            string confirmationMessage = nom_textBox.Text + " " + prenom_textBox.Text + " sera modifié";
-            if (MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    connection.Open();
-                    using (MySqlCommand command = new MySqlCommand("", connection))
-                    {
-                        command.CommandText = "update formateur set nom = @nom , prenom = @prenom ,id_metier = @id_metier WHERE id = @id";
-                        command.Parameters.AddWithValue("@id", formateurs_dataGridView.CurrentRow.Cells["id"].Value);
-                        command.Parameters.AddWithValue("@nom", nom_textBox.Text);
-                        command.Parameters.AddWithValue("@prenom", prenom_textBox.Text);
-                        command.Parameters.AddWithValue("@id_metier", int.Parse(metier_comboBox.SelectedValue.ToString()));
+                    command.CommandText = "update formateur set nom = @nom , prenom = @prenom ,id_metier = @id_metier WHERE id = @id";
+                    command.Parameters.AddWithValue("@id", formateurs_dataGridView.CurrentRow.Cells["id"].Value);
+                    command.Parameters.AddWithValue("@nom", nom_textBox.Text);
+                    command.Parameters.AddWithValue("@prenom", prenom_textBox.Text);
+                    command.Parameters.AddWithValue("@id_metier", int.Parse(metier_comboBox.SelectedValue.ToString()));
 
-                        if (command.ExecuteNonQuery() > 0)
-                        {
-                            MessageBox.Show("Formateur modifié");
-                        }
-                        else
-                        {
-                            MessageBox.Show("erreur");
-                        }
+                    if (command.ExecuteNonQuery() > 0)
+                    {
+                        MessageBox.Show("Formateur modifié");
+                    }
+                    else
+                    {
+                        MessageBox.Show("erreur");
                     }
                 }
-
-                RemplirDataGridView();
             }
+
+            RemplirDataGridView();
         }
 
         private void Supprimer_button_Click(object sender, EventArgs e)
         {
-            string confirmationMessage = nom_textBox.Text + " " + prenom_textBox.Text + " sera supprimé";
-            if (MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+            string confirmationMessage = "Supprimer un formateur cause la suppression de tous ses affectations";
+            if (MessageBox.Show(confirmationMessage, "Voulez-vous continuer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    // Remove all his affectations
                     connection.Open();
-                    using (MySqlCommand command = new MySqlCommand("", connection))
-                    {
-                        command.CommandText = "DELETE FROM affectation WHERE id_formateur = @id_formateur";
-                        command.Parameters.AddWithValue("@id_formateur", formateurs_dataGridView.CurrentRow.Cells["id"].Value);
-                        command.ExecuteNonQuery();
-                    }
 
                     // Remove formateur
                     using (MySqlCommand command = new MySqlCommand("", connection))

@@ -7,7 +7,7 @@ namespace Gestion_emploi
 {
     public partial class Gestion_des_salles : Form
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
+        readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
 
         public Gestion_des_salles()
         {
@@ -37,12 +37,6 @@ namespace Gestion_emploi
                 }
             }
 
-            type_comboBox.Text = "";
-        }
-
-        private void Vider_button_Click(object sender, EventArgs e)
-        {
-            nom_textBox.Clear();
             type_comboBox.Text = "";
         }
 
@@ -107,8 +101,8 @@ namespace Gestion_emploi
 
         private void Supprimer_button_Click(object sender, EventArgs e)
         {
-            string confirmationMessage = nom_textBox.Text + " sera supprimé";
-            if (MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+            string confirmationMessage = "Supprimer une salle cause la suppression de tous ses seances dans l'emploi du temps";
+            if (MessageBox.Show(confirmationMessage, "Voulez-vous continuer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {

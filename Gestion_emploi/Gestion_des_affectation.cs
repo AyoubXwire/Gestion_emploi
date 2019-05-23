@@ -177,17 +177,10 @@ namespace Gestion_emploi
                             commandOutput += command.ExecuteNonQuery();
                         }
                     }
-
-                    // Update nb_heures_total of the groupe
-                    UpdateNombreHeuresDuGroupe((int)groupe_listBox.SelectedValue);
                     groupe_listBox.SetSelected(i, false);
                 }
             }
             isIndexChangedBlocked = false;
-
-            // Update nb_heures_total of the formateur
-            if (formateur_listBox.SelectedValue !=null)
-            UpdateNombreHeuresDuFormateur((int)formateur_listBox.SelectedValue);
 
             MessageBox.Show(commandOutput.ToString() + " affectations ajoutées");
             RemplirListBoxesDeFiltre();
@@ -201,13 +194,9 @@ namespace Gestion_emploi
 
         private void Supprimer_button_Click(object sender, EventArgs e)
         {
-            // Get id of the selected affectation in affectations_dataGridView
-            // Delete the affectation from db by its id
             int commandOutput = 0;
             foreach (DataGridViewRow row in affectations_dataGridView.SelectedRows)
             {
-                int id_formateur = (int)row.Cells["id_formateur"].Value;
-                int id_groupe = (int)row.Cells["id_groupe"].Value;
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
@@ -219,10 +208,6 @@ namespace Gestion_emploi
                         commandOutput += command.ExecuteNonQuery();
                     }
                 }
-
-                // Update nb_heures of the formateur & groupe
-                UpdateNombreHeuresDuFormateur(id_formateur);
-                UpdateNombreHeuresDuGroupe(id_groupe);
             }
 
             MessageBox.Show(commandOutput.ToString() + " affectations supprimées");
@@ -267,34 +252,6 @@ namespace Gestion_emploi
         private void Filtre_checkBox_CheckedChanged(object sender, EventArgs e)
         {
             Module_listBox_SelectedIndexChanged(null, null);
-        }
-
-        private void UpdateNombreHeuresDuFormateur(int id_formateur)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
-                {
-                    command.CommandText = "UPDATE formateur SET nb_heures_total=(SELECT SUM(mass_horaire) FROM module m JOIN affectation a ON m.id=a.id_module WHERE id_formateur=@id_formateur) WHERE id=@id_formateur";
-                    command.Parameters.AddWithValue("@id_formateur", id_formateur);
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
-
-        private void UpdateNombreHeuresDuGroupe(int id_groupe)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
-                {
-                    command.CommandText = "UPDATE groupe SET nb_heures_total=(SELECT SUM(mass_horaire) FROM module m JOIN affectation a ON m.id=a.id_module WHERE id_groupe=@id_groupe) WHERE id=@id_groupe";
-                    command.Parameters.AddWithValue("@id_groupe", id_groupe);
-                    command.ExecuteNonQuery();
-                }
-            }
         }
 
         private void RemplirListBoxesDeFiltre()

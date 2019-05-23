@@ -35,7 +35,6 @@
             this.supprimer_button = new System.Windows.Forms.Button();
             this.modifier_button = new System.Windows.Forms.Button();
             this.ajouter_button = new System.Windows.Forms.Button();
-            this.vider_button = new System.Windows.Forms.Button();
             this.salles_dataGridView = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.salles_dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -76,7 +75,7 @@
             // 
             // supprimer_button
             // 
-            this.supprimer_button.Location = new System.Drawing.Point(250, 144);
+            this.supprimer_button.Location = new System.Drawing.Point(210, 124);
             this.supprimer_button.Name = "supprimer_button";
             this.supprimer_button.Size = new System.Drawing.Size(72, 42);
             this.supprimer_button.TabIndex = 34;
@@ -86,7 +85,7 @@
             // 
             // modifier_button
             // 
-            this.modifier_button.Location = new System.Drawing.Point(172, 144);
+            this.modifier_button.Location = new System.Drawing.Point(132, 124);
             this.modifier_button.Name = "modifier_button";
             this.modifier_button.Size = new System.Drawing.Size(72, 42);
             this.modifier_button.TabIndex = 33;
@@ -96,23 +95,13 @@
             // 
             // ajouter_button
             // 
-            this.ajouter_button.Location = new System.Drawing.Point(94, 144);
+            this.ajouter_button.Location = new System.Drawing.Point(54, 124);
             this.ajouter_button.Name = "ajouter_button";
             this.ajouter_button.Size = new System.Drawing.Size(72, 42);
             this.ajouter_button.TabIndex = 32;
             this.ajouter_button.Text = "Ajouter";
             this.ajouter_button.UseVisualStyleBackColor = true;
             this.ajouter_button.Click += new System.EventHandler(this.Ajouter_button_Click);
-            // 
-            // vider_button
-            // 
-            this.vider_button.Location = new System.Drawing.Point(16, 144);
-            this.vider_button.Name = "vider_button";
-            this.vider_button.Size = new System.Drawing.Size(72, 42);
-            this.vider_button.TabIndex = 31;
-            this.vider_button.Text = "Vider";
-            this.vider_button.UseVisualStyleBackColor = true;
-            this.vider_button.Click += new System.EventHandler(this.Vider_button_Click);
             // 
             // salles_dataGridView
             // 
@@ -129,7 +118,7 @@
             this.salles_dataGridView.Name = "salles_dataGridView";
             this.salles_dataGridView.ReadOnly = true;
             this.salles_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.salles_dataGridView.Size = new System.Drawing.Size(456, 330);
+            this.salles_dataGridView.Size = new System.Drawing.Size(456, 218);
             this.salles_dataGridView.TabIndex = 30;
             this.salles_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Salles_dataGridView_CellClick);
             // 
@@ -137,7 +126,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 330);
+            this.ClientSize = new System.Drawing.Size(800, 218);
             this.Controls.Add(this.type_comboBox);
             this.Controls.Add(this.nom_textBox);
             this.Controls.Add(this.label4);
@@ -145,7 +134,6 @@
             this.Controls.Add(this.supprimer_button);
             this.Controls.Add(this.modifier_button);
             this.Controls.Add(this.ajouter_button);
-            this.Controls.Add(this.vider_button);
             this.Controls.Add(this.salles_dataGridView);
             this.Name = "Gestion_des_salles";
             this.Text = "Gestion_des_salles";
@@ -165,7 +153,6 @@
         private System.Windows.Forms.Button supprimer_button;
         private System.Windows.Forms.Button modifier_button;
         private System.Windows.Forms.Button ajouter_button;
-        private System.Windows.Forms.Button vider_button;
         private System.Windows.Forms.DataGridView salles_dataGridView;
     }
 }

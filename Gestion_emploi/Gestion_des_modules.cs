@@ -7,7 +7,7 @@ namespace Gestion_emploi
 {
     public partial class Gestion_des_modules : Form
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
+        readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
 
         public Gestion_des_modules()
         {
@@ -16,8 +16,6 @@ namespace Gestion_emploi
 
         private void Gestion_des_modules_Load(object sender, EventArgs e)
         {
-            RemplirDataGridView();
-
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -51,6 +49,8 @@ namespace Gestion_emploi
                     }
                 }
             }
+
+            RemplirDataGridView();
         }
 
         private void Module_dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -103,7 +103,6 @@ namespace Gestion_emploi
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
-                // Update the module
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "update module set nom = @nom , niveau = @niveau , mass_horaire = @mass_horaire ,id_metier = @id_metier, id_filiere = @id_filiere WHERE id = @id";
@@ -130,35 +129,30 @@ namespace Gestion_emploi
 
         private void Supprimer_button_Click(object sender, EventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            string confirmationMessage = "Supprimer un module cause la suppression de tous ses affectations";
+            if (MessageBox.Show(confirmationMessage, "Voulez-vous continuer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
             {
-                connection.Open();
-                // Remove all its affectations
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    command.CommandText = "DELETE FROM affectation WHERE id_module = @id_module";
-                    command.Parameters.AddWithValue("@id_module", module_dataGridView.CurrentRow.Cells["id"].Value);
-                    command.ExecuteNonQuery();
-                }
-
-                // Remove the module
-                using (MySqlCommand command = new MySqlCommand("", connection))
-                {
-                    command.CommandText = "DELETE FROM module WHERE id = @id";
-                    command.Parameters.AddWithValue("@id", module_dataGridView.CurrentRow.Cells["id"].Value);
-
-                    if (command.ExecuteNonQuery() > 0)
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand("", connection))
                     {
-                        MessageBox.Show("le module a été bien supprimé");
-                    }
-                    else
-                    {
-                        MessageBox.Show("erreur");
+                        command.CommandText = "DELETE FROM module WHERE id = @id";
+                        command.Parameters.AddWithValue("@id", module_dataGridView.CurrentRow.Cells["id"].Value);
+
+                        if (command.ExecuteNonQuery() > 0)
+                        {
+                            MessageBox.Show("le module a été bien supprimé");
+                        }
+                        else
+                        {
+                            MessageBox.Show("erreur");
+                        }
                     }
                 }
+
+                RemplirDataGridView();
             }
-
-            RemplirDataGridView();
         }
 
         private void RemplirDataGridView()

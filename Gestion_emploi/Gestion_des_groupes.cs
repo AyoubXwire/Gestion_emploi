@@ -7,8 +7,8 @@ namespace Gestion_emploi
 {
     public partial class Gestion_des_groupes : Form
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
-        string[] lettres = new string[] { "A", "B", "C", "D", "E", "F" };
+        readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
+        readonly string[] lettres = new string[] { "A", "B", "C", "D", "E", "F" };
 
         public Gestion_des_groupes()
         {
@@ -17,9 +17,6 @@ namespace Gestion_emploi
 
         private void Gestion_des_groupes_Load(object sender, EventArgs e)
         {
-            RemplirDataGridView();
-
-            // Remplir Filiere_comboBox
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -38,6 +35,8 @@ namespace Gestion_emploi
                     }
                 }
             }
+
+            RemplirDataGridView();
         }
 
         private void Groupes_dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -51,7 +50,7 @@ namespace Gestion_emploi
         {
             // Get the count of the specified groupe from the db
             int count;
-            int wanted = int.Parse(nombreDeGroupes_numericUpDown.Value.ToString());
+            int targetCount = int.Parse(nombreDeGroupes_numericUpDown.Value.ToString());
             int commandOutput = 0;
             
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -73,7 +72,7 @@ namespace Gestion_emploi
                     connection.Open();
                     using (MySqlCommand command = new MySqlCommand("", connection))
                     {
-                        for (int i = 0; i < wanted; i++)
+                        for (int i = 0; i < targetCount; i++)
                         {
                             command.CommandText = "INSERT INTO groupe (nom, niveau, id_filiere, chaine) VALUES (@nom, @niveau, @id_filiere, @chaine)";
                             command.Parameters.AddWithValue("@nom", lettres[i]);
@@ -86,53 +85,41 @@ namespace Gestion_emploi
                         }
                     }
                 }
+
                 MessageBox.Show(commandOutput.ToString() + " groupes ajoutés");
             }
-            else if (count > wanted) // Delete the additional groupes
+            else if (count > targetCount) // Delete the additional groupes
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                string confirmationMessage = "Supprimer une filiere cause la suppression de tous ses groupes, modules et affectations";
+                if (MessageBox.Show(confirmationMessage, "Voulez-vous continuer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                 {
-                    connection.Open();
-                    for (int i = wanted; i < count; i++)
+                    using (MySqlConnection connection = new MySqlConnection(connectionString))
                     {
-                        int id_groupe;
-                        // Get the groupe's id
-                        using (MySqlCommand command = new MySqlCommand("", connection))
+                        connection.Open();
+                        for (int i = targetCount; i < count; i++)
                         {
-                            command.CommandText = "SELECT id FROM groupe WHERE chaine=@chaine";
-                            command.Parameters.AddWithValue("@chaine", filiere_comboBox.Text + niveau_numericUpDown.Value.ToString() + lettres[i]);
-                            id_groupe = (int)command.ExecuteScalar();
-                        }
+                            using (MySqlCommand command = new MySqlCommand("", connection))
+                            {
+                                command.CommandText = "DELETE FROM groupe WHERE chaine=@chaine";
+                                command.Parameters.AddWithValue("@chaine", filiere_comboBox.Text + niveau_numericUpDown.Value.ToString() + lettres[i]);
 
-                        // Remove all its affectations
-                        using (MySqlCommand command = new MySqlCommand("", connection))
-                        {
-                            command.CommandText = "DELETE FROM affectation WHERE id_groupe = @id_groupe";
-                            command.Parameters.AddWithValue("@id_groupe", id_groupe);
-                            command.ExecuteNonQuery();
-                        }
-
-                        // Remove the groupe
-                        using (MySqlCommand command = new MySqlCommand("", connection))
-                        {
-                            command.CommandText = "DELETE FROM groupe WHERE chaine=@chaine";
-                            command.Parameters.AddWithValue("@chaine", filiere_comboBox.Text + niveau_numericUpDown.Value.ToString() + lettres[i]);
-
-                            commandOutput += command.ExecuteNonQuery();
-                            command.Parameters.Clear();
+                                commandOutput += command.ExecuteNonQuery();
+                                command.Parameters.Clear();
+                            }
                         }
                     }
+
+                    MessageBox.Show(commandOutput.ToString() + " groupes supprimés");
                 }
-                MessageBox.Show(commandOutput.ToString() + " groupes supprimés");
             }
-            else if (count < wanted) // Insert the missing groupes
+            else if (count < targetCount) // Insert the missing groupes
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
                     using (MySqlCommand command = new MySqlCommand("", connection))
                     {
-                        for (int i = count; i < wanted; i++)
+                        for (int i = count; i < targetCount; i++)
                         {
                             command.CommandText = "INSERT INTO groupe (nom, niveau, id_filiere, chaine) VALUES (@nom, @niveau, @id_filiere, @chaine)";
                             command.Parameters.AddWithValue("@nom", lettres[i]);
@@ -145,6 +132,7 @@ namespace Gestion_emploi
                         }
                     }
                 }
+
                 MessageBox.Show(commandOutput.ToString() + " groupes ajoutés");
             }
 

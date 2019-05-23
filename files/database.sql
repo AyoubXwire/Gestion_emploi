@@ -14,7 +14,7 @@ create table filiere(
     nom varchar(255) NOT NULL,
     id_secteur int NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_secteur) REFERENCES secteur(id)
+    FOREIGN KEY (id_secteur) REFERENCES secteur(id) ON DELETE CASCADE
 );
 
 create table type_salle(
@@ -28,7 +28,7 @@ create table salle(
     nom varchar(255) NOT NULL,
     id_type_salle int NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_type_salle) REFERENCES type_salle(id)
+    FOREIGN KEY (id_type_salle) REFERENCES type_salle(id) ON DELETE CASCADE
 );
 
 create table metier(
@@ -56,7 +56,7 @@ create table formateur(
     nb_heures_total int default 0,
     id_metier int NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_metier) REFERENCES metier(id)
+    FOREIGN KEY (id_metier) REFERENCES metier(id) ON DELETE CASCADE
 );
 
 create table groupe(
@@ -67,7 +67,7 @@ create table groupe(
     chaine varchar(255) NOT NULL,
     id_filiere int NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_filiere) REFERENCES filiere(id)
+    FOREIGN KEY (id_filiere) REFERENCES filiere(id) ON DELETE CASCADE
 );
 
 create table module(
@@ -78,8 +78,8 @@ create table module(
     id_metier int NOT NULL,
     id_filiere int NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_metier) REFERENCES metier(id),
-    FOREIGN KEY (id_filiere) REFERENCES filiere(id)
+    FOREIGN KEY (id_metier) REFERENCES metier(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_filiere) REFERENCES filiere(id) ON DELETE CASCADE
 );
 
 create table affectation(
@@ -95,9 +95,9 @@ create table affectation(
     nb_semaines int,
     nb_utilise int NOT NULL default 0,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_formateur) REFERENCES formateur(id),
-    FOREIGN KEY (id_module) REFERENCES module(id),
-    FOREIGN KEY (id_groupe) REFERENCES groupe(id)
+    FOREIGN KEY (id_formateur) REFERENCES formateur(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_module) REFERENCES module(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_groupe) REFERENCES groupe(id) ON DELETE CASCADE
 );
 
 create table emploi(
@@ -107,11 +107,73 @@ create table emploi(
 	id_salle int NOT NULL,
 	chaine varchar(255),
     PRIMARY KEY (id_jour, id_seance, id_salle),
-    FOREIGN KEY (id_affectation) REFERENCES affectation(id),
-    FOREIGN KEY (id_jour) REFERENCES jour(id),
-    FOREIGN KEY (id_seance) REFERENCES seance(id),
-    FOREIGN KEY (id_salle) REFERENCES salle(id)
+    FOREIGN KEY (id_affectation) REFERENCES affectation(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_jour) REFERENCES jour(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_seance) REFERENCES seance(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_salle) REFERENCES salle(id) ON DELETE CASCADE
 );
+
+-- create triggers
+DELIMITER $$
+CREATE TRIGGER delete_all_heures_total AFTER DELETE
+ON affectation FOR EACH ROW
+BEGIN
+	UPDATE formateur SET nb_heures_total = (SELECT IFNULL(SUM(mass_horaire), 0) FROM module m JOIN affectation a ON m.id=a.id_module WHERE a.id_formateur = OLD.id_formateur) WHERE id = OLD.id_formateur;
+	UPDATE groupe SET nb_heures_total = (SELECT IFNULL(SUM(mass_horaire), 0) FROM module m JOIN affectation a ON m.id=a.id_module WHERE a.id_groupe = OLD.id_groupe) WHERE id = OLD.id_groupe;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER insert_all_heures_total AFTER INSERT
+ON affectation FOR EACH ROW
+BEGIN
+	UPDATE formateur SET nb_heures_total = (SELECT IFNULL(SUM(mass_horaire), 0) FROM module m JOIN affectation a ON m.id=a.id_module WHERE a.id_formateur = NEW.id_formateur) WHERE id = NEW.id_formateur;
+	UPDATE groupe SET nb_heures_total = (SELECT IFNULL(SUM(mass_horaire), 0) FROM module m JOIN affectation a ON m.id=a.id_module WHERE a.id_groupe = NEW.id_groupe) WHERE id = NEW.id_groupe;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER formateur_heures_total AFTER DELETE
+ON formateur FOR EACH ROW
+BEGIN
+	UPDATE groupe g SET nb_heures_total=(SELECT IFNULL(SUM(mass_horaire), 0) FROM module m JOIN affectation a ON m.id=a.id_module WHERE a.id_groupe = g.id);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER groupe_heures_total AFTER DELETE
+ON groupe FOR EACH ROW
+BEGIN
+	UPDATE formateur f SET nb_heures_total=(SELECT IFNULL(SUM(mass_horaire), 0) FROM module m JOIN affectation a ON m.id=a.id_module WHERE a.id_formateur = f.id);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER module_heures_total AFTER DELETE
+ON module FOR EACH ROW
+BEGIN
+	UPDATE groupe g SET nb_heures_total=(SELECT IFNULL(SUM(mass_horaire), 0) FROM module m JOIN affectation a ON m.id=a.id_module WHERE a.id_groupe = g.id);
+	UPDATE formateur f SET nb_heures_total=(SELECT IFNULL(SUM(mass_horaire), 0) FROM module m JOIN affectation a ON m.id=a.id_module WHERE a.id_formateur = f.id);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER metier_heures_total AFTER DELETE
+ON metier FOR EACH ROW
+BEGIN
+	UPDATE groupe g SET nb_heures_total=(SELECT IFNULL(SUM(mass_horaire), 0) FROM module m JOIN affectation a ON m.id=a.id_module WHERE a.id_groupe = g.id);
+	UPDATE formateur f SET nb_heures_total=(SELECT IFNULL(SUM(mass_horaire), 0) FROM module m JOIN affectation a ON m.id=a.id_module WHERE a.id_formateur = f.id);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER filiere_heures_total AFTER DELETE
+ON filiere FOR EACH ROW
+BEGIN
+	UPDATE groupe g SET nb_heures_total=(SELECT IFNULL(SUM(mass_horaire), 0) FROM module m JOIN affectation a ON m.id=a.id_module WHERE a.id_groupe = g.id);
+	UPDATE formateur f SET nb_heures_total=(SELECT IFNULL(SUM(mass_horaire), 0) FROM module m JOIN affectation a ON m.id=a.id_module WHERE a.id_formateur = f.id);
+END$$
+DELIMITER ;
 
 -- insert in jour
 INSERT INTO jour(nom) VALUES('lundi');

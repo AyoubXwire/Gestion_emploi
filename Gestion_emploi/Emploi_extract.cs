@@ -155,6 +155,11 @@ namespace Gestion_emploi
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            
+        }
+
+        private void exporter_button_Click(object sender, EventArgs e)
+        {
             if (emploi_dataGridView.Rows.Count > 0)
             {
                 Microsoft.Office.Interop.Excel.Application xcelApp = new Microsoft.Office.Interop.Excel.Application();
@@ -179,6 +184,65 @@ namespace Gestion_emploi
                 xcelApp.Columns.AutoFit();
                 xcelApp.Visible = true;
             }
+        }
+
+        //check if the emploi is full with data
+        public bool IsFull()
+        {
+            bool Is = false;
+            foreach (DataGridViewRow row in emploi_dataGridView.Rows)
+            {
+                for (int i = 1; i < 5; i++)
+                {
+                    if (row.Cells[i].Value != null)
+                        Is = true;
+                }
+            }
+
+            return Is;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            listBox2.BeginUpdate();
+
+            for (int i = 0; i < listBox2.Items.Count; i++)
+            {
+                listBox2.SetSelected(i, true);
+
+
+                if (IsFull())
+                {
+                    Microsoft.Office.Interop.Excel.Application xcelApp = new Microsoft.Office.Interop.Excel.Application();
+                    xcelApp.Application.Workbooks.Add(Type.Missing);
+                    xcelApp.Columns.ColumnWidth = 100;
+
+
+                    for (int ii = 1; ii < emploi_dataGridView.Columns.Count + 1; ii++)
+                    {
+                        xcelApp.Cells[1, ii] = emploi_dataGridView.Columns[ii - 1].HeaderText;
+                    }
+
+                    for (int ii = 0; ii < emploi_dataGridView.Rows.Count; ii++)
+                    {
+                        for (int j = 0; j < 5; j++)
+                        {
+                            if (emploi_dataGridView.Rows[ii].Cells[j].Value == null)
+                                xcelApp.Cells[ii + 2, j + 1] = "";
+                            else
+                                xcelApp.Cells[ii + 2, j + 1] = emploi_dataGridView.Rows[ii].Cells[j].Value.ToString();
+                        }
+                    }
+
+                    xcelApp.Columns.AutoFit();
+                    xcelApp.Visible = true; 
+                }
+
+
+            }
+
+            listBox2.EndUpdate();
         }
     }
 }

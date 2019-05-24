@@ -51,6 +51,7 @@
             this.supprimer_button = new System.Windows.Forms.Button();
             this.reset_button = new System.Windows.Forms.Button();
             this.exporter_button = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.emploi_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.affectations_dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -210,9 +211,9 @@
             // salles_listBox
             // 
             this.salles_listBox.FormattingEnabled = true;
-            this.salles_listBox.Location = new System.Drawing.Point(12, 465);
+            this.salles_listBox.Location = new System.Drawing.Point(12, 478);
             this.salles_listBox.Name = "salles_listBox";
-            this.salles_listBox.Size = new System.Drawing.Size(191, 186);
+            this.salles_listBox.Size = new System.Drawing.Size(191, 173);
             this.salles_listBox.TabIndex = 65;
             // 
             // ajouter_button
@@ -255,11 +256,23 @@
             this.exporter_button.UseVisualStyleBackColor = true;
             this.exporter_button.Click += new System.EventHandler(this.Exporter_button_Click);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(12, 460);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(50, 17);
+            this.checkBox1.TabIndex = 75;
+            this.checkBox1.Text = "Tous";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // Emploi_du_temps
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1170, 661);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.exporter_button);
             this.Controls.Add(this.reset_button);
             this.Controls.Add(this.supprimer_button);
@@ -305,5 +318,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn date_debut;
         private System.Windows.Forms.DataGridViewTextBoxColumn date_fin;
         private System.Windows.Forms.Button exporter_button;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

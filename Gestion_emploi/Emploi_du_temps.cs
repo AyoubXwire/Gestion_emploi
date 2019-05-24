@@ -384,9 +384,57 @@ namespace Gestion_emploi
                         salles_listBox.DataSource = binder;
                     }
                 }
+
+
             }
         }
- 
+
+        public void RemplirSalleAll()
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                // Remplir salles_listBox
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "SELECT s.id, CONCAT(s.nom , ' (' , t.nom , ' )') as nom FROM salle s join type_salle t on s.id_type_salle = t.id";
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        salles_listBox.ValueMember = "id";
+                        salles_listBox.DisplayMember = "nom";
+                        salles_listBox.DataSource = binder;
+                    }
+                }
+            }
+        }
+
+        public void RemplirSalleSpecified(int jour , int seance)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                // Remplir salles_listBox
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "SELECT s.id, CONCAT(s.nom , ' (' , t.nom , ' )') as nom FROM salle s join type_salle t on s.id_type_salle = t.id where s.id NOT IN (select id_salle from emploi where id_jour = @jour and id_seance = @seance)";
+                    command.Parameters.AddWithValue("@jour", jour);
+                    command.Parameters.AddWithValue("@seance", seance);
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        salles_listBox.ValueMember = "id";
+                        salles_listBox.DisplayMember = "nom";
+                        salles_listBox.DataSource = binder;
+                    }
+                }
+            }
+        }
+
         // Check formateur availability
         public bool IsFormateurAvailable(int affectation , int jour , int seance)
         {            
@@ -470,6 +518,11 @@ namespace Gestion_emploi
                     catch { }
                 }
             }
+
+            int jourS = ((int)emploi_dataGridView.CurrentCell.RowIndex) + 1;
+            int seanceS = emploi_dataGridView.CurrentCell.ColumnIndex;
+
+            RemplirSalleSpecified(jourS, seanceS);
         }
 
         private void Affectations_dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -512,6 +565,12 @@ namespace Gestion_emploi
         {
             Emploi_extract ex = new Emploi_extract();
             ex.Show();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked != false)
+                RemplirSalleAll();
         }
     }
 }

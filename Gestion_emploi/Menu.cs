@@ -69,5 +69,16 @@ namespace Gestion_emploi
             Import i = new Import();
             i.Show();
         }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            Emploi_menu em = new Emploi_menu();
+            em.Show();
+        }
+
+        private void Menu_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -84,6 +84,24 @@
     <Compile Include="Emploi_du_temps.Designer.cs">
       <DependentUpon>Emploi_du_temps.cs</DependentUpon>
     </Compile>
+    <Compile Include="Emploi_Formateur.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Emploi_Formateur.Designer.cs">
+      <DependentUpon>Emploi_Formateur.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Emploi_menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Emploi_menu.Designer.cs">
+      <DependentUpon>Emploi_menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Emploi_Salle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Emploi_Salle.Designer.cs">
+      <DependentUpon>Emploi_Salle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gestion_des_affectation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +169,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Emploi_du_temps.resx">
       <DependentUpon>Emploi_du_temps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Emploi_Formateur.resx">
+      <DependentUpon>Emploi_Formateur.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Emploi_menu.resx">
+      <DependentUpon>Emploi_menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Emploi_Salle.resx">
+      <DependentUpon>Emploi_Salle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Gestion_des_affectation.resx">
       <DependentUpon>Gestion_des_affectation.cs</DependentUpon>

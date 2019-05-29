@@ -259,7 +259,6 @@ namespace Gestion_emploi
                             command.Parameters.AddWithValue("@id", (int)seances_dataGridView.Rows[i].Cells["id"].Value);
                             counter += command.ExecuteNonQuery();
 
-                            UpdateDateFin((int)seances_dataGridView.Rows[i].Cells["id"].Value);
                         }
                     }
 
@@ -439,6 +438,32 @@ namespace Gestion_emploi
             }
 
             RemplirDataGridViewAccordingly();
+        }
+
+        private void seances_dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+
+                    command.CommandText = "UPDATE affectation set avancement = @avancement where id = @id";
+
+                       
+                     command.Parameters.Clear();
+                     command.Parameters.AddWithValue("@avancement",float.Parse(numericUpDown1.Value.ToString()));
+                     command.Parameters.AddWithValue("@id", (int)seances_dataGridView.CurrentRow.Cells["id"].Value);
+                     command.ExecuteNonQuery();
+                    
+                    RemplirDataGridViewAccordingly();
+                }
+            }
         }
     }
 }

@@ -37,8 +37,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.nbHeuresGroupe_textBox = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.majTousLesAvancementsFormateur_button = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.majTousLesAvancementsGroupe_button = new System.Windows.Forms.Button();
             this.nbHeures_numericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.appliquerNbHeures_button = new System.Windows.Forms.Button();
@@ -54,8 +56,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.appliquerDateDebut_button = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.majTousLesAvancementsGroupe_button = new System.Windows.Forms.Button();
-            this.majTousLesAvancementsFormateur_button = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.seances_dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -64,6 +68,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nbHeuresRates_numericUpDown)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // seances_dataGridView
@@ -71,12 +77,13 @@
             this.seances_dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.seances_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.seances_dataGridView.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.seances_dataGridView.Location = new System.Drawing.Point(0, 291);
+            this.seances_dataGridView.Location = new System.Drawing.Point(0, 355);
             this.seances_dataGridView.Name = "seances_dataGridView";
             this.seances_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.seances_dataGridView.Size = new System.Drawing.Size(1105, 364);
+            this.seances_dataGridView.Size = new System.Drawing.Size(1105, 352);
             this.seances_dataGridView.TabIndex = 0;
             this.seances_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Seances_dataGridView_CellClick);
+            this.seances_dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.seances_dataGridView_CellContentClick);
             // 
             // label6
             // 
@@ -153,6 +160,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Formateurs";
             // 
+            // majTousLesAvancementsFormateur_button
+            // 
+            this.majTousLesAvancementsFormateur_button.Location = new System.Drawing.Point(6, 237);
+            this.majTousLesAvancementsFormateur_button.Name = "majTousLesAvancementsFormateur_button";
+            this.majTousLesAvancementsFormateur_button.Size = new System.Drawing.Size(227, 30);
+            this.majTousLesAvancementsFormateur_button.TabIndex = 100;
+            this.majTousLesAvancementsFormateur_button.Text = "MAJ tous les avancements du formateur";
+            this.majTousLesAvancementsFormateur_button.UseVisualStyleBackColor = true;
+            this.majTousLesAvancementsFormateur_button.Click += new System.EventHandler(this.MajTousLesAvancementsFormateur_button_Click);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label3);
@@ -175,6 +192,16 @@
             this.label3.Size = new System.Drawing.Size(150, 13);
             this.label3.TabIndex = 85;
             this.label3.Text = "Nombre d\'heures par semaine:";
+            // 
+            // majTousLesAvancementsGroupe_button
+            // 
+            this.majTousLesAvancementsGroupe_button.Location = new System.Drawing.Point(6, 237);
+            this.majTousLesAvancementsGroupe_button.Name = "majTousLesAvancementsGroupe_button";
+            this.majTousLesAvancementsGroupe_button.Size = new System.Drawing.Size(227, 30);
+            this.majTousLesAvancementsGroupe_button.TabIndex = 99;
+            this.majTousLesAvancementsGroupe_button.Text = "MAJ tous les avancements du groupe";
+            this.majTousLesAvancementsGroupe_button.UseVisualStyleBackColor = true;
+            this.majTousLesAvancementsGroupe_button.Click += new System.EventHandler(this.MajTousLesAvancementsGroupe_button_Click);
             // 
             // nbHeures_numericUpDown
             // 
@@ -340,31 +367,50 @@
             this.label5.Text = "* A noter que la semaine en cours est toujours exclus du calcule de l\'avancements" +
     "";
             // 
-            // majTousLesAvancementsGroupe_button
+            // groupBox6
             // 
-            this.majTousLesAvancementsGroupe_button.Location = new System.Drawing.Point(6, 237);
-            this.majTousLesAvancementsGroupe_button.Name = "majTousLesAvancementsGroupe_button";
-            this.majTousLesAvancementsGroupe_button.Size = new System.Drawing.Size(227, 30);
-            this.majTousLesAvancementsGroupe_button.TabIndex = 99;
-            this.majTousLesAvancementsGroupe_button.Text = "MAJ tous les avancements du groupe";
-            this.majTousLesAvancementsGroupe_button.UseVisualStyleBackColor = true;
-            this.majTousLesAvancementsGroupe_button.Click += new System.EventHandler(this.MajTousLesAvancementsGroupe_button_Click);
+            this.groupBox6.Controls.Add(this.numericUpDown1);
+            this.groupBox6.Controls.Add(this.label9);
+            this.groupBox6.Controls.Add(this.button1);
+            this.groupBox6.Location = new System.Drawing.Point(581, 291);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(508, 58);
+            this.groupBox6.TabIndex = 95;
+            this.groupBox6.TabStop = false;
             // 
-            // majTousLesAvancementsFormateur_button
+            // label9
             // 
-            this.majTousLesAvancementsFormateur_button.Location = new System.Drawing.Point(6, 237);
-            this.majTousLesAvancementsFormateur_button.Name = "majTousLesAvancementsFormateur_button";
-            this.majTousLesAvancementsFormateur_button.Size = new System.Drawing.Size(227, 30);
-            this.majTousLesAvancementsFormateur_button.TabIndex = 100;
-            this.majTousLesAvancementsFormateur_button.Text = "MAJ tous les avancements du formateur";
-            this.majTousLesAvancementsFormateur_button.UseVisualStyleBackColor = true;
-            this.majTousLesAvancementsFormateur_button.Click += new System.EventHandler(this.MajTousLesAvancementsFormateur_button_Click);
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 24);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(67, 13);
+            this.label9.TabIndex = 92;
+            this.label9.Text = "Avancement";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(312, 13);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(183, 31);
+            this.button1.TabIndex = 93;
+            this.button1.Text = "Appliquer";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.DecimalPlaces = 2;
+            this.numericUpDown1.Location = new System.Drawing.Point(166, 19);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 94;
             // 
             // Gestion_des_seances
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1105, 655);
+            this.ClientSize = new System.Drawing.Size(1105, 707);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
@@ -390,6 +436,9 @@
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -425,5 +474,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button majTousLesAvancementsGroupe_button;
         private System.Windows.Forms.Button majTousLesAvancementsFormateur_button;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
     }
 }

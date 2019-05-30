@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.emploi_dataGridView = new System.Windows.Forms.DataGridView();
             this.Jour = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Seance1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,7 +50,7 @@
             this.Seance2,
             this.Seance3,
             this.Seance4});
-            this.emploi_dataGridView.Location = new System.Drawing.Point(228, 14);
+            this.emploi_dataGridView.Location = new System.Drawing.Point(261, 82);
             this.emploi_dataGridView.MultiSelect = false;
             this.emploi_dataGridView.Name = "emploi_dataGridView";
             this.emploi_dataGridView.ReadOnly = true;
@@ -60,8 +60,8 @@
             // 
             // Jour
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.Jour.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.Jour.DefaultCellStyle = dataGridViewCellStyle1;
             this.Jour.HeaderText = "jour";
             this.Jour.Name = "Jour";
             this.Jour.ReadOnly = true;
@@ -98,7 +98,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 14);
+            this.label1.Location = new System.Drawing.Point(11, 82);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(33, 13);
@@ -109,7 +109,7 @@
             // 
             this.groupe_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.groupe_comboBox.FormattingEnabled = true;
-            this.groupe_comboBox.Location = new System.Drawing.Point(57, 11);
+            this.groupe_comboBox.Location = new System.Drawing.Point(65, 82);
             this.groupe_comboBox.Margin = new System.Windows.Forms.Padding(2);
             this.groupe_comboBox.Name = "groupe_comboBox";
             this.groupe_comboBox.Size = new System.Drawing.Size(138, 21);
@@ -120,7 +120,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(929, 450);
+            this.ClientSize = new System.Drawing.Size(945, 496);
             this.Controls.Add(this.emploi_dataGridView);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupe_comboBox);

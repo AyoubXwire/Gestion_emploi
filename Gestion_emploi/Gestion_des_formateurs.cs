@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Configuration;
 using System.Windows.Forms;
+using MaterialSkin;
+using MaterialSkin.Controls;
 using MySql.Data.MySqlClient;
 
 namespace Gestion_emploi
 {
-    public partial class Gestion_des_formateurs : Form
+    public partial class Gestion_des_formateurs : MaterialForm
     {
         readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
 
         public Gestion_des_formateurs()
         {
             InitializeComponent();
-        }
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
+        
+    }
 
         private void Gestion_des_formateurs_Load(object sender, EventArgs e)
         {
@@ -156,6 +163,11 @@ namespace Gestion_emploi
                     }
                 }
             }
+        }
+
+        private void formateurs_dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -3,16 +3,18 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using System.Drawing;
+using MaterialSkin.Controls;
 
 namespace Gestion_emploi
 {
-    public partial class Emploi_du_temps : Form
+    public partial class Emploi_du_temps : MaterialForm
     {
         readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
 
         public Emploi_du_temps()
         {
             InitializeComponent();
+
         }
 
         private void Emploi_du_temps_Load(object sender, EventArgs e)

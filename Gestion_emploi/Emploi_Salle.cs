@@ -3,10 +3,11 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using System.Drawing;
+using MaterialSkin.Controls;
 
 namespace Gestion_emploi
 {
-    public partial class Emploi_Salle : Form
+    public partial class Emploi_Salle : MaterialForm
     {
         public Emploi_Salle()
         {

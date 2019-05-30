@@ -15,10 +15,11 @@ using Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop;
 using DataTable = Microsoft.Office.Interop.Excel.DataTable;
 using System.Configuration;
+using MaterialSkin.Controls;
 
 namespace Gestion_emploi
 {
-    public partial class Import : Form
+    public partial class Import : MaterialForm
     {
         public Import()
         {

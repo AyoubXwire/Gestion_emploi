@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialSkin.Controls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Gestion_emploi
 {
-    public partial class Emploi_menu : Form
+    public partial class Emploi_menu : MaterialForm
     {
         public Emploi_menu()
         {
@@ -22,22 +23,24 @@ namespace Gestion_emploi
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+     
+
+        private void sfButton1_Click(object sender, EventArgs e)
         {
             Emploi_du_temps emploi = new Emploi_du_temps();
             emploi.Show();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void sfButton2_Click(object sender, EventArgs e)
         {
             Emploi_Formateur ef = new Emploi_Formateur();
             ef.Show();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void sfButton3_Click(object sender, EventArgs e)
         {
-            Emploi_Salle es = new Emploi_Salle();
-            es.Show();
+            Emploi_du_temps emploi = new Emploi_du_temps();
+            emploi.Show();
         }
     }
 }

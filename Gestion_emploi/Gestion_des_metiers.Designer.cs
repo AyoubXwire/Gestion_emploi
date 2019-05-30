@@ -39,7 +39,7 @@
             // 
             // nom_textBox
             // 
-            this.nom_textBox.Location = new System.Drawing.Point(94, 36);
+            this.nom_textBox.Location = new System.Drawing.Point(96, 82);
             this.nom_textBox.Name = "nom_textBox";
             this.nom_textBox.Size = new System.Drawing.Size(180, 20);
             this.nom_textBox.TabIndex = 38;
@@ -47,7 +47,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 39);
+            this.label2.Location = new System.Drawing.Point(18, 85);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 35;
@@ -55,7 +55,7 @@
             // 
             // supprimer_button
             // 
-            this.supprimer_button.Location = new System.Drawing.Point(207, 122);
+            this.supprimer_button.Location = new System.Drawing.Point(204, 151);
             this.supprimer_button.Name = "supprimer_button";
             this.supprimer_button.Size = new System.Drawing.Size(72, 42);
             this.supprimer_button.TabIndex = 34;
@@ -65,7 +65,7 @@
             // 
             // modifier_button
             // 
-            this.modifier_button.Location = new System.Drawing.Point(129, 122);
+            this.modifier_button.Location = new System.Drawing.Point(126, 151);
             this.modifier_button.Name = "modifier_button";
             this.modifier_button.Size = new System.Drawing.Size(72, 42);
             this.modifier_button.TabIndex = 33;
@@ -75,7 +75,7 @@
             // 
             // ajouter_button
             // 
-            this.ajouter_button.Location = new System.Drawing.Point(51, 122);
+            this.ajouter_button.Location = new System.Drawing.Point(48, 151);
             this.ajouter_button.Name = "ajouter_button";
             this.ajouter_button.Size = new System.Drawing.Size(72, 42);
             this.ajouter_button.TabIndex = 32;
@@ -91,14 +91,13 @@
             this.metiers_dataGridView.AllowUserToResizeRows = false;
             this.metiers_dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.metiers_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.metiers_dataGridView.Dock = System.Windows.Forms.DockStyle.Right;
-            this.metiers_dataGridView.Location = new System.Drawing.Point(344, 0);
+            this.metiers_dataGridView.Location = new System.Drawing.Point(344, 61);
             this.metiers_dataGridView.Margin = new System.Windows.Forms.Padding(0);
             this.metiers_dataGridView.MultiSelect = false;
             this.metiers_dataGridView.Name = "metiers_dataGridView";
             this.metiers_dataGridView.ReadOnly = true;
             this.metiers_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.metiers_dataGridView.Size = new System.Drawing.Size(456, 205);
+            this.metiers_dataGridView.Size = new System.Drawing.Size(456, 144);
             this.metiers_dataGridView.TabIndex = 30;
             this.metiers_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Metiers_dataGridView_CellClick);
             // 

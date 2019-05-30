@@ -1,9 +1,10 @@
-﻿using System;
+﻿using MaterialSkin.Controls;
+using System;
 using System.Windows.Forms;
 
 namespace Gestion_emploi
 {
-    public partial class Menu : Form
+    public partial class Menu : MaterialForm
     {
         public Menu()
         {

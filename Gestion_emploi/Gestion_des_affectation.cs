@@ -2,10 +2,11 @@
 using System.Configuration;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
+using MaterialSkin.Controls;
 
 namespace Gestion_emploi
 {
-    public partial class Gestion_des_affectation : Form
+    public partial class Gestion_des_affectation : MaterialForm
     {
         string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
         bool isIndexChangedBlocked = false;

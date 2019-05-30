@@ -43,14 +43,14 @@
             // 
             this.type_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.type_comboBox.FormattingEnabled = true;
-            this.type_comboBox.Location = new System.Drawing.Point(108, 73);
+            this.type_comboBox.Location = new System.Drawing.Point(106, 109);
             this.type_comboBox.Name = "type_comboBox";
             this.type_comboBox.Size = new System.Drawing.Size(180, 21);
             this.type_comboBox.TabIndex = 40;
             // 
             // nom_textBox
             // 
-            this.nom_textBox.Location = new System.Drawing.Point(108, 33);
+            this.nom_textBox.Location = new System.Drawing.Point(106, 69);
             this.nom_textBox.Name = "nom_textBox";
             this.nom_textBox.Size = new System.Drawing.Size(180, 20);
             this.nom_textBox.TabIndex = 38;
@@ -58,7 +58,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(30, 76);
+            this.label4.Location = new System.Drawing.Point(28, 112);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(34, 13);
             this.label4.TabIndex = 37;
@@ -67,7 +67,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 36);
+            this.label2.Location = new System.Drawing.Point(28, 72);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 35;
@@ -75,7 +75,7 @@
             // 
             // supprimer_button
             // 
-            this.supprimer_button.Location = new System.Drawing.Point(210, 124);
+            this.supprimer_button.Location = new System.Drawing.Point(208, 160);
             this.supprimer_button.Name = "supprimer_button";
             this.supprimer_button.Size = new System.Drawing.Size(72, 42);
             this.supprimer_button.TabIndex = 34;
@@ -85,7 +85,7 @@
             // 
             // modifier_button
             // 
-            this.modifier_button.Location = new System.Drawing.Point(132, 124);
+            this.modifier_button.Location = new System.Drawing.Point(130, 160);
             this.modifier_button.Name = "modifier_button";
             this.modifier_button.Size = new System.Drawing.Size(72, 42);
             this.modifier_button.TabIndex = 33;
@@ -95,7 +95,7 @@
             // 
             // ajouter_button
             // 
-            this.ajouter_button.Location = new System.Drawing.Point(54, 124);
+            this.ajouter_button.Location = new System.Drawing.Point(52, 160);
             this.ajouter_button.Name = "ajouter_button";
             this.ajouter_button.Size = new System.Drawing.Size(72, 42);
             this.ajouter_button.TabIndex = 32;
@@ -111,14 +111,13 @@
             this.salles_dataGridView.AllowUserToResizeRows = false;
             this.salles_dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.salles_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.salles_dataGridView.Dock = System.Windows.Forms.DockStyle.Right;
-            this.salles_dataGridView.Location = new System.Drawing.Point(344, 0);
+            this.salles_dataGridView.Location = new System.Drawing.Point(344, 61);
             this.salles_dataGridView.Margin = new System.Windows.Forms.Padding(0);
             this.salles_dataGridView.MultiSelect = false;
             this.salles_dataGridView.Name = "salles_dataGridView";
             this.salles_dataGridView.ReadOnly = true;
             this.salles_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.salles_dataGridView.Size = new System.Drawing.Size(456, 218);
+            this.salles_dataGridView.Size = new System.Drawing.Size(456, 157);
             this.salles_dataGridView.TabIndex = 30;
             this.salles_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Salles_dataGridView_CellClick);
             // 

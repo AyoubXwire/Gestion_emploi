@@ -49,9 +49,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.groupes_listBox = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.filtre_checkBox = new System.Windows.Forms.CheckBox();
             this.nbrHeuresGroupe_textBox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.filtre_checkBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.niveau_numericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.affectations_dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -59,7 +59,7 @@
             // 
             // affecter_button
             // 
-            this.affecter_button.Location = new System.Drawing.Point(278, 242);
+            this.affecter_button.Location = new System.Drawing.Point(282, 341);
             this.affecter_button.Margin = new System.Windows.Forms.Padding(2);
             this.affecter_button.Name = "affecter_button";
             this.affecter_button.Size = new System.Drawing.Size(86, 48);
@@ -71,7 +71,7 @@
             // module_listBox
             // 
             this.module_listBox.FormattingEnabled = true;
-            this.module_listBox.Location = new System.Drawing.Point(176, 73);
+            this.module_listBox.Location = new System.Drawing.Point(196, 160);
             this.module_listBox.Margin = new System.Windows.Forms.Padding(2);
             this.module_listBox.Name = "module_listBox";
             this.module_listBox.Size = new System.Drawing.Size(250, 160);
@@ -81,7 +81,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(174, 57);
+            this.label4.Location = new System.Drawing.Point(194, 144);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 13);
@@ -91,7 +91,7 @@
             // formateur_listBox
             // 
             this.formateur_listBox.FormattingEnabled = true;
-            this.formateur_listBox.Location = new System.Drawing.Point(434, 73);
+            this.formateur_listBox.Location = new System.Drawing.Point(454, 160);
             this.formateur_listBox.Margin = new System.Windows.Forms.Padding(2);
             this.formateur_listBox.Name = "formateur_listBox";
             this.formateur_listBox.Size = new System.Drawing.Size(151, 160);
@@ -100,7 +100,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 57);
+            this.label3.Location = new System.Drawing.Point(35, 144);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
@@ -110,7 +110,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(432, 57);
+            this.label2.Location = new System.Drawing.Point(452, 144);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 13);
@@ -120,7 +120,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 12);
+            this.label1.Location = new System.Drawing.Point(29, 99);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(37, 13);
@@ -131,7 +131,7 @@
             // 
             this.filiere_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.filiere_comboBox.FormattingEnabled = true;
-            this.filiere_comboBox.Location = new System.Drawing.Point(51, 10);
+            this.filiere_comboBox.Location = new System.Drawing.Point(71, 97);
             this.filiere_comboBox.Margin = new System.Windows.Forms.Padding(2);
             this.filiere_comboBox.Name = "filiere_comboBox";
             this.filiere_comboBox.Size = new System.Drawing.Size(138, 21);
@@ -140,7 +140,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(214, 12);
+            this.label5.Location = new System.Drawing.Point(234, 99);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(42, 13);
@@ -149,7 +149,7 @@
             // 
             // niveau_numericUpDown
             // 
-            this.niveau_numericUpDown.Location = new System.Drawing.Point(260, 11);
+            this.niveau_numericUpDown.Location = new System.Drawing.Point(280, 98);
             this.niveau_numericUpDown.Maximum = new decimal(new int[] {
             2,
             0,
@@ -172,7 +172,7 @@
             // 
             // choisir_button
             // 
-            this.choisir_button.Location = new System.Drawing.Point(388, 6);
+            this.choisir_button.Location = new System.Drawing.Point(408, 93);
             this.choisir_button.Margin = new System.Windows.Forms.Padding(2);
             this.choisir_button.Name = "choisir_button";
             this.choisir_button.Size = new System.Drawing.Size(47, 26);
@@ -184,7 +184,7 @@
             // groupe_listBox
             // 
             this.groupe_listBox.FormattingEnabled = true;
-            this.groupe_listBox.Location = new System.Drawing.Point(17, 73);
+            this.groupe_listBox.Location = new System.Drawing.Point(37, 160);
             this.groupe_listBox.Margin = new System.Windows.Forms.Padding(2);
             this.groupe_listBox.Name = "groupe_listBox";
             this.groupe_listBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
@@ -197,12 +197,12 @@
             this.affectations_dataGridView.AllowUserToAddRows = false;
             this.affectations_dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.affectations_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.affectations_dataGridView.Location = new System.Drawing.Point(262, 309);
+            this.affectations_dataGridView.Location = new System.Drawing.Point(282, 396);
             this.affectations_dataGridView.Name = "affectations_dataGridView";
             this.affectations_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.affectations_dataGridView.ShowCellErrors = false;
             this.affectations_dataGridView.ShowRowErrors = false;
-            this.affectations_dataGridView.Size = new System.Drawing.Size(328, 303);
+            this.affectations_dataGridView.Size = new System.Drawing.Size(328, 319);
             this.affectations_dataGridView.TabIndex = 71;
             // 
             // formateurs_listBox
@@ -242,7 +242,7 @@
             // 
             // supprimer_button
             // 
-            this.supprimer_button.Location = new System.Drawing.Point(368, 242);
+            this.supprimer_button.Location = new System.Drawing.Point(372, 341);
             this.supprimer_button.Margin = new System.Windows.Forms.Padding(2);
             this.supprimer_button.Name = "supprimer_button";
             this.supprimer_button.Size = new System.Drawing.Size(86, 48);
@@ -279,25 +279,12 @@
             this.groupBox1.Controls.Add(this.formateurs_listBox);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Location = new System.Drawing.Point(17, 238);
+            this.groupBox1.Location = new System.Drawing.Point(32, 341);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(239, 374);
             this.groupBox1.TabIndex = 80;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Informations";
-            // 
-            // filtre_checkBox
-            // 
-            this.filtre_checkBox.AutoSize = true;
-            this.filtre_checkBox.Checked = true;
-            this.filtre_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.filtre_checkBox.Location = new System.Drawing.Point(531, 56);
-            this.filtre_checkBox.Name = "filtre_checkBox";
-            this.filtre_checkBox.Size = new System.Drawing.Size(53, 17);
-            this.filtre_checkBox.TabIndex = 81;
-            this.filtre_checkBox.Text = "Filtres";
-            this.filtre_checkBox.UseVisualStyleBackColor = true;
-            this.filtre_checkBox.CheckedChanged += new System.EventHandler(this.Filtre_checkBox_CheckedChanged);
             // 
             // nbrHeuresGroupe_textBox
             // 
@@ -316,11 +303,24 @@
             this.label9.TabIndex = 81;
             this.label9.Text = "Nombre d\'heures total:";
             // 
+            // filtre_checkBox
+            // 
+            this.filtre_checkBox.AutoSize = true;
+            this.filtre_checkBox.Checked = true;
+            this.filtre_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.filtre_checkBox.Location = new System.Drawing.Point(551, 143);
+            this.filtre_checkBox.Name = "filtre_checkBox";
+            this.filtre_checkBox.Size = new System.Drawing.Size(53, 17);
+            this.filtre_checkBox.TabIndex = 81;
+            this.filtre_checkBox.Text = "Filtres";
+            this.filtre_checkBox.UseVisualStyleBackColor = true;
+            this.filtre_checkBox.CheckedChanged += new System.EventHandler(this.Filtre_checkBox_CheckedChanged);
+            // 
             // Gestion_des_affectation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(597, 629);
+            this.ClientSize = new System.Drawing.Size(673, 743);
             this.Controls.Add(this.filtre_checkBox);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.affectations_dataGridView);

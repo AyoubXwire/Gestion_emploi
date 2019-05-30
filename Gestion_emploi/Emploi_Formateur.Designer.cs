@@ -28,38 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupe_comboBox = new System.Windows.Forms.ComboBox();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.emploi_dataGridView = new System.Windows.Forms.DataGridView();
             this.Jour = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Seance1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Seance2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Seance3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Seance4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupe_comboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.emploi_dataGridView)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 14);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 13);
-            this.label1.TabIndex = 61;
-            this.label1.Text = "Formateur:";
-            // 
-            // groupe_comboBox
-            // 
-            this.groupe_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.groupe_comboBox.FormattingEnabled = true;
-            this.groupe_comboBox.Location = new System.Drawing.Point(73, 11);
-            this.groupe_comboBox.Margin = new System.Windows.Forms.Padding(2);
-            this.groupe_comboBox.Name = "groupe_comboBox";
-            this.groupe_comboBox.Size = new System.Drawing.Size(138, 21);
-            this.groupe_comboBox.TabIndex = 60;
-            this.groupe_comboBox.SelectedIndexChanged += new System.EventHandler(this.groupe_comboBox_SelectedIndexChanged);
             // 
             // emploi_dataGridView
             // 
@@ -71,17 +50,17 @@
             this.Seance2,
             this.Seance3,
             this.Seance4});
-            this.emploi_dataGridView.Location = new System.Drawing.Point(254, 14);
+            this.emploi_dataGridView.Location = new System.Drawing.Point(247, 81);
             this.emploi_dataGridView.MultiSelect = false;
             this.emploi_dataGridView.Name = "emploi_dataGridView";
             this.emploi_dataGridView.ReadOnly = true;
             this.emploi_dataGridView.Size = new System.Drawing.Size(644, 382);
-            this.emploi_dataGridView.TabIndex = 62;
+            this.emploi_dataGridView.TabIndex = 68;
             // 
             // Jour
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.Jour.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.Jour.DefaultCellStyle = dataGridViewCellStyle3;
             this.Jour.HeaderText = "jour";
             this.Jour.Name = "Jour";
             this.Jour.ReadOnly = true;
@@ -115,11 +94,32 @@
             this.Seance4.ReadOnly = true;
             this.Seance4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(11, 81);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(57, 13);
+            this.label1.TabIndex = 67;
+            this.label1.Text = "Formateur:";
+            // 
+            // groupe_comboBox
+            // 
+            this.groupe_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.groupe_comboBox.FormattingEnabled = true;
+            this.groupe_comboBox.Location = new System.Drawing.Point(72, 81);
+            this.groupe_comboBox.Margin = new System.Windows.Forms.Padding(2);
+            this.groupe_comboBox.Name = "groupe_comboBox";
+            this.groupe_comboBox.Size = new System.Drawing.Size(138, 21);
+            this.groupe_comboBox.TabIndex = 66;
+            this.groupe_comboBox.SelectedIndexChanged += new System.EventHandler(this.groupe_comboBox_SelectedIndexChanged_1);
+            // 
             // Emploi_Formateur
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(931, 420);
+            this.ClientSize = new System.Drawing.Size(926, 500);
             this.Controls.Add(this.emploi_dataGridView);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupe_comboBox);
@@ -134,13 +134,13 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox groupe_comboBox;
         private System.Windows.Forms.DataGridView emploi_dataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn Jour;
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance4;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox groupe_comboBox;
     }
 }

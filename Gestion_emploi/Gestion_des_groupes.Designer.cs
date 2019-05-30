@@ -45,21 +45,20 @@
             // 
             this.groupes_dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.groupes_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.groupes_dataGridView.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupes_dataGridView.Location = new System.Drawing.Point(502, 0);
+            this.groupes_dataGridView.Location = new System.Drawing.Point(377, 61);
+            this.groupes_dataGridView.Margin = new System.Windows.Forms.Padding(2);
             this.groupes_dataGridView.MultiSelect = false;
             this.groupes_dataGridView.Name = "groupes_dataGridView";
             this.groupes_dataGridView.ReadOnly = true;
             this.groupes_dataGridView.RowTemplate.Height = 24;
             this.groupes_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.groupes_dataGridView.Size = new System.Drawing.Size(452, 327);
+            this.groupes_dataGridView.Size = new System.Drawing.Size(339, 205);
             this.groupes_dataGridView.TabIndex = 38;
             this.groupes_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Groupes_dataGridView_CellClick);
             // 
             // nombreDeGroupes_numericUpDown
             // 
-            this.nombreDeGroupes_numericUpDown.Location = new System.Drawing.Point(194, 75);
-            this.nombreDeGroupes_numericUpDown.Margin = new System.Windows.Forms.Padding(4);
+            this.nombreDeGroupes_numericUpDown.Location = new System.Drawing.Point(136, 126);
             this.nombreDeGroupes_numericUpDown.Maximum = new decimal(new int[] {
             6,
             0,
@@ -72,7 +71,7 @@
             0});
             this.nombreDeGroupes_numericUpDown.Name = "nombreDeGroupes_numericUpDown";
             this.nombreDeGroupes_numericUpDown.ReadOnly = true;
-            this.nombreDeGroupes_numericUpDown.Size = new System.Drawing.Size(259, 22);
+            this.nombreDeGroupes_numericUpDown.Size = new System.Drawing.Size(194, 20);
             this.nombreDeGroupes_numericUpDown.TabIndex = 45;
             this.nombreDeGroupes_numericUpDown.Value = new decimal(new int[] {
             1,
@@ -82,10 +81,9 @@
             // 
             // confirmer_button
             // 
-            this.confirmer_button.Location = new System.Drawing.Point(30, 122);
-            this.confirmer_button.Margin = new System.Windows.Forms.Padding(4);
+            this.confirmer_button.Location = new System.Drawing.Point(12, 164);
             this.confirmer_button.Name = "confirmer_button";
-            this.confirmer_button.Size = new System.Drawing.Size(133, 55);
+            this.confirmer_button.Size = new System.Drawing.Size(100, 45);
             this.confirmer_button.TabIndex = 44;
             this.confirmer_button.Text = "Confirmer";
             this.confirmer_button.UseVisualStyleBackColor = true;
@@ -95,46 +93,41 @@
             // 
             this.filiere_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.filiere_comboBox.FormattingEnabled = true;
-            this.filiere_comboBox.Location = new System.Drawing.Point(194, 13);
-            this.filiere_comboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.filiere_comboBox.Location = new System.Drawing.Point(136, 76);
             this.filiere_comboBox.Name = "filiere_comboBox";
-            this.filiere_comboBox.Size = new System.Drawing.Size(258, 24);
+            this.filiere_comboBox.Size = new System.Drawing.Size(194, 21);
             this.filiere_comboBox.TabIndex = 43;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(29, 16);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(12, 78);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 17);
+            this.label4.Size = new System.Drawing.Size(37, 13);
             this.label4.TabIndex = 42;
             this.label4.Text = "Filiere:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(27, 79);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(10, 129);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(138, 17);
+            this.label3.Size = new System.Drawing.Size(103, 13);
             this.label3.TabIndex = 41;
             this.label3.Text = "Nombre de groupes:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 47);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(10, 103);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 17);
+            this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 40;
             this.label2.Text = "Niveau:";
             // 
             // niveau_numericUpDown
             // 
-            this.niveau_numericUpDown.Location = new System.Drawing.Point(194, 45);
-            this.niveau_numericUpDown.Margin = new System.Windows.Forms.Padding(4);
+            this.niveau_numericUpDown.Location = new System.Drawing.Point(136, 102);
             this.niveau_numericUpDown.Maximum = new decimal(new int[] {
             2,
             0,
@@ -147,7 +140,7 @@
             0});
             this.niveau_numericUpDown.Name = "niveau_numericUpDown";
             this.niveau_numericUpDown.ReadOnly = true;
-            this.niveau_numericUpDown.Size = new System.Drawing.Size(259, 22);
+            this.niveau_numericUpDown.Size = new System.Drawing.Size(194, 20);
             this.niveau_numericUpDown.TabIndex = 39;
             this.niveau_numericUpDown.Value = new decimal(new int[] {
             1,
@@ -157,9 +150,9 @@
             // 
             // Gestion_des_groupes
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(954, 327);
+            this.ClientSize = new System.Drawing.Size(716, 266);
             this.Controls.Add(this.nombreDeGroupes_numericUpDown);
             this.Controls.Add(this.confirmer_button);
             this.Controls.Add(this.filiere_comboBox);
@@ -168,6 +161,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.niveau_numericUpDown);
             this.Controls.Add(this.groupes_dataGridView);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Gestion_des_groupes";
             this.Text = "Gestion_des_groupes";
             this.Load += new System.EventHandler(this.Gestion_des_groupes_Load);

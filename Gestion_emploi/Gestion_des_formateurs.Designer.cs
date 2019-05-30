@@ -52,10 +52,9 @@
             // 
             // supprimer_button
             // 
-            this.supprimer_button.Location = new System.Drawing.Point(328, 321);
-            this.supprimer_button.Margin = new System.Windows.Forms.Padding(4);
+            this.supprimer_button.Location = new System.Drawing.Point(251, 330);
             this.supprimer_button.Name = "supprimer_button";
-            this.supprimer_button.Size = new System.Drawing.Size(96, 52);
+            this.supprimer_button.Size = new System.Drawing.Size(72, 42);
             this.supprimer_button.TabIndex = 22;
             this.supprimer_button.Text = "Supprimer";
             this.supprimer_button.UseVisualStyleBackColor = true;
@@ -63,10 +62,9 @@
             // 
             // modifier_button
             // 
-            this.modifier_button.Location = new System.Drawing.Point(224, 321);
-            this.modifier_button.Margin = new System.Windows.Forms.Padding(4);
+            this.modifier_button.Location = new System.Drawing.Point(173, 330);
             this.modifier_button.Name = "modifier_button";
-            this.modifier_button.Size = new System.Drawing.Size(96, 52);
+            this.modifier_button.Size = new System.Drawing.Size(72, 42);
             this.modifier_button.TabIndex = 21;
             this.modifier_button.Text = "Modifier";
             this.modifier_button.UseVisualStyleBackColor = true;
@@ -74,10 +72,9 @@
             // 
             // ajouter_button
             // 
-            this.ajouter_button.Location = new System.Drawing.Point(120, 321);
-            this.ajouter_button.Margin = new System.Windows.Forms.Padding(4);
+            this.ajouter_button.Location = new System.Drawing.Point(95, 330);
             this.ajouter_button.Name = "ajouter_button";
-            this.ajouter_button.Size = new System.Drawing.Size(96, 52);
+            this.ajouter_button.Size = new System.Drawing.Size(72, 42);
             this.ajouter_button.TabIndex = 20;
             this.ajouter_button.Text = "Ajouter";
             this.ajouter_button.UseVisualStyleBackColor = true;
@@ -85,10 +82,9 @@
             // 
             // vider_button
             // 
-            this.vider_button.Location = new System.Drawing.Point(16, 321);
-            this.vider_button.Margin = new System.Windows.Forms.Padding(4);
+            this.vider_button.Location = new System.Drawing.Point(17, 330);
             this.vider_button.Name = "vider_button";
-            this.vider_button.Size = new System.Drawing.Size(96, 52);
+            this.vider_button.Size = new System.Drawing.Size(72, 42);
             this.vider_button.TabIndex = 19;
             this.vider_button.Text = "Vider";
             this.vider_button.UseVisualStyleBackColor = true;
@@ -102,16 +98,16 @@
             this.formateurs_dataGridView.AllowUserToResizeRows = false;
             this.formateurs_dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.formateurs_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.formateurs_dataGridView.Dock = System.Windows.Forms.DockStyle.Right;
-            this.formateurs_dataGridView.Location = new System.Drawing.Point(459, 0);
+            this.formateurs_dataGridView.Location = new System.Drawing.Point(357, 61);
             this.formateurs_dataGridView.Margin = new System.Windows.Forms.Padding(0);
             this.formateurs_dataGridView.MultiSelect = false;
             this.formateurs_dataGridView.Name = "formateurs_dataGridView";
             this.formateurs_dataGridView.ReadOnly = true;
             this.formateurs_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.formateurs_dataGridView.Size = new System.Drawing.Size(608, 385);
+            this.formateurs_dataGridView.Size = new System.Drawing.Size(456, 323);
             this.formateurs_dataGridView.TabIndex = 12;
             this.formateurs_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Formateurs_dataGridView_CellClick);
+            this.formateurs_dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.formateurs_dataGridView_CellContentClick);
             // 
             // groupBox1
             // 
@@ -121,9 +117,11 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Location = new System.Drawing.Point(16, 12);
+            this.groupBox1.Location = new System.Drawing.Point(17, 79);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(408, 127);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Size = new System.Drawing.Size(306, 103);
             this.groupBox1.TabIndex = 23;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Formateur selectionné";
@@ -132,59 +130,53 @@
             // 
             this.metier_label.AutoSize = true;
             this.metier_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.metier_label.Location = new System.Drawing.Point(113, 91);
-            this.metier_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.metier_label.Location = new System.Drawing.Point(85, 74);
             this.metier_label.Name = "metier_label";
-            this.metier_label.Size = new System.Drawing.Size(0, 17);
+            this.metier_label.Size = new System.Drawing.Size(0, 13);
             this.metier_label.TabIndex = 29;
             // 
             // prenom_label
             // 
             this.prenom_label.AutoSize = true;
             this.prenom_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.prenom_label.Location = new System.Drawing.Point(113, 61);
-            this.prenom_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.prenom_label.Location = new System.Drawing.Point(85, 50);
             this.prenom_label.Name = "prenom_label";
-            this.prenom_label.Size = new System.Drawing.Size(0, 17);
+            this.prenom_label.Size = new System.Drawing.Size(0, 13);
             this.prenom_label.TabIndex = 28;
             // 
             // nom_label
             // 
             this.nom_label.AutoSize = true;
             this.nom_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nom_label.Location = new System.Drawing.Point(113, 31);
-            this.nom_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.nom_label.Location = new System.Drawing.Point(85, 25);
             this.nom_label.Name = "nom_label";
-            this.nom_label.Size = new System.Drawing.Size(0, 17);
+            this.nom_label.Size = new System.Drawing.Size(0, 13);
             this.nom_label.TabIndex = 27;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 91);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(14, 74);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 17);
+            this.label1.Size = new System.Drawing.Size(39, 13);
             this.label1.TabIndex = 26;
             this.label1.Text = "Metier:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 61);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(14, 50);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(61, 17);
+            this.label5.Size = new System.Drawing.Size(46, 13);
             this.label5.TabIndex = 25;
             this.label5.Text = "Prenom:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(18, 31);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(14, 25);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 17);
+            this.label6.Size = new System.Drawing.Size(32, 13);
             this.label6.TabIndex = 24;
             this.label6.Text = "Nom:";
             // 
@@ -192,63 +184,57 @@
             // 
             this.metier_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.metier_comboBox.FormattingEnabled = true;
-            this.metier_comboBox.Location = new System.Drawing.Point(138, 245);
-            this.metier_comboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.metier_comboBox.Location = new System.Drawing.Point(109, 268);
             this.metier_comboBox.Name = "metier_comboBox";
-            this.metier_comboBox.Size = new System.Drawing.Size(238, 24);
+            this.metier_comboBox.Size = new System.Drawing.Size(180, 21);
             this.metier_comboBox.TabIndex = 29;
             // 
             // prenom_textBox
             // 
-            this.prenom_textBox.Location = new System.Drawing.Point(138, 215);
-            this.prenom_textBox.Margin = new System.Windows.Forms.Padding(4);
+            this.prenom_textBox.Location = new System.Drawing.Point(109, 244);
             this.prenom_textBox.Name = "prenom_textBox";
-            this.prenom_textBox.Size = new System.Drawing.Size(238, 22);
+            this.prenom_textBox.Size = new System.Drawing.Size(180, 20);
             this.prenom_textBox.TabIndex = 28;
             // 
             // nom_textBox
             // 
-            this.nom_textBox.Location = new System.Drawing.Point(138, 185);
-            this.nom_textBox.Margin = new System.Windows.Forms.Padding(4);
+            this.nom_textBox.Location = new System.Drawing.Point(109, 219);
             this.nom_textBox.Name = "nom_textBox";
-            this.nom_textBox.Size = new System.Drawing.Size(238, 22);
+            this.nom_textBox.Size = new System.Drawing.Size(180, 20);
             this.nom_textBox.TabIndex = 27;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(34, 248);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(31, 271);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(51, 17);
+            this.label4.Size = new System.Drawing.Size(39, 13);
             this.label4.TabIndex = 26;
             this.label4.Text = "Metier:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(34, 218);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(31, 246);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 17);
+            this.label3.Size = new System.Drawing.Size(46, 13);
             this.label3.TabIndex = 25;
             this.label3.Text = "Prenom:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(34, 188);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(31, 222);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 17);
+            this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 24;
             this.label2.Text = "Nom:";
             // 
             // Gestion_des_formateurs
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 385);
+            this.ClientSize = new System.Drawing.Size(813, 384);
             this.Controls.Add(this.metier_comboBox);
             this.Controls.Add(this.prenom_textBox);
             this.Controls.Add(this.nom_textBox);
@@ -261,6 +247,7 @@
             this.Controls.Add(this.ajouter_button);
             this.Controls.Add(this.vider_button);
             this.Controls.Add(this.formateurs_dataGridView);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Gestion_des_formateurs";
             this.Text = "Gestion_des_formateurs";
             this.Load += new System.EventHandler(this.Gestion_des_formateurs_Load);

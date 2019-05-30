@@ -59,7 +59,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 14);
+            this.label1.Location = new System.Drawing.Point(9, 73);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 13);
@@ -70,7 +70,7 @@
             // 
             this.groupe_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.groupe_comboBox.FormattingEnabled = true;
-            this.groupe_comboBox.Location = new System.Drawing.Point(67, 11);
+            this.groupe_comboBox.Location = new System.Drawing.Point(67, 70);
             this.groupe_comboBox.Margin = new System.Windows.Forms.Padding(2);
             this.groupe_comboBox.Name = "groupe_comboBox";
             this.groupe_comboBox.Size = new System.Drawing.Size(138, 21);
@@ -87,7 +87,7 @@
             this.Seance2,
             this.Seance3,
             this.Seance4});
-            this.emploi_dataGridView.Location = new System.Drawing.Point(514, 77);
+            this.emploi_dataGridView.Location = new System.Drawing.Point(511, 150);
             this.emploi_dataGridView.MultiSelect = false;
             this.emploi_dataGridView.Name = "emploi_dataGridView";
             this.emploi_dataGridView.ReadOnly = true;
@@ -135,7 +135,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 54);
+            this.label2.Location = new System.Drawing.Point(9, 134);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(52, 13);
@@ -153,7 +153,7 @@
             this.formateur,
             this.date_debut,
             this.date_fin});
-            this.affectations_dataGridView.Location = new System.Drawing.Point(14, 77);
+            this.affectations_dataGridView.Location = new System.Drawing.Point(12, 150);
             this.affectations_dataGridView.MultiSelect = false;
             this.affectations_dataGridView.Name = "affectations_dataGridView";
             this.affectations_dataGridView.ReadOnly = true;
@@ -201,7 +201,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(491, 54);
+            this.label3.Location = new System.Drawing.Point(508, 134);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 13);
@@ -211,14 +211,14 @@
             // salles_listBox
             // 
             this.salles_listBox.FormattingEnabled = true;
-            this.salles_listBox.Location = new System.Drawing.Point(12, 478);
+            this.salles_listBox.Location = new System.Drawing.Point(14, 569);
             this.salles_listBox.Name = "salles_listBox";
             this.salles_listBox.Size = new System.Drawing.Size(191, 173);
             this.salles_listBox.TabIndex = 65;
             // 
             // ajouter_button
             // 
-            this.ajouter_button.Location = new System.Drawing.Point(514, 465);
+            this.ajouter_button.Location = new System.Drawing.Point(511, 608);
             this.ajouter_button.Name = "ajouter_button";
             this.ajouter_button.Size = new System.Drawing.Size(121, 78);
             this.ajouter_button.TabIndex = 71;
@@ -228,7 +228,7 @@
             // 
             // supprimer_button
             // 
-            this.supprimer_button.Location = new System.Drawing.Point(641, 465);
+            this.supprimer_button.Location = new System.Drawing.Point(638, 608);
             this.supprimer_button.Name = "supprimer_button";
             this.supprimer_button.Size = new System.Drawing.Size(121, 78);
             this.supprimer_button.TabIndex = 72;
@@ -238,7 +238,7 @@
             // 
             // reset_button
             // 
-            this.reset_button.Location = new System.Drawing.Point(768, 465);
+            this.reset_button.Location = new System.Drawing.Point(765, 608);
             this.reset_button.Name = "reset_button";
             this.reset_button.Size = new System.Drawing.Size(121, 78);
             this.reset_button.TabIndex = 73;
@@ -248,7 +248,7 @@
             // 
             // exporter_button
             // 
-            this.exporter_button.Location = new System.Drawing.Point(1037, 465);
+            this.exporter_button.Location = new System.Drawing.Point(1021, 608);
             this.exporter_button.Name = "exporter_button";
             this.exporter_button.Size = new System.Drawing.Size(121, 78);
             this.exporter_button.TabIndex = 74;
@@ -259,7 +259,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(12, 460);
+            this.checkBox1.Location = new System.Drawing.Point(15, 538);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(50, 17);
             this.checkBox1.TabIndex = 75;
@@ -271,7 +271,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1170, 661);
+            this.ClientSize = new System.Drawing.Size(1170, 782);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.exporter_button);
             this.Controls.Add(this.reset_button);

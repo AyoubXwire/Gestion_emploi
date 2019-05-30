@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.exporter_button = new System.Windows.Forms.Button();
@@ -45,7 +45,7 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 12);
+            this.listBox1.Location = new System.Drawing.Point(29, 82);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(138, 173);
             this.listBox1.TabIndex = 62;
@@ -54,7 +54,7 @@
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(167, 12);
+            this.listBox2.Location = new System.Drawing.Point(184, 82);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(147, 173);
             this.listBox2.TabIndex = 63;
@@ -62,7 +62,7 @@
             // 
             // exporter_button
             // 
-            this.exporter_button.Location = new System.Drawing.Point(984, 12);
+            this.exporter_button.Location = new System.Drawing.Point(1044, 82);
             this.exporter_button.Name = "exporter_button";
             this.exporter_button.Size = new System.Drawing.Size(139, 54);
             this.exporter_button.TabIndex = 64;
@@ -72,7 +72,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(984, 72);
+            this.button1.Location = new System.Drawing.Point(1044, 142);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(139, 60);
             this.button1.TabIndex = 65;
@@ -90,7 +90,7 @@
             this.Seance2,
             this.Seance3,
             this.Seance4});
-            this.emploi_dataGridView.Location = new System.Drawing.Point(334, 12);
+            this.emploi_dataGridView.Location = new System.Drawing.Point(394, 82);
             this.emploi_dataGridView.MultiSelect = false;
             this.emploi_dataGridView.Name = "emploi_dataGridView";
             this.emploi_dataGridView.ReadOnly = true;
@@ -99,8 +99,8 @@
             // 
             // Jour
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.Jour.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.Jour.DefaultCellStyle = dataGridViewCellStyle1;
             this.Jour.HeaderText = "jour";
             this.Jour.Name = "Jour";
             this.Jour.ReadOnly = true;
@@ -138,7 +138,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1135, 449);
+            this.ClientSize = new System.Drawing.Size(1198, 514);
             this.Controls.Add(this.emploi_dataGridView);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.exporter_button);

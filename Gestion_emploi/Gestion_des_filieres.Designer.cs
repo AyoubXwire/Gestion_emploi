@@ -43,22 +43,21 @@
             // 
             this.filieres_dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.filieres_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.filieres_dataGridView.Dock = System.Windows.Forms.DockStyle.Right;
-            this.filieres_dataGridView.Location = new System.Drawing.Point(355, 0);
+            this.filieres_dataGridView.Location = new System.Drawing.Point(378, 63);
             this.filieres_dataGridView.Margin = new System.Windows.Forms.Padding(2);
             this.filieres_dataGridView.MultiSelect = false;
             this.filieres_dataGridView.Name = "filieres_dataGridView";
             this.filieres_dataGridView.ReadOnly = true;
             this.filieres_dataGridView.RowTemplate.Height = 24;
             this.filieres_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.filieres_dataGridView.Size = new System.Drawing.Size(405, 253);
+            this.filieres_dataGridView.Size = new System.Drawing.Size(405, 249);
             this.filieres_dataGridView.TabIndex = 39;
             this.filieres_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Filieres_dataGridView_CellClick);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 13);
+            this.label1.Location = new System.Drawing.Point(21, 89);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 13);
@@ -69,7 +68,7 @@
             // 
             this.secteur_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.secteur_comboBox.FormattingEnabled = true;
-            this.secteur_comboBox.Location = new System.Drawing.Point(85, 10);
+            this.secteur_comboBox.Location = new System.Drawing.Point(95, 86);
             this.secteur_comboBox.Margin = new System.Windows.Forms.Padding(2);
             this.secteur_comboBox.Name = "secteur_comboBox";
             this.secteur_comboBox.Size = new System.Drawing.Size(180, 21);
@@ -78,7 +77,7 @@
             // 
             // nom_textBox
             // 
-            this.nom_textBox.Location = new System.Drawing.Point(85, 77);
+            this.nom_textBox.Location = new System.Drawing.Point(95, 153);
             this.nom_textBox.Name = "nom_textBox";
             this.nom_textBox.Size = new System.Drawing.Size(180, 20);
             this.nom_textBox.TabIndex = 48;
@@ -86,7 +85,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 80);
+            this.label2.Location = new System.Drawing.Point(21, 156);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 47;
@@ -94,7 +93,7 @@
             // 
             // supprimer_button
             // 
-            this.supprimer_button.Location = new System.Drawing.Point(215, 164);
+            this.supprimer_button.Location = new System.Drawing.Point(225, 240);
             this.supprimer_button.Name = "supprimer_button";
             this.supprimer_button.Size = new System.Drawing.Size(72, 42);
             this.supprimer_button.TabIndex = 46;
@@ -104,7 +103,7 @@
             // 
             // modifier_button
             // 
-            this.modifier_button.Location = new System.Drawing.Point(137, 164);
+            this.modifier_button.Location = new System.Drawing.Point(147, 240);
             this.modifier_button.Name = "modifier_button";
             this.modifier_button.Size = new System.Drawing.Size(72, 42);
             this.modifier_button.TabIndex = 45;
@@ -114,7 +113,7 @@
             // 
             // ajouter_button
             // 
-            this.ajouter_button.Location = new System.Drawing.Point(59, 164);
+            this.ajouter_button.Location = new System.Drawing.Point(69, 240);
             this.ajouter_button.Name = "ajouter_button";
             this.ajouter_button.Size = new System.Drawing.Size(72, 42);
             this.ajouter_button.TabIndex = 44;
@@ -126,7 +125,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(760, 253);
+            this.ClientSize = new System.Drawing.Size(783, 312);
             this.Controls.Add(this.nom_textBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.supprimer_button);

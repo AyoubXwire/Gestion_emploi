@@ -2,10 +2,11 @@
 using System.Configuration;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
+using MaterialSkin.Controls;
 
 namespace Gestion_emploi
 {
-    public partial class Gestion_des_modules : Form
+    public partial class Gestion_des_modules : MaterialForm
     {
         readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
 

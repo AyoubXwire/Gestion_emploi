@@ -3,11 +3,11 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using System.Drawing;
-
+using MaterialSkin.Controls;
 
 namespace Gestion_emploi
 {
-    public partial class Emploi_Formateur : Form
+    public partial class Emploi_Formateur : MaterialForm
     {
         public Emploi_Formateur()
         {
@@ -102,6 +102,11 @@ namespace Gestion_emploi
         }
 
         private void groupe_comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupe_comboBox_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             RemplirEmploi(groupe_comboBox.SelectedValue.ToString());
         }

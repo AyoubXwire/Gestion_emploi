@@ -57,9 +57,9 @@
             this.appliquerDateDebut_button = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.seances_dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -77,10 +77,10 @@
             this.seances_dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.seances_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.seances_dataGridView.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.seances_dataGridView.Location = new System.Drawing.Point(0, 355);
+            this.seances_dataGridView.Location = new System.Drawing.Point(0, 415);
             this.seances_dataGridView.Name = "seances_dataGridView";
             this.seances_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.seances_dataGridView.Size = new System.Drawing.Size(1105, 352);
+            this.seances_dataGridView.Size = new System.Drawing.Size(1105, 292);
             this.seances_dataGridView.TabIndex = 0;
             this.seances_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Seances_dataGridView_CellClick);
             this.seances_dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.seances_dataGridView_CellContentClick);
@@ -153,7 +153,7 @@
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.formateurs_listBox);
             this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Location = new System.Drawing.Point(15, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 84);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(244, 273);
             this.groupBox1.TabIndex = 88;
@@ -177,7 +177,7 @@
             this.groupBox2.Controls.Add(this.nbHeuresGroupe_textBox);
             this.groupBox2.Controls.Add(this.groupes_listBox);
             this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Location = new System.Drawing.Point(265, 12);
+            this.groupBox2.Location = new System.Drawing.Point(262, 84);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(244, 273);
             this.groupBox2.TabIndex = 89;
@@ -245,7 +245,7 @@
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.appliquerNbHeures_button);
             this.groupBox3.Controls.Add(this.nbHeures_numericUpDown);
-            this.groupBox3.Location = new System.Drawing.Point(581, 227);
+            this.groupBox3.Location = new System.Drawing.Point(585, 287);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(508, 58);
             this.groupBox3.TabIndex = 94;
@@ -253,7 +253,7 @@
             // 
             // majAvancementSelectionne_button
             // 
-            this.majAvancementSelectionne_button.Location = new System.Drawing.Point(889, 46);
+            this.majAvancementSelectionne_button.Location = new System.Drawing.Point(893, 106);
             this.majAvancementSelectionne_button.Name = "majAvancementSelectionne_button";
             this.majAvancementSelectionne_button.Size = new System.Drawing.Size(187, 42);
             this.majAvancementSelectionne_button.TabIndex = 94;
@@ -263,7 +263,7 @@
             // 
             // majTousLesAvancements_button
             // 
-            this.majTousLesAvancements_button.Location = new System.Drawing.Point(581, 46);
+            this.majTousLesAvancements_button.Location = new System.Drawing.Point(585, 106);
             this.majTousLesAvancements_button.Name = "majTousLesAvancements_button";
             this.majTousLesAvancements_button.Size = new System.Drawing.Size(187, 42);
             this.majTousLesAvancements_button.TabIndex = 95;
@@ -303,7 +303,7 @@
             this.groupBox4.Controls.Add(this.nbHeuresRates_button);
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Controls.Add(this.nbHeuresRates_numericUpDown);
-            this.groupBox4.Location = new System.Drawing.Point(581, 157);
+            this.groupBox4.Location = new System.Drawing.Point(585, 217);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(508, 69);
             this.groupBox4.TabIndex = 95;
@@ -324,7 +324,7 @@
             this.groupBox5.Controls.Add(this.dateDebut_dateTimePicker);
             this.groupBox5.Controls.Add(this.label4);
             this.groupBox5.Controls.Add(this.appliquerDateDebut_button);
-            this.groupBox5.Location = new System.Drawing.Point(581, 94);
+            this.groupBox5.Location = new System.Drawing.Point(585, 154);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(508, 58);
             this.groupBox5.TabIndex = 97;
@@ -360,7 +360,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(578, 12);
+            this.label5.Location = new System.Drawing.Point(582, 72);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(394, 13);
             this.label5.TabIndex = 98;
@@ -372,11 +372,19 @@
             this.groupBox6.Controls.Add(this.numericUpDown1);
             this.groupBox6.Controls.Add(this.label9);
             this.groupBox6.Controls.Add(this.button1);
-            this.groupBox6.Location = new System.Drawing.Point(581, 291);
+            this.groupBox6.Location = new System.Drawing.Point(585, 351);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(508, 58);
             this.groupBox6.TabIndex = 95;
             this.groupBox6.TabStop = false;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.DecimalPlaces = 2;
+            this.numericUpDown1.Location = new System.Drawing.Point(166, 19);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 94;
             // 
             // label9
             // 
@@ -396,14 +404,6 @@
             this.button1.Text = "Appliquer";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.DecimalPlaces = 2;
-            this.numericUpDown1.Location = new System.Drawing.Point(166, 19);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 94;
             // 
             // Gestion_des_seances
             // 

@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using MaterialSkin.Controls;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +13,7 @@ using System.Windows.Forms;
 
 namespace Gestion_emploi
 {
-    public partial class Emploi_extract : Form
+    public partial class Emploi_extract : MaterialForm
     {
         readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
 

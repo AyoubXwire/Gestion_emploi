@@ -23,23 +23,21 @@ namespace Gestion_emploi
 
         }
 
-     
-
-        private void sfButton1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             Emploi_du_temps emploi = new Emploi_du_temps();
             emploi.Show();
         }
 
-        private void sfButton2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
             Emploi_Formateur ef = new Emploi_Formateur();
             ef.Show();
         }
 
-        private void sfButton3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
-            Emploi_du_temps emploi = new Emploi_du_temps();
+            Emploi_Salle emploi = new Emploi_Salle();
             emploi.Show();
         }
     }

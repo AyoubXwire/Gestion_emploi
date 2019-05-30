@@ -38,7 +38,6 @@
             this.button8 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button4
@@ -141,22 +140,11 @@
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(181, 365);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(152, 92);
-            this.button9.TabIndex = 17;
-            this.button9.Text = "chuf hadchi wach ytl3lk wla khs assemblies";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click_1);
-            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(487, 469);
-            this.Controls.Add(this.button9);
             this.Controls.Add(this.button11);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button5);
@@ -187,7 +175,6 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.Button button9;
     }
 }
 

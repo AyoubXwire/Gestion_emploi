@@ -190,6 +190,11 @@ namespace Gestion_emploi
             {
                 dateDebut_dateTimePicker.Value = Convert.ToDateTime(seances_dataGridView.CurrentRow.Cells["date_debut"].Value);
             }
+
+            if (seances_dataGridView.CurrentRow.Cells["avancement"].Value.ToString() != "")
+            {
+                avancement_numericUpDown.Value = Convert.ToDecimal(seances_dataGridView.CurrentRow.Cells["avancement"].Value);
+            }
         }
 
         private void AppliquerNbHeures_button_Click(object sender, EventArgs e)
@@ -373,95 +378,20 @@ namespace Gestion_emploi
             }
         }
 
-        private void MajAvancementSelectionne_button_Click(object sender, EventArgs e)
-        {
-            UpdateDateFin((int)seances_dataGridView.CurrentRow.Cells["id"].Value);
-
-            RemplirDataGridViewAccordingly();
-        }
-
-        private void MajTousLesAvancementsFormateur_button_Click(object sender, EventArgs e)
+        private void AppliquerAvancement_button_Click(object sender, EventArgs e)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT id FROM affectation WHERE id_formateur = @id_formateur";
-                    command.Parameters.AddWithValue("@id_formateur", formateurs_listBox.SelectedValue);
-
-                    MySqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        UpdateDateFin((int)reader[0]);
-                    }
-                }
-            }
-
-            RemplirDataGridViewAccordingly();
-        }
-
-        private void MajTousLesAvancementsGroupe_button_Click(object sender, EventArgs e)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
-                {
-                    command.CommandText = "SELECT id FROM affectation WHERE id_groupe = @id_groupe";
-                    command.Parameters.AddWithValue("@id_groupe", groupes_listBox.SelectedValue);
-
-                    MySqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        UpdateDateFin((int)reader[0]);
-                    }
-                }
-            }
-
-            RemplirDataGridViewAccordingly();
-        }
-
-        private void MajTousLesAvancements_button_Click(object sender, EventArgs e)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
-                {
-                    command.CommandText = "SELECT id FROM affectation";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        UpdateDateFin((int)reader[0]);
-                    }
-                }
-            }
-
-            RemplirDataGridViewAccordingly();
-        }
-
-        private void seances_dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
-                {
-
                     command.CommandText = "UPDATE affectation set avancement = @avancement where id = @id";
 
-                       
-                     command.Parameters.Clear();
-                     command.Parameters.AddWithValue("@avancement",float.Parse(numericUpDown1.Value.ToString()));
-                     command.Parameters.AddWithValue("@id", (int)seances_dataGridView.CurrentRow.Cells["id"].Value);
-                     command.ExecuteNonQuery();
-                    
+                    command.Parameters.Clear();
+                    command.Parameters.AddWithValue("@avancement", float.Parse(avancement_numericUpDown.Value.ToString()));
+                    command.Parameters.AddWithValue("@id", (int)seances_dataGridView.CurrentRow.Cells["id"].Value);
+                    command.ExecuteNonQuery();
+
                     RemplirDataGridViewAccordingly();
                 }
             }

@@ -10,26 +10,24 @@ namespace Gestion_emploi
     public partial class Emploi_du_temps : MaterialForm
     {
         readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
+        bool parFormateur = true;
+        bool parGroupe = false;
 
         public Emploi_du_temps()
         {
             InitializeComponent();
-
         }
 
         private void Emploi_du_temps_Load(object sender, EventArgs e)
         {
             RemplirListBoxes();
-            RemplirEmploi();
-
-            if (affectations_dataGridView.CurrentRow != null && affectations_dataGridView.CurrentRow.Cells[0].Value != null)
-                Coloring(int.Parse(affectations_dataGridView.CurrentRow.Cells[0].Value.ToString()));
         }
 
         // Create the string to display in emploi
-        private string GetEmploiChaine(int id_affectation, int id_salle)
+        private string[] GetEmploiChaine(int id_affectation, int id_salle)
         {
             string salle;
+            string[] result = new string[3];
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -43,18 +41,21 @@ namespace Gestion_emploi
 
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "select f.nom, m.nom from affectation a join module m on a.id_module = m.id join formateur f on a.id_formateur = f.id where a.id = @id_affectation";
+                    command.CommandText = "select g.chaine, f.nom, m.nom from affectation a join module m on a.id_module = m.id join groupe g on a.id_groupe = g.id join formateur f on a.id_formateur = f.id where a.id = @id_affectation";
                     command.Parameters.AddWithValue("@id_affectation", id_affectation);
+
 
                     MySqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        return reader[0].ToString() + " | " + reader[1].ToString() + " | " + salle;
+                        result[0] = reader[1].ToString() + " | " + reader[2].ToString() + " | " + salle;
+                        result[1] = reader[0].ToString() + " | " + reader[2].ToString() + " | " + salle;
+                        result[2] = reader[0].ToString() + " | " + reader[2].ToString() + " | " + reader[1];
                     }
                 }
             }
 
-            return "";
+            return result;
         }
 
         // Ajouter une seance dans l'emploi
@@ -72,12 +73,14 @@ namespace Gestion_emploi
                         int seance = emploi_dataGridView.CurrentCell.ColumnIndex;
                         int salle = int.Parse(salles_listBox.SelectedValue.ToString());
 
-                        command.CommandText = "INSERT INTO emploi(id_affectation, id_jour, id_seance, id_salle, chaine) VALUES(@id_affectation, @id_jour, @id_seance, @id_salle, @chaine)";
+                        command.CommandText = "INSERT INTO emploi(id_affectation, id_jour, id_seance, id_salle, chaine_groupe, chaine_formateur, chaine_salle) VALUES(@id_affectation, @id_jour, @id_seance, @id_salle, @chaine_groupe, @chaine_formateur, @chaine_salle)";
                         command.Parameters.AddWithValue("@id_affectation", affectation);
                         command.Parameters.AddWithValue("@id_jour", jour);
                         command.Parameters.AddWithValue("@id_seance", seance);
                         command.Parameters.AddWithValue("@id_salle", salle);
-                        command.Parameters.AddWithValue("@chaine", GetEmploiChaine(affectation, salle));
+                        command.Parameters.AddWithValue("@chaine_groupe", GetEmploiChaine(affectation, salle)[0]);
+                        command.Parameters.AddWithValue("@chaine_formateur", GetEmploiChaine(affectation, salle)[1]);
+                        command.Parameters.AddWithValue("@chaine_salle", GetEmploiChaine(affectation, salle)[2]);
 
                         string validationResult = Validator(affectation, jour, seance, salle);
 
@@ -103,7 +106,15 @@ namespace Gestion_emploi
             }
             catch { }
 
-            Groupe_comboBox_SelectedIndexChanged(null, null);
+            if (parGroupe)
+            {
+                Groupe_comboBox_SelectedIndexChanged(null, null);
+            }
+            else if (parFormateur)
+            {
+                Formateur_comboBox_SelectedIndexChanged(null, null);
+            }
+
             RemplirEmploi();
 
             if (affectations_dataGridView.CurrentRow != null && affectations_dataGridView.CurrentRow.Cells[0].Value != null)
@@ -176,21 +187,45 @@ namespace Gestion_emploi
                 }
             }
 
-            Groupe_comboBox_SelectedIndexChanged(null, null);
+            if (parGroupe)
+            {
+                Groupe_comboBox_SelectedIndexChanged(null, null);
+            }
+            else if (parFormateur)
+            {
+                Formateur_comboBox_SelectedIndexChanged(null, null);
+            }
+
             RemplirEmploi();
         }
 
         // Coloring datagridview
         private void Coloring (int affectation)
         {
-            for (int i = 0; i < emploi_dataGridView.Rows.Count; i++)
+            if (parGroupe)
             {
-                for (int j = 1; j < 5; j++)
+                for (int i = 0; i < emploi_dataGridView.Rows.Count; i++)
                 {
-                    if (IsFormateurAvailable(affectation, i + 1, j) == false)
-                        emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.LightPink;
-                    else
-                        emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.White;
+                    for (int j = 1; j < 5; j++)
+                    {
+                        if (IsFormateurAvailable(affectation, i + 1, j) == false)
+                            emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.LightPink;
+                        else
+                            emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.White;
+                    }
+                }
+            }
+            else if (parFormateur)
+            {
+                for (int i = 0; i < emploi_dataGridView.Rows.Count; i++)
+                {
+                    for (int j = 1; j < 5; j++)
+                    {
+                        if (IsGroupeAvailable(affectation, i + 1, j) == false)
+                            emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.LightPink;
+                        else
+                            emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.White;
+                    }
                 }
             }
         }
@@ -226,6 +261,16 @@ namespace Gestion_emploi
         // Remplir affectations_dataGridView
         private void Groupe_comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            parGroupe = true;
+            parFormateur = false;
+            RemplirAffectations();
+            RemplirEmploi();
+        }
+
+        private void Formateur_comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            parGroupe = false;
+            parFormateur = true;
             RemplirAffectations();
             RemplirEmploi();
         }
@@ -233,14 +278,22 @@ namespace Gestion_emploi
         private void RemplirAffectations()
         {
             affectations_dataGridView.Rows.Clear();
-            
+
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT a.id AS id, g.chaine AS groupe, m.nom AS module, f.nom AS formateur, a.date_debut, a.date_fin, a.nb_heures_semaine, a.nb_utilise FROM affectation a JOIN groupe g ON a.id_groupe = g.id JOIN module m ON a.id_module = m.id JOIN formateur f ON a.id_formateur = f.id WHERE a.id_groupe = @id_groupe";
-                    command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
+                    if (parGroupe)
+                    {
+                        command.CommandText = "SELECT a.id AS id, g.chaine AS groupe, m.nom AS module, f.nom AS formateur, a.date_debut, a.date_fin, a.nb_heures_semaine, a.nb_utilise FROM affectation a JOIN groupe g ON a.id_groupe = g.id JOIN module m ON a.id_module = m.id JOIN formateur f ON a.id_formateur = f.id WHERE a.id_groupe = @id_groupe";
+                        command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
+                    }
+                    else if (parFormateur)
+                    {
+                        command.CommandText = "SELECT a.id AS id, g.chaine AS groupe, m.nom AS module, f.nom AS formateur, a.date_debut, a.date_fin, a.nb_heures_semaine, a.nb_utilise FROM affectation a JOIN groupe g ON a.id_groupe = g.id JOIN module m ON a.id_module = m.id JOIN formateur f ON a.id_formateur = f.id WHERE a.id_formateur = @id_formateur";
+                        command.Parameters.AddWithValue("@id_formateur", formateur_comboBox.SelectedValue);
+                    }
 
                     MySqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
@@ -306,8 +359,16 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT e.chaine, id_jour, id_seance , id_affectation FROM emploi e JOIN affectation a ON e.id_affectation = a.id JOIN module m ON m.id = a.id_module WHERE id_groupe = @id_groupe";
-                    command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
+                    if (parGroupe)
+                    {
+                        command.CommandText = "SELECT e.chaine_groupe, id_jour, id_seance , id_affectation FROM emploi e JOIN affectation a ON e.id_affectation = a.id JOIN module m ON m.id = a.id_module WHERE id_groupe = @id_groupe";
+                        command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
+                    }
+                    else if (parFormateur)
+                    {
+                        command.CommandText = "SELECT e.chaine_formateur, id_jour, id_seance , id_affectation FROM emploi e JOIN affectation a ON e.id_affectation = a.id JOIN module m ON m.id = a.id_module WHERE id_formateur = @id_formateur";
+                        command.Parameters.AddWithValue("@id_formateur", formateur_comboBox.SelectedValue);
+                    }
 
                     MySqlDataReader reader = command.ExecuteReader();
                     if (reader.HasRows)
@@ -357,6 +418,8 @@ namespace Gestion_emploi
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
+
+                // Remplir groupe_listBox
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, chaine FROM groupe";
@@ -369,6 +432,22 @@ namespace Gestion_emploi
                         groupe_comboBox.ValueMember = "id";
                         groupe_comboBox.DisplayMember = "chaine";
                         groupe_comboBox.Text = "";
+                    }
+                }
+
+                // Remplir formateur_listbox
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "SELECT id, nom FROM Formateur";
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        formateur_comboBox.DataSource = binder;
+                        formateur_comboBox.ValueMember = "id";
+                        formateur_comboBox.DisplayMember = "nom";
+                        formateur_comboBox.Text = "";
                     }
                 }
 
@@ -530,7 +609,7 @@ namespace Gestion_emploi
         private void Affectations_dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if(affectations_dataGridView.CurrentRow.Cells[0].Value != null)
-            Coloring(int.Parse(affectations_dataGridView.CurrentRow.Cells[0].Value.ToString()));
+                Coloring(int.Parse(affectations_dataGridView.CurrentRow.Cells[0].Value.ToString()));
         }
 
         private void Reset_button_Click(object sender, EventArgs e)
@@ -542,8 +621,16 @@ namespace Gestion_emploi
                     connection.Open();
                     using (MySqlCommand command = new MySqlCommand("", connection))
                     {
-                        command.CommandText = "delete from emploi where id_affectation in (select id from affectation where id_groupe = @id_groupe);";
-                        command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
+                        if (parGroupe)
+                        {
+                            command.CommandText = "delete from emploi where id_affectation in (select id from affectation where id_groupe = @id_groupe);";
+                            command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
+                        }
+                        else if(parFormateur)
+                        {
+                            command.CommandText = "delete from emploi where id_affectation in (select id from affectation where id_formateur = @id_formateur);";
+                            command.Parameters.AddWithValue("@id_formateur", formateur_comboBox.SelectedValue);
+                        }
 
                         command.ExecuteNonQuery();
                     }
@@ -551,8 +638,16 @@ namespace Gestion_emploi
                     // Update the affectation nb_utilise
                     using (MySqlCommand command = new MySqlCommand("", connection))
                     {
-                        command.CommandText = "UPDATE affectation SET nb_utilise = 0 WHERE id_groupe = @id_groupe";
-                        command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
+                        if (parGroupe)
+                        {
+                            command.CommandText = "UPDATE affectation SET nb_utilise = 0 WHERE id_groupe = @id_groupe";
+                            command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
+                        }
+                        else if (parFormateur)
+                        {
+                            command.CommandText = "UPDATE affectation SET nb_utilise = 0 WHERE id_formateur = @id_formateur";
+                            command.Parameters.AddWithValue("@id_formateur", formateur_comboBox.SelectedValue);
+                        }
 
                         command.ExecuteNonQuery();
                     }
@@ -569,10 +664,16 @@ namespace Gestion_emploi
             ex.Show();
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked != false)
                 RemplirSalleAll();
+        }
+
+        private void Salle_button_Click(object sender, EventArgs e)
+        {
+            Emploi_Salle emploiSalle = new Emploi_Salle();
+            emploiSalle.Show();
         }
     }
 }

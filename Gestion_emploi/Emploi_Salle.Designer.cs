@@ -56,7 +56,6 @@
             this.emploi_dataGridView.ReadOnly = true;
             this.emploi_dataGridView.Size = new System.Drawing.Size(644, 382);
             this.emploi_dataGridView.TabIndex = 65;
-            this.emploi_dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.emploi_dataGridView_CellContentClick);
             // 
             // Jour
             // 

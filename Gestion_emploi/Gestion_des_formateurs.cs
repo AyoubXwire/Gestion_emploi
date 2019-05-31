@@ -14,13 +14,11 @@ namespace Gestion_emploi
         public Gestion_des_formateurs()
         {
             InitializeComponent();
-           
-        
-    }
+        }
 
         private void Gestion_des_formateurs_Load(object sender, EventArgs e)
         {
-            
+            RemplirDataGridView();
         }
 
         private void Nouveau_button_Click(object sender, EventArgs e)
@@ -141,11 +139,6 @@ namespace Gestion_emploi
                     }
                 }
             }
-        }
-
-        private void formateurs_dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.groupe_comboBox = new System.Windows.Forms.ComboBox();
             this.emploi_dataGridView = new System.Windows.Forms.DataGridView();
@@ -52,6 +52,9 @@
             this.reset_button = new System.Windows.Forms.Button();
             this.exporter_button = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.formateur_comboBox = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.salle_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.emploi_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.affectations_dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -97,8 +100,8 @@
             // 
             // Jour
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.Jour.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.Jour.DefaultCellStyle = dataGridViewCellStyle2;
             this.Jour.HeaderText = "jour";
             this.Jour.Name = "Jour";
             this.Jour.ReadOnly = true;
@@ -265,13 +268,47 @@
             this.checkBox1.TabIndex = 75;
             this.checkBox1.Text = "Tous";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            // 
+            // formateur_comboBox
+            // 
+            this.formateur_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.formateur_comboBox.FormattingEnabled = true;
+            this.formateur_comboBox.Location = new System.Drawing.Point(334, 70);
+            this.formateur_comboBox.Margin = new System.Windows.Forms.Padding(2);
+            this.formateur_comboBox.Name = "formateur_comboBox";
+            this.formateur_comboBox.Size = new System.Drawing.Size(138, 21);
+            this.formateur_comboBox.TabIndex = 76;
+            this.formateur_comboBox.SelectedIndexChanged += new System.EventHandler(this.Formateur_comboBox_SelectedIndexChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(274, 73);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(57, 13);
+            this.label4.TabIndex = 77;
+            this.label4.Text = "Formateur:";
+            // 
+            // salle_button
+            // 
+            this.salle_button.Location = new System.Drawing.Point(1021, 73);
+            this.salle_button.Name = "salle_button";
+            this.salle_button.Size = new System.Drawing.Size(121, 47);
+            this.salle_button.TabIndex = 78;
+            this.salle_button.Text = "Disponibilié des salles";
+            this.salle_button.UseVisualStyleBackColor = true;
+            this.salle_button.Click += new System.EventHandler(this.Salle_button_Click);
             // 
             // Emploi_du_temps
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1170, 782);
+            this.Controls.Add(this.salle_button);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.formateur_comboBox);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.exporter_button);
             this.Controls.Add(this.reset_button);
@@ -319,5 +356,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn date_fin;
         private System.Windows.Forms.Button exporter_button;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.ComboBox formateur_comboBox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button salle_button;
     }
 }

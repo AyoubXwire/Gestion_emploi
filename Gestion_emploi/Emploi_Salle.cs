@@ -1,14 +1,15 @@
-﻿using MySql.Data.MySqlClient;
+﻿using MaterialSkin.Controls;
+using MySql.Data.MySqlClient;
 using System;
 using System.Configuration;
 using System.Windows.Forms;
-using System.Drawing;
-using MaterialSkin.Controls;
 
 namespace Gestion_emploi
 {
     public partial class Emploi_Salle : MaterialForm
     {
+        readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
+
         public Emploi_Salle()
         {
             InitializeComponent();
@@ -18,13 +19,6 @@ namespace Gestion_emploi
         private void Emploi_Salle_Load(object sender, EventArgs e)
         {
             RemplirListBoxes();
-        }
-        readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
-
-
-        private void emploi_dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void RemplirListBoxes()
@@ -47,8 +41,6 @@ namespace Gestion_emploi
                     }
                 }
             }
-
-
         }
 
         private void InitializeEmploi()
@@ -88,7 +80,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT e.chaine, id_jour, id_seance, id_affectation FROM emploi e JOIN affectation a ON e.id_affectation = a.id JOIN module m ON m.id = a.id_module WHERE id_salle = @salle";
+                    command.CommandText = "SELECT e.chaine_salle, id_jour, id_seance, id_affectation FROM emploi e JOIN affectation a ON e.id_affectation = a.id JOIN module m ON m.id = a.id_module WHERE id_salle = @salle";
                     command.Parameters.AddWithValue("@salle", salle);
 
                     MySqlDataReader reader = command.ExecuteReader();

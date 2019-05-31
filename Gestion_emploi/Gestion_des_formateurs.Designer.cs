@@ -107,7 +107,6 @@
             this.formateurs_dataGridView.Size = new System.Drawing.Size(456, 323);
             this.formateurs_dataGridView.TabIndex = 12;
             this.formateurs_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Formateurs_dataGridView_CellClick);
-            this.formateurs_dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.formateurs_dataGridView_CellContentClick);
             // 
             // groupBox1
             // 

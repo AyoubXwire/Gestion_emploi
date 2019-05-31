@@ -73,15 +73,8 @@ namespace Gestion_emploi
 
         private void button11_Click(object sender, EventArgs e)
         {
-            Emploi_menu em = new Emploi_menu();
-            em.Show();
+            Emploi_du_temps emploi = new Emploi_du_temps();
+            emploi.Show();
         }
-
-        private void Menu_Load(object sender, EventArgs e)
-        {
-
-        }
-
-      
     }
 }

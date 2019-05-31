@@ -89,7 +89,6 @@ create table affectation(
     id_groupe int NOT NULL,
     nb_heures_semaine float default 0,
     avancement float default 0,
-    nb_heures_rates float default 0,
     date_debut date,
     date_fin date,
     nb_semaines int,

@@ -66,7 +66,7 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText =
-                        "SELECT a.id, g.chaine as groupe, m.nom as module, f.nom as formateur, m.mass_horaire, a.nb_heures_semaine as heures_par_semaine, a.nb_heures_rates, a.avancement, a.date_debut, a.date_fin, nb_semaines FROM affectation a join groupe g on a.id_groupe = g.id join module m on a.id_module = m.id join formateur f on f.id=a.id_formateur WHERE a.id_groupe=@id_groupe";
+                        "SELECT a.id, g.chaine as groupe, m.nom as module, f.nom as formateur, m.mass_horaire, a.nb_heures_semaine as heures_par_semaine, a.avancement, a.date_debut, a.date_fin, nb_semaines FROM affectation a join groupe g on a.id_groupe = g.id join module m on a.id_module = m.id join formateur f on f.id=a.id_formateur WHERE a.id_groupe=@id_groupe";
                     command.Parameters.AddWithValue("@id_groupe", id_groupe);
                     MySqlDataReader reader = command.ExecuteReader();
                     // if no affectations, the gridView will be empty
@@ -98,7 +98,7 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     command.CommandText =
-                        "SELECT a.id, g.chaine as groupe, m.nom as module, f.nom as formateur, m.mass_horaire, a.nb_heures_semaine as heures_par_semaine, a.nb_heures_rates, a.avancement, a.date_debut, a.date_fin, nb_semaines FROM affectation a join groupe g on a.id_groupe = g.id join module m on a.id_module = m.id join formateur f on f.id=a.id_formateur WHERE a.id_formateur=@id_formateur";
+                        "SELECT a.id, g.chaine as groupe, m.nom as module, f.nom as formateur, m.mass_horaire, a.nb_heures_semaine as heures_par_semaine, a.avancement, a.date_debut, a.date_fin, nb_semaines FROM affectation a join groupe g on a.id_groupe = g.id join module m on a.id_module = m.id join formateur f on f.id=a.id_formateur WHERE a.id_formateur=@id_formateur";
                     command.Parameters.AddWithValue("@id_formateur", id_formateur);
                     MySqlDataReader reader = command.ExecuteReader();
                     // if no affectations, the gridView will be empty
@@ -181,11 +181,6 @@ namespace Gestion_emploi
                 nbHeures_numericUpDown.Value = Convert.ToDecimal(seances_dataGridView.CurrentRow.Cells["heures_par_semaine"].Value);
             }
 
-            if(seances_dataGridView.CurrentRow.Cells["nb_heures_rates"].Value.ToString() != "")
-            {
-                nbHeuresRates_numericUpDown.Value = Convert.ToDecimal(seances_dataGridView.CurrentRow.Cells["nb_heures_rates"].Value);
-            }
-
             if(seances_dataGridView.CurrentRow.Cells["date_debut"].Value.ToString() != "")
             {
                 dateDebut_dateTimePicker.Value = Convert.ToDateTime(seances_dataGridView.CurrentRow.Cells["date_debut"].Value);
@@ -246,38 +241,6 @@ namespace Gestion_emploi
             }
         }
 
-        private void NbHeuresRates_button_Click(object sender, EventArgs e)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
-                {
-                    int counter = 0;
-                    command.CommandText = "UPDATE affectation set nb_heures_rates = @nb_heures_rates where id = @id";
-
-                    for (int i = 0; i < seances_dataGridView.RowCount; i++)
-                    {
-                        if (seances_dataGridView.Rows[i].Selected)
-                        {
-                            command.Parameters.Clear();
-                            command.Parameters.AddWithValue("@nb_heures_rates", nbHeuresRates_numericUpDown.Value);
-                            command.Parameters.AddWithValue("@id", (int)seances_dataGridView.Rows[i].Cells["id"].Value);
-                            counter += command.ExecuteNonQuery();
-
-                        }
-                    }
-
-                    if (counter > 0)
-                    {
-                        MessageBox.Show("nombre d'heures ratées modifié pour " + counter.ToString() + " affectation");
-                    }
-
-                    RemplirDataGridViewAccordingly();
-                }
-            }
-        }
-
         private void AppliquerDateDebut_button_Click(object sender, EventArgs e)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -314,7 +277,6 @@ namespace Gestion_emploi
         private void UpdateDateFin(int id_affectation)
         {
             int massHoraire = 0;
-            float heuresRates = 0f;
             float heuresParSemaine = 0f;
             DateTime dateDebut = DateTime.Now;
 
@@ -323,37 +285,28 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT m.mass_horaire, a.nb_heures_rates, a.nb_heures_semaine, a.date_debut FROM affectation a JOIN module m ON a.id_module = m.id WHERE a.id = @id";
+                    command.CommandText = "SELECT m.mass_horaire, a.nb_heures_semaine, a.date_debut FROM affectation a JOIN module m ON a.id_module = m.id WHERE a.id = @id";
                     command.Parameters.AddWithValue("@id", id_affectation);
                     MySqlDataReader reader = command.ExecuteReader();
                     if (reader.Read())
                     {
                         massHoraire = (int)reader[0];
-                        heuresRates = (float)reader[1];
-                        heuresParSemaine = (float)reader[2];
+                        heuresParSemaine = (float)reader[1];
 
-                        if(reader[3].ToString() == "")
+                        if(reader[2].ToString() == "")
                         {
                             return;
                         }
-                        dateDebut = (DateTime)reader[3];
+                        dateDebut = (DateTime)reader[2];
                     }
                 }
-            }
-
-            TimeSpan ts = DateTime.Now.Date - dateDebut.Date;
-
-            float avancement = ((ts.Days / 7) * heuresParSemaine) - heuresRates;
-            if (avancement > massHoraire)
-            {
-                avancement = massHoraire;
             }
 
             int nbrSemaines;
 
             if (heuresParSemaine != 0)
             {
-                nbrSemaines = (int)Math.Ceiling((massHoraire + heuresRates) / heuresParSemaine);
+                nbrSemaines = (int)Math.Ceiling(massHoraire / heuresParSemaine);
             }
             else
             {
@@ -368,10 +321,9 @@ namespace Gestion_emploi
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
                     int counter = 0;
-                    command.CommandText = "UPDATE affectation set date_fin = @date_fin, nb_semaines = @nb_semaines, avancement = @avancement where id = @id";
+                    command.CommandText = "UPDATE affectation set date_fin = @date_fin, nb_semaines = @nb_semaines where id = @id";
                     command.Parameters.AddWithValue("@date_fin", dateFinPrevu.Date);
                     command.Parameters.AddWithValue("@nb_semaines", nbrSemaines);
-                    command.Parameters.AddWithValue("@avancement", avancement);
                     command.Parameters.AddWithValue("@id", id_affectation);
                     counter += command.ExecuteNonQuery();
                 }
@@ -387,8 +339,14 @@ namespace Gestion_emploi
                 {
                     command.CommandText = "UPDATE affectation set avancement = @avancement where id = @id";
 
+                    float avancement = float.Parse(avancement_numericUpDown.Value.ToString());
+                    if(avancement > float.Parse(seances_dataGridView.CurrentRow.Cells["mass_horaire"].Value.ToString()))
+                    {
+                        avancement = float.Parse(seances_dataGridView.CurrentRow.Cells["mass_horaire"].Value.ToString());
+                    }
+
                     command.Parameters.Clear();
-                    command.Parameters.AddWithValue("@avancement", float.Parse(avancement_numericUpDown.Value.ToString()));
+                    command.Parameters.AddWithValue("@avancement", avancement);
                     command.Parameters.AddWithValue("@id", (int)seances_dataGridView.CurrentRow.Cells["id"].Value);
                     command.ExecuteNonQuery();
 

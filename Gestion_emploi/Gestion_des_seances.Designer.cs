@@ -269,7 +269,6 @@
             this.nbHeuresRates_button.TabIndex = 98;
             this.nbHeuresRates_button.Text = "Appliquer";
             this.nbHeuresRates_button.UseVisualStyleBackColor = true;
-            this.nbHeuresRates_button.Click += new System.EventHandler(this.NbHeuresRates_button_Click);
             // 
             // groupBox5
             // 

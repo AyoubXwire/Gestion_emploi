@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gestion_des_metiers));
             this.nom_textBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.supprimer_button = new System.Windows.Forms.Button();
@@ -112,6 +113,7 @@
             this.Controls.Add(this.modifier_button);
             this.Controls.Add(this.ajouter_button);
             this.Controls.Add(this.metiers_dataGridView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Gestion_des_metiers";
             this.Text = "Gestion_des_metiers";
             this.Load += new System.EventHandler(this.Gestion_des_metiers_Load);

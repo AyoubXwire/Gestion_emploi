@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gestion_des_seances));
             this.seances_dataGridView = new System.Windows.Forms.DataGridView();
             this.label6 = new System.Windows.Forms.Label();
             this.groupes_listBox = new System.Windows.Forms.ListBox();
@@ -368,6 +369,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.seances_dataGridView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Gestion_des_seances";
             this.Text = "Gestion_des_seances";
             this.Load += new System.EventHandler(this.Gestion_des_seances_Load);

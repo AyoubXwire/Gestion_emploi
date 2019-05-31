@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Emploi_Salle));
             this.emploi_dataGridView = new System.Windows.Forms.DataGridView();
             this.Jour = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Seance1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -123,6 +124,7 @@
             this.Controls.Add(this.emploi_dataGridView);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupe_comboBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Emploi_Salle";
             this.Text = "Emploi_Salle";
             this.Load += new System.EventHandler(this.Emploi_Salle_Load);

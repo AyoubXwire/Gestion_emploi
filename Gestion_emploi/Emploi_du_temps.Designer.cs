@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Emploi_du_temps));
             this.label1 = new System.Windows.Forms.Label();
             this.groupe_comboBox = new System.Windows.Forms.ComboBox();
             this.emploi_dataGridView = new System.Windows.Forms.DataGridView();
@@ -100,8 +101,8 @@
             // 
             // Jour
             // 
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.Jour.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.Jour.DefaultCellStyle = dataGridViewCellStyle8;
             this.Jour.HeaderText = "jour";
             this.Jour.Name = "Jour";
             this.Jour.ReadOnly = true;
@@ -328,6 +329,7 @@
             this.Controls.Add(this.emploi_dataGridView);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupe_comboBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Emploi_du_temps";
             this.Text = "Emploi_du_temps";
             this.Load += new System.EventHandler(this.Emploi_du_temps_Load);

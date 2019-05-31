@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gestion_des_salles));
             this.type_comboBox = new System.Windows.Forms.ComboBox();
             this.nom_textBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -134,6 +135,7 @@
             this.Controls.Add(this.modifier_button);
             this.Controls.Add(this.ajouter_button);
             this.Controls.Add(this.salles_dataGridView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Gestion_des_salles";
             this.Text = "Gestion_des_salles";
             this.Load += new System.EventHandler(this.Gestion_des_salles_Load);

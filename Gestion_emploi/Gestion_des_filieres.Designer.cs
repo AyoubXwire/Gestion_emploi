@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gestion_des_filieres));
             this.filieres_dataGridView = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.secteur_comboBox = new System.Windows.Forms.ComboBox();
@@ -134,6 +135,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.secteur_comboBox);
             this.Controls.Add(this.filieres_dataGridView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Gestion_des_filieres";
             this.Text = "Gestion_des_filieres";

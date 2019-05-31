@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gestion_des_formateurs));
             this.supprimer_button = new System.Windows.Forms.Button();
             this.modifier_button = new System.Windows.Forms.Button();
             this.ajouter_button = new System.Windows.Forms.Button();
@@ -246,6 +247,7 @@
             this.Controls.Add(this.ajouter_button);
             this.Controls.Add(this.vider_button);
             this.Controls.Add(this.formateurs_dataGridView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Gestion_des_formateurs";
             this.Text = "Gestion_des_formateurs";

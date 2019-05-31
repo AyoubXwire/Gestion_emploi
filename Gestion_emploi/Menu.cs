@@ -82,10 +82,6 @@ namespace Gestion_emploi
 
         }
 
-        private void button9_Click_1(object sender, EventArgs e)
-        {
-            showDesign s = new showDesign();
-            s.Show();
-        }
+      
     }
 }

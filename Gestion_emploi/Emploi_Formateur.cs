@@ -18,7 +18,7 @@ namespace Gestion_emploi
         private void Emploi_Formateur_Load(object sender, EventArgs e)
         {
             RemplirListBoxes();
-            InitializeEmploi();
+           
 
         }
 

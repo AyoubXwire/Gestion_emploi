@@ -14,35 +14,13 @@ namespace Gestion_emploi
         public Gestion_des_formateurs()
         {
             InitializeComponent();
-            var materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.AddFormToManage(this);
-            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
+           
         
     }
 
         private void Gestion_des_formateurs_Load(object sender, EventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
-                {
-                    command.CommandText = "SELECT id, nom FROM metier";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        metier_comboBox.DataSource = binder;
-                        metier_comboBox.ValueMember = "id";
-                        metier_comboBox.DisplayMember = "nom";
-                        metier_comboBox.Text = "";
-                    }
-                }
-            }
-
-            RemplirDataGridView();
+            
         }
 
         private void Nouveau_button_Click(object sender, EventArgs e)

@@ -97,6 +97,7 @@
             this.formateurs_dataGridView.AllowUserToResizeColumns = false;
             this.formateurs_dataGridView.AllowUserToResizeRows = false;
             this.formateurs_dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.formateurs_dataGridView.CausesValidation = false;
             this.formateurs_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.formateurs_dataGridView.Location = new System.Drawing.Point(357, 61);
             this.formateurs_dataGridView.Margin = new System.Windows.Forms.Padding(0);

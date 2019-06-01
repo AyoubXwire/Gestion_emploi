@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gestion_des_modules));
             this.module_dataGridView = new System.Windows.Forms.DataGridView();
             this.niveau_numericUpDown = new System.Windows.Forms.NumericUpDown();
             this.mass_horaire_numericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -236,6 +237,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.module_dataGridView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Gestion_des_modules";
             this.Text = "Gestion_des_modules";

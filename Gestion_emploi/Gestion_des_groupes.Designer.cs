@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gestion_des_groupes));
             this.groupes_dataGridView = new System.Windows.Forms.DataGridView();
             this.nombreDeGroupes_numericUpDown = new System.Windows.Forms.NumericUpDown();
             this.confirmer_button = new System.Windows.Forms.Button();
@@ -161,6 +162,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.niveau_numericUpDown);
             this.Controls.Add(this.groupes_dataGridView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Gestion_des_groupes";
             this.Text = "Gestion_des_groupes";

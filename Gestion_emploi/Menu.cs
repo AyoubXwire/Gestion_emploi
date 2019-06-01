@@ -4,12 +4,13 @@ using System.Windows.Forms;
 
 namespace Gestion_emploi
 {
-    public partial class Menu : MaterialForm
+    public partial class Menu : MaterialForm 
     {
         public Menu()
         {
             InitializeComponent();
         }
+
 
         private void Button1_Click(object sender, EventArgs e)
         {
@@ -75,6 +76,11 @@ namespace Gestion_emploi
         {
             Emploi_du_temps emploi = new Emploi_du_temps();
             emploi.Show();
+        }
+
+        private void Menu_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

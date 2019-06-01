@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gestion_des_affectation));
             this.affecter_button = new System.Windows.Forms.Button();
             this.module_listBox = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -337,6 +338,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.filiere_comboBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Gestion_des_affectation";
             this.Text = "Affectation";

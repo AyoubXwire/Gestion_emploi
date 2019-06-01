@@ -37,7 +37,7 @@ namespace Gestion_emploi
                 connection.Open();
                 using (MySqlCommand command = new MySqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT e.chaine, id_jour, id_seance, id_affectation FROM emploi e JOIN affectation a ON e.id_affectation = a.id JOIN module m ON m.id = a.id_module WHERE id_groupe = @id_groupe";
+                    command.CommandText = "SELECT e.chaine_Groupe, id_jour, id_seance, id_affectation FROM emploi e JOIN affectation a ON e.id_affectation = a.id JOIN module m ON m.id = a.id_module WHERE id_groupe = @id_groupe";
                     command.Parameters.AddWithValue("@id_groupe", groupe);
 
                     MySqlDataReader reader = command.ExecuteReader();
@@ -165,7 +165,7 @@ namespace Gestion_emploi
             {
                 Microsoft.Office.Interop.Excel.Application xcelApp = new Microsoft.Office.Interop.Excel.Application();
                 xcelApp.Application.Workbooks.Add(Type.Missing);
-
+               
                 for (int i = 1; i < emploi_dataGridView.Columns.Count + 1; i++)
                 {
                     xcelApp.Cells[1, i] = emploi_dataGridView.Columns[i - 1].HeaderText;
@@ -182,7 +182,8 @@ namespace Gestion_emploi
                     }
                 }
 
-                xcelApp.Columns.AutoFit();
+                xcelApp.Columns.ColumnWidth = 30;
+                xcelApp.Columns.RowHeight = 30;
                 xcelApp.Visible = true;
             }
         }

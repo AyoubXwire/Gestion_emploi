@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Emploi_extract));
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.exporter_button = new System.Windows.Forms.Button();
@@ -144,6 +145,7 @@
             this.Controls.Add(this.exporter_button);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.listBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Emploi_extract";
             this.Text = "emplois_extract";
             this.Load += new System.EventHandler(this.Emplois_extract_Load);

@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Emploi_du_temps));
             this.label1 = new System.Windows.Forms.Label();
             this.groupe_comboBox = new System.Windows.Forms.ComboBox();
             this.emploi_dataGridView = new System.Windows.Forms.DataGridView();
@@ -51,10 +52,10 @@
             this.supprimer_button = new System.Windows.Forms.Button();
             this.reset_button = new System.Windows.Forms.Button();
             this.exporter_button = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.formateur_comboBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.salle_button = new System.Windows.Forms.Button();
+            this.materialCheckBox1 = new MaterialSkin.Controls.MaterialCheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.emploi_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.affectations_dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -100,8 +101,8 @@
             // 
             // Jour
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.Jour.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.Jour.DefaultCellStyle = dataGridViewCellStyle8;
             this.Jour.HeaderText = "jour";
             this.Jour.Name = "Jour";
             this.Jour.ReadOnly = true;
@@ -259,17 +260,6 @@
             this.exporter_button.UseVisualStyleBackColor = true;
             this.exporter_button.Click += new System.EventHandler(this.Exporter_button_Click);
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(15, 538);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(50, 17);
-            this.checkBox1.TabIndex = 75;
-            this.checkBox1.Text = "Tous";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
-            // 
             // formateur_comboBox
             // 
             this.formateur_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -301,15 +291,33 @@
             this.salle_button.UseVisualStyleBackColor = true;
             this.salle_button.Click += new System.EventHandler(this.Salle_button_Click);
             // 
+            // materialCheckBox1
+            // 
+            this.materialCheckBox1.AutoSize = true;
+            this.materialCheckBox1.Depth = 0;
+            this.materialCheckBox1.Font = new System.Drawing.Font("Roboto", 10F);
+            this.materialCheckBox1.Location = new System.Drawing.Point(14, 535);
+            this.materialCheckBox1.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckBox1.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckBox1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCheckBox1.Name = "materialCheckBox1";
+            this.materialCheckBox1.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.materialCheckBox1.Ripple = true;
+            this.materialCheckBox1.Size = new System.Drawing.Size(71, 30);
+            this.materialCheckBox1.TabIndex = 79;
+            this.materialCheckBox1.Text = "Tous  .";
+            this.materialCheckBox1.UseVisualStyleBackColor = true;
+            this.materialCheckBox1.CheckedChanged += new System.EventHandler(this.materialCheckBox1_CheckedChanged);
+            // 
             // Emploi_du_temps
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1170, 782);
+            this.Controls.Add(this.materialCheckBox1);
             this.Controls.Add(this.salle_button);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.formateur_comboBox);
-            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.exporter_button);
             this.Controls.Add(this.reset_button);
             this.Controls.Add(this.supprimer_button);
@@ -321,6 +329,7 @@
             this.Controls.Add(this.emploi_dataGridView);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupe_comboBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Emploi_du_temps";
             this.Text = "Emploi_du_temps";
             this.Load += new System.EventHandler(this.Emploi_du_temps_Load);
@@ -355,9 +364,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn date_debut;
         private System.Windows.Forms.DataGridViewTextBoxColumn date_fin;
         private System.Windows.Forms.Button exporter_button;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.ComboBox formateur_comboBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button salle_button;
+        private MaterialSkin.Controls.MaterialCheckBox materialCheckBox1;
     }
 }

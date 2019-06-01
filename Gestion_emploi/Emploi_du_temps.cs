@@ -664,16 +664,18 @@ namespace Gestion_emploi
             ex.Show();
         }
 
-        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked != false)
-                RemplirSalleAll();
-        }
+     
 
         private void Salle_button_Click(object sender, EventArgs e)
         {
             Emploi_Salle emploiSalle = new Emploi_Salle();
             emploiSalle.Show();
+        }
+
+        private void materialCheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (materialCheckBox1.Checked != false)
+                RemplirSalleAll();
         }
     }
 }

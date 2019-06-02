@@ -18,6 +18,25 @@ namespace Gestion_emploi
 
         private void Gestion_des_formateurs_Load(object sender, EventArgs e)
         {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    command.CommandText = "SELECT id, nom FROM metier";
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        BindingSource binder = new BindingSource();
+                        binder.DataSource = reader;
+                        metier_comboBox.DataSource = binder;
+                        metier_comboBox.ValueMember = "id";
+                        metier_comboBox.DisplayMember = "nom";
+                        metier_comboBox.Text = "";
+                    }
+                }
+            }
+
             RemplirDataGridView();
         }
 

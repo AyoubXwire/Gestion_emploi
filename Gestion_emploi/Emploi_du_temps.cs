@@ -209,14 +209,14 @@ namespace Gestion_emploi
                     for (int j = 1; j < 5; j++)
                     {
                         if (IsFormateurAvailable(affectation, i + 1, j) == false)
-                        {
+                        
                             emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.LightPink;
-                           
-                        }
+                        
                         
 
                         else
                             emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.LightGreen;
+                        
                     }
                 }
             }

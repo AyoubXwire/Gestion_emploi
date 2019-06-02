@@ -209,9 +209,14 @@ namespace Gestion_emploi
                     for (int j = 1; j < 5; j++)
                     {
                         if (IsFormateurAvailable(affectation, i + 1, j) == false)
+                        {
                             emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.LightPink;
+                           
+                        }
+                        
+
                         else
-                            emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.White;
+                            emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.LightGreen;
                     }
                 }
             }
@@ -222,13 +227,19 @@ namespace Gestion_emploi
                     for (int j = 1; j < 5; j++)
                     {
                         if (IsGroupeAvailable(affectation, i + 1, j) == false)
+                        {
                             emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.LightPink;
+                           
+                        }
+                            
                         else
-                            emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.White;
+                            emploi_dataGridView.Rows[i].Cells[j].Style.BackColor = Color.LightGreen;
                     }
                 }
             }
         }
+
+        
 
         // Send the user a precise message
         private string Validator(int affectation, int jour, int seance, int salle)

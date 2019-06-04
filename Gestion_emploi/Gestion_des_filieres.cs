@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Configuration;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 using MaterialSkin.Controls;
 
@@ -8,7 +8,7 @@ namespace Gestion_emploi
 {
     public partial class Gestion_des_filieres : MaterialForm
     {
-        readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
+        readonly string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
 
         public Gestion_des_filieres()
         {
@@ -17,21 +17,23 @@ namespace Gestion_emploi
 
         private void Gestion_des_filieres_Load(object sender, EventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, nom FROM secteur";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        secteur_comboBox.DataSource = binder;
-                        secteur_comboBox.ValueMember = "id";
-                        secteur_comboBox.DisplayMember = "nom";
-                        secteur_comboBox.Text = "";
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            secteur_comboBox.DataSource = binder;
+                            secteur_comboBox.ValueMember = "id";
+                            secteur_comboBox.DisplayMember = "nom";
+                            secteur_comboBox.Text = "";
+                        }
                     }
                 }
             }
@@ -46,13 +48,14 @@ namespace Gestion_emploi
 
         private void Ajouter_button_Click(object sender, EventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
-                    command.CommandText = "INSERT INTO filiere(nom) VALUES(@nom)";
+                    command.CommandText = "INSERT INTO filiere(nom,id_secteur) VALUES(@nom,@secteur)";
                     command.Parameters.AddWithValue("@nom", nom_textBox.Text);
+                    command.Parameters.AddWithValue("@secteur", secteur_comboBox.SelectedValue.ToString());
 
                     if (command.ExecuteNonQuery() > 0)
                     {
@@ -70,10 +73,10 @@ namespace Gestion_emploi
 
         private void Modifier_button_Click(object sender, EventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "update filiere set nom = @nom WHERE id = @id";
                     command.Parameters.AddWithValue("@nom", nom_textBox.Text);
@@ -82,6 +85,13 @@ namespace Gestion_emploi
                     if (command.ExecuteNonQuery() > 0)
                     {
                         MessageBox.Show("Filiere modifiée");
+                        using (SqlCommand command2 = new SqlCommand("", connection))
+                        {
+                            command2.CommandText = "update groupe set chaine = CONCAT(@filiere, niveau, nom) where id_filiere = @id_filiere";
+                            command2.Parameters.AddWithValue("@filiere", nom_textBox.Text);
+                            command2.Parameters.AddWithValue("@id_filiere", filieres_dataGridView.CurrentRow.Cells["id"].Value);
+                            command2.ExecuteNonQuery();
+                        }
                     }
                     else
                     {
@@ -98,10 +108,27 @@ namespace Gestion_emploi
             string confirmationMessage = "Supprimer une filiere cause la suppression de tous ses groupes, modules et affectations";
             if (MessageBox.Show(confirmationMessage, "Voulez-vous continuer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (MySqlCommand command = new MySqlCommand("", connection))
+                    // Delete affectation by groupe
+                    using (SqlCommand command = new SqlCommand("", connection))
+                    {
+                        command.CommandText = "DELETE FROM affectation WHERE id_groupe IN (select id from groupe where id_filiere = @filiere)";
+                        command.Parameters.AddWithValue("@filiere", filieres_dataGridView.CurrentRow.Cells["id"].Value);
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Delete affectation by module
+                    using (SqlCommand command = new SqlCommand("", connection))
+                    {
+                        command.CommandText = "DELETE FROM affectation WHERE id_module IN (select id from module where id_filiere = @filiere)";
+                        command.Parameters.AddWithValue("@filiere", filieres_dataGridView.CurrentRow.Cells["id"].Value);
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Delete filiere
+                    using (SqlCommand command = new SqlCommand("", connection))
                     {
                         command.CommandText = "DELETE FROM filiere WHERE id = @id";
                         command.Parameters.AddWithValue("@id", filieres_dataGridView.CurrentRow.Cells["id"].Value);
@@ -127,20 +154,23 @@ namespace Gestion_emploi
 
         private void RemplirDataGridView()
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "select f.id, f.nom, s.nom as secteur FROM filiere f JOIN secteur s ON f.id_secteur = s.id WHERE s.id = @id_secteur";
-                    command.Parameters.AddWithValue("@id_secteur", secteur_comboBox.SelectedValue);
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    command.Parameters.AddWithValue("@id_secteur", secteur_comboBox.SelectedValue.ToString());
+                    
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        filieres_dataGridView.DataSource = binder;
-                        filieres_dataGridView.Columns["id"].Visible = false;
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            filieres_dataGridView.DataSource = binder;
+                            filieres_dataGridView.Columns["id"].Visible = false;
+                        } 
                     }
                 }
             }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
@@ -28,7 +28,7 @@ namespace Gestion_emploi
 
         public string path;
         private DataSet ds;
-        string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
+        string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
 
 
 
@@ -37,37 +37,43 @@ namespace Gestion_emploi
             
             ds = new DataSet();
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, nom FROM metier";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        comboBox2.ValueMember = "id";
-                        comboBox2.DisplayMember = "nom";
-                        comboBox2.DataSource = binder;
-                        comboBox2.Text = "";
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            comboBox2.ValueMember = "id";
+                            comboBox2.DisplayMember = "nom";
+                            comboBox2.DataSource = binder;
+                            comboBox2.Text = "";
+                        }
                     }
+                    
                 }
 
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, nom FROM filiere";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        comboBox3.ValueMember = "id";
-                        comboBox3.DisplayMember = "nom";
-                        comboBox3.DataSource = binder;
-                        comboBox3.Text = "";
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            comboBox3.ValueMember = "id";
+                            comboBox3.DisplayMember = "nom";
+                            comboBox3.DataSource = binder;
+                            comboBox3.Text = "";
+                        }
                     }
+                   
                 }
             }
         }
@@ -158,10 +164,10 @@ namespace Gestion_emploi
                     niveau = "12";
                 }
 
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (MySqlCommand command = new MySqlCommand("", connection))
+                    using (SqlCommand command = new SqlCommand("", connection))
                     {
                         command.CommandText = "INSERT INTO module(nom, niveau, mass_horaire, id_metier, id_filiere) VALUES(@nom, @niveau ,@mass_horaire, @id_metier, @id_filiere)";
                         command.Parameters.AddWithValue("@nom",nom);

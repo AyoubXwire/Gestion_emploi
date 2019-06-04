@@ -44,10 +44,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.appliquerNbHeures_button = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.nbHeuresRates_numericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.nbHeuresRates_button = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.dateDebut_dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
@@ -61,8 +57,6 @@
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nbHeures_numericUpDown)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nbHeuresRates_numericUpDown)).BeginInit();
-            this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.avancement_numericUpDown)).BeginInit();
@@ -76,7 +70,7 @@
             this.seances_dataGridView.Location = new System.Drawing.Point(0, 355);
             this.seances_dataGridView.Name = "seances_dataGridView";
             this.seances_dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.seances_dataGridView.Size = new System.Drawing.Size(1105, 352);
+            this.seances_dataGridView.Size = new System.Drawing.Size(1127, 352);
             this.seances_dataGridView.TabIndex = 0;
             this.seances_dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Seances_dataGridView_CellClick);
             // 
@@ -218,58 +212,11 @@
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.appliquerNbHeures_button);
             this.groupBox3.Controls.Add(this.nbHeures_numericUpDown);
-            this.groupBox3.Location = new System.Drawing.Point(585, 217);
+            this.groupBox3.Location = new System.Drawing.Point(585, 165);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(508, 58);
+            this.groupBox3.Size = new System.Drawing.Size(520, 75);
             this.groupBox3.TabIndex = 94;
             this.groupBox3.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(120, 13);
-            this.label1.TabIndex = 97;
-            this.label1.Text = "nombre d\'heures ratées:";
-            // 
-            // nbHeuresRates_numericUpDown
-            // 
-            this.nbHeuresRates_numericUpDown.DecimalPlaces = 1;
-            this.nbHeuresRates_numericUpDown.Increment = new decimal(new int[] {
-            25,
-            0,
-            0,
-            65536});
-            this.nbHeuresRates_numericUpDown.Location = new System.Drawing.Point(166, 30);
-            this.nbHeuresRates_numericUpDown.Maximum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            this.nbHeuresRates_numericUpDown.Name = "nbHeuresRates_numericUpDown";
-            this.nbHeuresRates_numericUpDown.Size = new System.Drawing.Size(120, 20);
-            this.nbHeuresRates_numericUpDown.TabIndex = 96;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.nbHeuresRates_button);
-            this.groupBox4.Controls.Add(this.label1);
-            this.groupBox4.Controls.Add(this.nbHeuresRates_numericUpDown);
-            this.groupBox4.Location = new System.Drawing.Point(585, 147);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(508, 69);
-            this.groupBox4.TabIndex = 95;
-            this.groupBox4.TabStop = false;
-            // 
-            // nbHeuresRates_button
-            // 
-            this.nbHeuresRates_button.Location = new System.Drawing.Point(312, 23);
-            this.nbHeuresRates_button.Name = "nbHeuresRates_button";
-            this.nbHeuresRates_button.Size = new System.Drawing.Size(183, 31);
-            this.nbHeuresRates_button.TabIndex = 98;
-            this.nbHeuresRates_button.Text = "Appliquer";
-            this.nbHeuresRates_button.UseVisualStyleBackColor = true;
             // 
             // groupBox5
             // 
@@ -278,7 +225,7 @@
             this.groupBox5.Controls.Add(this.appliquerDateDebut_button);
             this.groupBox5.Location = new System.Drawing.Point(585, 84);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(508, 58);
+            this.groupBox5.Size = new System.Drawing.Size(520, 58);
             this.groupBox5.TabIndex = 97;
             this.groupBox5.TabStop = false;
             // 
@@ -314,9 +261,9 @@
             this.groupBox6.Controls.Add(this.avancement_numericUpDown);
             this.groupBox6.Controls.Add(this.label9);
             this.groupBox6.Controls.Add(this.appliquerAvancement_button);
-            this.groupBox6.Location = new System.Drawing.Point(585, 281);
+            this.groupBox6.Location = new System.Drawing.Point(585, 263);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(508, 58);
+            this.groupBox6.Size = new System.Drawing.Size(520, 75);
             this.groupBox6.TabIndex = 95;
             this.groupBox6.TabStop = false;
             // 
@@ -361,10 +308,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1105, 707);
+            this.ClientSize = new System.Drawing.Size(1127, 707);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -381,9 +327,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nbHeures_numericUpDown)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nbHeuresRates_numericUpDown)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox6.ResumeLayout(false);
@@ -410,14 +353,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button appliquerNbHeures_button;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown nbHeuresRates_numericUpDown;
-        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.DateTimePicker dateDebut_dateTimePicker;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button appliquerDateDebut_button;
-        private System.Windows.Forms.Button nbHeuresRates_button;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button appliquerAvancement_button;

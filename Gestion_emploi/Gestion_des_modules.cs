@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Configuration;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 using MaterialSkin.Controls;
 
@@ -8,7 +8,7 @@ namespace Gestion_emploi
 {
     public partial class Gestion_des_modules : MaterialForm
     {
-        readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
+        readonly string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
 
         public Gestion_des_modules()
         {
@@ -17,36 +17,42 @@ namespace Gestion_emploi
 
         private void Gestion_des_modules_Load(object sender, EventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, nom FROM metier";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                   
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        metier_comboBox.ValueMember = "id";
-                        metier_comboBox.DisplayMember = "nom";
-                        metier_comboBox.DataSource = binder;
-                        metier_comboBox.Text = "";
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            metier_comboBox.ValueMember = "id";
+                            metier_comboBox.DisplayMember = "nom";
+                            metier_comboBox.DataSource = binder;
+                            metier_comboBox.Text = "";
+                        } 
                     }
                 }
 
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, nom FROM filiere";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                   
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        filiere_comboBox.ValueMember = "id";
-                        filiere_comboBox.DisplayMember = "nom";
-                        filiere_comboBox.DataSource = binder;
-                        filiere_comboBox.Text = "";
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            filiere_comboBox.ValueMember = "id";
+                            filiere_comboBox.DisplayMember = "nom";
+                            filiere_comboBox.DataSource = binder;
+                            filiere_comboBox.Text = "";
+                        } 
                     }
                 }
             }
@@ -73,10 +79,10 @@ namespace Gestion_emploi
 
         private void Ajouter_button_Click(object sender, EventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "INSERT INTO module(nom, niveau, mass_horaire, id_metier, id_filiere) VALUES(@nom, @niveau ,@mass_horaire, @id_metier, @id_filiere)";
                     command.Parameters.AddWithValue("@nom", nom_textBox.Text);
@@ -101,10 +107,10 @@ namespace Gestion_emploi
 
         private void Modifier_button_Click(object sender, EventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "update module set nom = @nom , niveau = @niveau , mass_horaire = @mass_horaire ,id_metier = @id_metier, id_filiere = @id_filiere WHERE id = @id";
                     command.Parameters.AddWithValue("@id", module_dataGridView.CurrentRow.Cells["id"].Value);
@@ -117,6 +123,22 @@ namespace Gestion_emploi
                     if (command.ExecuteNonQuery() > 0)
                     {
                         MessageBox.Show("le Module a été bien modifié");
+                        //update date_fin in affectation
+
+                        Gestion_des_seances seances = new Gestion_des_seances();
+                        using (SqlCommand command2 = new SqlCommand("", connection))
+                        {
+                            command2.CommandText = "select id from affectation where id_module = @module";
+                            command2.Parameters.AddWithValue("@module", module_dataGridView.CurrentRow.Cells["id"].Value);
+
+                            using (SqlDataReader reader = command2.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    seances.UpdateDateFin(int.Parse(reader[0].ToString()));
+                                }
+                            }
+                        }
                     }
                     else
                     {
@@ -133,10 +155,19 @@ namespace Gestion_emploi
             string confirmationMessage = "Supprimer un module cause la suppression de tous ses affectations";
             if (MessageBox.Show(confirmationMessage, "Voulez-vous continuer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (MySqlCommand command = new MySqlCommand("", connection))
+                    // Remove all his affectations
+                    using (SqlCommand command = new SqlCommand("", connection))
+                    {
+                        command.CommandText = "DELETE FROM affectation WHERE id_module = @id_module";
+                        command.Parameters.AddWithValue("@id_module", module_dataGridView.CurrentRow.Cells["id"].Value);
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Remove module
+                    using (SqlCommand command = new SqlCommand("", connection))
                     {
                         command.CommandText = "DELETE FROM module WHERE id = @id";
                         command.Parameters.AddWithValue("@id", module_dataGridView.CurrentRow.Cells["id"].Value);
@@ -158,20 +189,23 @@ namespace Gestion_emploi
 
         private void RemplirDataGridView()
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT m.id, m.nom, m.niveau, m.mass_horaire, me.nom as metier, f.nom as filiere FROM module m JOIN metier me ON m.id_metier = me.id JOIN filiere f ON m.id_filiere = f.id";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        module_dataGridView.DataSource = binder;
-                        module_dataGridView.Columns["id"].Visible = false;
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            module_dataGridView.DataSource = binder;
+                            module_dataGridView.Columns["id"].Visible = false;
+                        }
                     }
+                   
                 }
             }
         }

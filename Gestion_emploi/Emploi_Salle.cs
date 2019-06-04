@@ -1,5 +1,5 @@
 ﻿using MaterialSkin.Controls;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using System;
 using System.Configuration;
 using System.Windows.Forms;
@@ -8,7 +8,7 @@ namespace Gestion_emploi
 {
     public partial class Emploi_Salle : MaterialForm
     {
-        readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
+        readonly string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
 
         public Emploi_Salle()
         {
@@ -23,22 +23,25 @@ namespace Gestion_emploi
 
         private void RemplirListBoxes()
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT * FROM Salle";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        groupe_comboBox.DataSource = binder;
-                        groupe_comboBox.ValueMember = "id";
-                        groupe_comboBox.DisplayMember = "nom";
-                        groupe_comboBox.Text = "";
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            groupe_comboBox.DataSource = binder;
+                            groupe_comboBox.ValueMember = "id";
+                            groupe_comboBox.DisplayMember = "nom";
+                            groupe_comboBox.Text = "";
+                        }
                     }
+                   
                 }
             }
         }
@@ -75,25 +78,28 @@ namespace Gestion_emploi
             emploi_dataGridView.Rows.Clear();
             InitializeEmploi();
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT e.chaine_salle, id_jour, id_seance, id_affectation FROM emploi e JOIN affectation a ON e.id_affectation = a.id JOIN module m ON m.id = a.id_module WHERE id_salle = @salle";
                     command.Parameters.AddWithValue("@salle", salle);
 
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        if (reader.HasRows)
                         {
-                            int jour = int.Parse(reader[1].ToString()) - 1;
-                            int seance = int.Parse(reader[2].ToString());
+                            while (reader.Read())
+                            {
+                                int jour = int.Parse(reader[1].ToString()) - 1;
+                                int seance = int.Parse(reader[2].ToString());
 
-                            emploi_dataGridView.Rows[jour].Cells[seance].Value = reader[0].ToString();
+                                emploi_dataGridView.Rows[jour].Cells[seance].Value = reader[0].ToString();
+                            }
                         }
                     }
+                    
                 }
             }
         }

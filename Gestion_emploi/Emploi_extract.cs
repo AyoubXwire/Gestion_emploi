@@ -1,6 +1,6 @@
 ﻿using MaterialSkin.Controls;
 using Microsoft.Office.Interop.Excel;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,7 +16,7 @@ namespace Gestion_emploi
 {
     public partial class Emploi_extract : MaterialForm
     {
-        readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
+        readonly string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
 
         public Emploi_extract()
         {
@@ -33,25 +33,28 @@ namespace Gestion_emploi
             emploi_dataGridView.Rows.Clear();
             InitializeEmploi(emploi_dataGridView);
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT e.chaine_Groupe, id_jour, id_seance, id_affectation FROM emploi e JOIN affectation a ON e.id_affectation = a.id JOIN module m ON m.id = a.id_module WHERE id_groupe = @id_groupe";
                     command.Parameters.AddWithValue("@id_groupe", groupe);
 
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        if (reader.HasRows)
                         {
-                            int jour = int.Parse(reader[1].ToString()) - 1;
-                            int seance = int.Parse(reader[2].ToString());
+                            while (reader.Read())
+                            {
+                                int jour = int.Parse(reader[1].ToString()) - 1;
+                                int seance = int.Parse(reader[2].ToString());
 
-                            emploi_dataGridView.Rows[jour].Cells[seance].Value = reader[0].ToString();
+                                emploi_dataGridView.Rows[jour].Cells[seance].Value = reader[0].ToString();
+                            }
                         }
                     }
+                   
                 }
             }
         }
@@ -61,25 +64,28 @@ namespace Gestion_emploi
             emploi_dataGridView.Rows.Clear();
             InitializeEmploi(emploi_dataGridView);
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT e.chaine_formateur, id_jour, id_seance, id_affectation FROM emploi e JOIN affectation a ON e.id_affectation = a.id JOIN module m ON m.id = a.id_module WHERE id_formateur = @id_formateur";
                     command.Parameters.AddWithValue("@id_formateur", formateur);
 
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        if (reader.HasRows)
                         {
-                            int jour = int.Parse(reader[1].ToString()) - 1;
-                            int seance = int.Parse(reader[2].ToString());
+                            while (reader.Read())
+                            {
+                                int jour = int.Parse(reader[1].ToString()) - 1;
+                                int seance = int.Parse(reader[2].ToString());
 
-                            emploi_dataGridView.Rows[jour].Cells[seance].Value = reader[0].ToString();
+                                emploi_dataGridView.Rows[jour].Cells[seance].Value = reader[0].ToString();
+                            }
                         }
                     }
+                    
                 }
             }
         }
@@ -114,74 +120,86 @@ namespace Gestion_emploi
 
         private void RemplirListBoxes()
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, chaine FROM groupe";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        listBox2.DataSource = binder;
-                        listBox2.ValueMember = "id";
-                        listBox2.DisplayMember = "chaine";
-                        listBox2.Text = "";
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            listBox2.DataSource = binder;
+                            listBox2.ValueMember = "id";
+                            listBox2.DisplayMember = "chaine";
+                            listBox2.Text = "";
+                        }
                     }
+                    
                 }
 
                 // Remplir salles_filiere
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT * FROM filiere";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        listBox1.ValueMember = "id";
-                        listBox1.DisplayMember = "nom";
-                        listBox1.DataSource = binder;
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            listBox1.ValueMember = "id";
+                            listBox1.DisplayMember = "nom";
+                            listBox1.DataSource = binder;
+                        }
                     }
+                    
                 }
                 // Remplir formateur listBox
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT * FROM Formateur";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        listBox3.ValueMember = "id";
-                        listBox3.DisplayMember = "nom";
-                        listBox3.DataSource = binder;
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            listBox3.ValueMember = "id";
+                            listBox3.DisplayMember = "nom";
+                            listBox3.DataSource = binder;
+                        }
                     }
+                  
                 }
             }
         }
 
         private void RemplirGroup()
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, chaine FROM groupe where id_filiere = @filiere";
                     command.Parameters.AddWithValue("@filiere", listBox1.SelectedValue);
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        listBox2.DataSource = binder;
-                        listBox2.ValueMember = "id";
-                        listBox2.DisplayMember = "chaine";
-                        listBox2.Text = "";
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            listBox2.DataSource = binder;
+                            listBox2.ValueMember = "id";
+                            listBox2.DisplayMember = "chaine";
+                            listBox2.Text = "";
+                        }
                     }
+                    
                 }
             }
         }

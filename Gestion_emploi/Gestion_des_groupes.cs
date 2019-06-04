@@ -2,13 +2,13 @@
 using System.Configuration;
 using System.Windows.Forms;
 using MaterialSkin.Controls;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace Gestion_emploi
 {
     public partial class Gestion_des_groupes : MaterialForm
     {
-        readonly string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
+        readonly string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
         readonly string[] lettres = new string[] { "A", "B", "C", "D", "E", "F" };
 
         public Gestion_des_groupes()
@@ -18,22 +18,25 @@ namespace Gestion_emploi
 
         private void Gestion_des_groupes_Load(object sender, EventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, nom FROM filiere";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        filiere_comboBox.DataSource = binder;
-                        filiere_comboBox.ValueMember = "id";
-                        filiere_comboBox.DisplayMember = "nom";
-                        filiere_comboBox.Text = "";
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            filiere_comboBox.DataSource = binder;
+                            filiere_comboBox.ValueMember = "id";
+                            filiere_comboBox.DisplayMember = "nom";
+                            filiere_comboBox.Text = "";
+                        }
                     }
+                   
                 }
             }
 
@@ -54,10 +57,10 @@ namespace Gestion_emploi
             int targetCount = int.Parse(nombreDeGroupes_numericUpDown.Value.ToString());
             int commandOutput = 0;
             
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT count(id) FROM groupe WHERE id_filiere=@id_filiere AND niveau=@niveau";
                     command.Parameters.AddWithValue("@niveau", niveau_numericUpDown.Value);
@@ -68,10 +71,10 @@ namespace Gestion_emploi
 
             if (count == 0) // If groupe doesnt exist insert normally
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (MySqlCommand command = new MySqlCommand("", connection))
+                    using (SqlCommand command = new SqlCommand("", connection))
                     {
                         for (int i = 0; i < targetCount; i++)
                         {
@@ -94,18 +97,25 @@ namespace Gestion_emploi
                 string confirmationMessage = "Supprimer une filiere cause la suppression de tous ses groupes, modules et affectations";
                 if (MessageBox.Show(confirmationMessage, "Voulez-vous continuer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                 {
-                    using (MySqlConnection connection = new MySqlConnection(connectionString))
+                    using (SqlConnection connection = new SqlConnection(connectionString))
                     {
                         connection.Open();
                         for (int i = targetCount; i < count; i++)
                         {
-                            using (MySqlCommand command = new MySqlCommand("", connection))
+                            // Remove all its affectations
+                            using (SqlCommand command = new SqlCommand("", connection))
+                            {
+                                command.CommandText = "DELETE FROM affectation where id_groupe in (select id from groupe WHERE chaine = @chaine)";
+                                command.Parameters.AddWithValue("@chaine", filiere_comboBox.Text + niveau_numericUpDown.Value.ToString() + lettres[i]);
+                                command.ExecuteNonQuery();
+                            }
+
+                            using (SqlCommand command = new SqlCommand("", connection))
                             {
                                 command.CommandText = "DELETE FROM groupe WHERE chaine=@chaine";
                                 command.Parameters.AddWithValue("@chaine", filiere_comboBox.Text + niveau_numericUpDown.Value.ToString() + lettres[i]);
 
                                 commandOutput += command.ExecuteNonQuery();
-                                command.Parameters.Clear();
                             }
                         }
                     }
@@ -115,10 +125,10 @@ namespace Gestion_emploi
             }
             else if (count < targetCount) // Insert the missing groupes
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (MySqlCommand command = new MySqlCommand("", connection))
+                    using (SqlCommand command = new SqlCommand("", connection))
                     {
                         for (int i = count; i < targetCount; i++)
                         {
@@ -142,19 +152,22 @@ namespace Gestion_emploi
 
         private void RemplirDataGridView()
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
-                    command.CommandText = "SELECT F.nom as filiere, niveau, count(G.id) as nombre FROM groupe G JOIN filiere F ON G.id_filiere = F.id GROUP BY id_filiere, niveau ORDER BY F.nom, niveau";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    command.CommandText = "SELECT F.nom as filiere, niveau, count(G.id) as nombre FROM groupe G JOIN filiere F ON G.id_filiere = F.id GROUP BY id_filiere, niveau , F.nom ORDER BY F.nom, niveau";
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        groupes_dataGridView.DataSource = binder;
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            groupes_dataGridView.DataSource = binder;
+                        }
                     }
+                   
                 }
             }
         }

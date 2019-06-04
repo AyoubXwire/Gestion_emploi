@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Configuration;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 using MaterialSkin.Controls;
 
@@ -8,7 +8,7 @@ namespace Gestion_emploi
 {
     public partial class Gestion_des_affectation : MaterialForm
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["mysqlConnection"].ConnectionString;
+        string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
         bool isIndexChangedBlocked = false;
 
         public Gestion_des_affectation()
@@ -18,23 +18,26 @@ namespace Gestion_emploi
 
         private void Affectation_Load(object sender, EventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
                 // Remplir filiere_comboBox
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, nom FROM filiere";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        filiere_comboBox.DataSource = binder;
-                        filiere_comboBox.ValueMember = "id";
-                        filiere_comboBox.DisplayMember = "nom";
-                        filiere_comboBox.Text = "";
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            filiere_comboBox.DataSource = binder;
+                            filiere_comboBox.ValueMember = "id";
+                            filiere_comboBox.DisplayMember = "nom";
+                            filiere_comboBox.Text = "";
+                        } 
                     }
                 }
             }
@@ -45,10 +48,10 @@ namespace Gestion_emploi
         private void Choisir_button_Click(object sender, EventArgs e)
         {
             // Groupes of the selected filiere & niveau
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, chaine FROM groupe WHERE id_filiere=@id_filiere AND niveau=@niveau";
                     command.Parameters.AddWithValue("@id_filiere", filiere_comboBox.SelectedValue);
@@ -71,27 +74,30 @@ namespace Gestion_emploi
             }
 
             // Modules that the selected groupes can study excluding the ones they already study (the ones already affected to them)
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, nom FROM module WHERE id_filiere=@id_filiere AND niveau=@niveau AND id NOT IN (SELECT id_module FROM affectation WHERE id_groupe=@id_groupe)";
-                    command.Parameters.AddWithValue("@id_filiere", filiere_comboBox.SelectedValue);
-                    command.Parameters.AddWithValue("@niveau", niveau_numericUpDown.Value);
-                    command.Parameters.AddWithValue("@id_groupe", groupe_listBox.SelectedValue);
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    command.Parameters.AddWithValue("@id_filiere", filiere_comboBox.SelectedValue.ToString());
+                    command.Parameters.AddWithValue("@niveau", niveau_numericUpDown.Value.ToString());
+                    command.Parameters.AddWithValue("@id_groupe", groupe_listBox.SelectedValue.ToString());
+
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        module_listBox.ValueMember = "id";
-                        module_listBox.DisplayMember = "nom";
-                        module_listBox.DataSource = binder;
-                    }
-                    else
-                    {
-                        module_listBox.DataSource = null;
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            module_listBox.ValueMember = "id";
+                            module_listBox.DisplayMember = "nom";
+                            module_listBox.DataSource = binder;
+                        }
+                        else
+                        {
+                            module_listBox.DataSource = null;
+                        } 
                     }
                 }
             }
@@ -100,92 +106,114 @@ namespace Gestion_emploi
         private void Module_listBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Formateurs that can teach the selected module
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            try
             {
-                connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    if (filtre_checkBox.Checked)
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("", connection))
                     {
-                        command.CommandText = "SELECT id, nom FROM formateur WHERE id_metier IN (SELECT id_metier FROM module WHERE id=@id_module)";
-                        command.Parameters.AddWithValue("@id_module", module_listBox.SelectedValue);
-                        MySqlDataReader reader = command.ExecuteReader();
-                        if (reader.HasRows)
+                        if (filtre_checkBox.Checked)
                         {
-                            BindingSource binder = new BindingSource();
-                            binder.DataSource = reader;
-                            formateur_listBox.ValueMember = "id";
-                            formateur_listBox.DisplayMember = "nom";
-                            formateur_listBox.DataSource = binder;
+                            command.CommandText = "SELECT id, nom FROM formateur WHERE id_metier IN (SELECT id_metier FROM module WHERE id=@id_module)";
+                            command.Parameters.AddWithValue("@id_module", module_listBox.SelectedValue.ToString());
+
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    BindingSource binder = new BindingSource();
+                                    binder.DataSource = reader;
+                                    formateur_listBox.ValueMember = "id";
+                                    formateur_listBox.DisplayMember = "nom";
+                                    formateur_listBox.DataSource = binder;
+                                }
+                                else
+                                {
+                                    formateur_listBox.DataSource = null;
+                                }
+                            }
                         }
                         else
                         {
-                            formateur_listBox.DataSource = null;
-                        }
-                    }
-                    else
-                    {
-                        command.CommandText = "SELECT id, nom FROM formateur";
-                        command.Parameters.AddWithValue("@id_module", module_listBox.SelectedValue);
-                        MySqlDataReader reader = command.ExecuteReader();
-                        if (reader.HasRows)
-                        {
-                            BindingSource binder = new BindingSource();
-                            binder.DataSource = reader;
-                            formateur_listBox.ValueMember = "id";
-                            formateur_listBox.DisplayMember = "nom";
-                            formateur_listBox.DataSource = binder;
-                        }
-                        else
-                        {
-                            formateur_listBox.DataSource = null;
+                            command.CommandText = "SELECT id, nom FROM formateur";
+                            command.Parameters.AddWithValue("@id_module", module_listBox.SelectedValue);
+                           
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    BindingSource binder = new BindingSource();
+                                    binder.DataSource = reader;
+                                    formateur_listBox.ValueMember = "id";
+                                    formateur_listBox.DisplayMember = "nom";
+                                    formateur_listBox.DataSource = binder;
+                                }
+                                else
+                                {
+                                    formateur_listBox.DataSource = null;
+                                } 
+                            }
                         }
                     }
                 }
+            }
+            catch
+            {    
             }
         }
 
         private void Affecter_button_Click(object sender, EventArgs e)
         {
-            int commandOutput = 0;
-            
-            // Add affectaions to db
-            isIndexChangedBlocked = true;
-            for (int i = 0; i < groupe_listBox.Items.Count; i++)
+            try
             {
-                if (groupe_listBox.GetSelected(i))
+                int commandOutput = 0;
+
+                // Add affectaions to db
+                isIndexChangedBlocked = true;
+                for (int i = 0; i < groupe_listBox.Items.Count; i++)
                 {
-                    using (MySqlConnection connection = new MySqlConnection(connectionString))
+                    if (groupe_listBox.GetSelected(i))
                     {
-                        connection.Open();
-                        using (MySqlCommand command = new MySqlCommand("", connection))
+                        using (SqlConnection connection = new SqlConnection(connectionString))
                         {
-                            command.CommandText =
-                            "INSERT INTO affectation(id_formateur, id_module, id_groupe, nb_heures_semaine) VALUES(@id_formateur, @id_module, @id_groupe, @nb_heures_semaine)";
-                            command.Parameters.AddWithValue("@id_formateur", formateur_listBox.SelectedValue);
-                            command.Parameters.AddWithValue("@id_module", module_listBox.SelectedValue);
-                            command.Parameters.AddWithValue("@id_groupe", groupe_listBox.SelectedValue);
-                            // Get mass_horaire
-                            float nbHeuresParSemaine;
-                            using (MySqlCommand command2 = new MySqlCommand("", connection))
+                            connection.Open();
+                            using (SqlCommand command = new SqlCommand("", connection))
                             {
-                                command2.CommandText = "SELECT mass_horaire FROM module WHERE id=@id_module";
-                                command2.Parameters.AddWithValue("@id_module", module_listBox.SelectedValue);
-                                nbHeuresParSemaine = CalculerNombreHeures(float.Parse(command2.ExecuteScalar().ToString()));
+                                command.CommandText =
+                                "INSERT INTO affectation(id_formateur, id_module, id_groupe, nb_heures_semaine) VALUES(@id_formateur, @id_module, @id_groupe, @nb_heures_semaine)";
+                                command.Parameters.AddWithValue("@id_formateur", formateur_listBox.SelectedValue);
+                                command.Parameters.AddWithValue("@id_module", module_listBox.SelectedValue);
+                                command.Parameters.AddWithValue("@id_groupe", groupe_listBox.SelectedValue);
+
+                                // Get mass_horaire
+                                float nbHeuresParSemaine = 0f;
+                                using (SqlCommand command2 = new SqlCommand("", connection))
+                                {
+                                    command2.CommandText = "SELECT mass_horaire FROM module WHERE id=@id_module";
+                                    command2.Parameters.AddWithValue("@id_module", module_listBox.SelectedValue);
+                                    if (module_listBox.SelectedValue != null)
+                                        nbHeuresParSemaine = CalculerNombreHeures(float.Parse(command2.ExecuteScalar().ToString()));
+                                }
+                                command.Parameters.AddWithValue("@nb_heures_semaine", nbHeuresParSemaine);
+
+                                if(module_listBox.SelectedValue!=null)
+                                    commandOutput += command.ExecuteNonQuery() - 2;
                             }
-                            command.Parameters.AddWithValue("@nb_heures_semaine", nbHeuresParSemaine);
-
-                            commandOutput += command.ExecuteNonQuery();
                         }
+                        groupe_listBox.SetSelected(i, false);
                     }
-                    groupe_listBox.SetSelected(i, false);
                 }
-            }
-            isIndexChangedBlocked = false;
+                isIndexChangedBlocked = false;
 
-            MessageBox.Show(commandOutput.ToString() + " affectations ajoutées");
-            RemplirListBoxesDeFiltre();
-            Choisir_button_Click(null, null);
+                MessageBox.Show(commandOutput.ToString() + " affectations ajoutées");
+                RemplirListBoxesDeFiltre();
+                Choisir_button_Click(null, null);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private float CalculerNombreHeures(float massHoraire)
@@ -198,15 +226,15 @@ namespace Gestion_emploi
             int commandOutput = 0;
             foreach (DataGridViewRow row in affectations_dataGridView.SelectedRows)
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (MySqlCommand command = new MySqlCommand("", connection))
+                    using (SqlCommand command = new SqlCommand("", connection))
                     {
                         command.CommandText = "DELETE FROM affectation WHERE id=@id";
                         command.Parameters.AddWithValue("@id", row.Cells["id"].Value);
 
-                        commandOutput += command.ExecuteNonQuery();
+                        commandOutput += command.ExecuteNonQuery() - 2;
                     }
                 }
             }
@@ -219,10 +247,10 @@ namespace Gestion_emploi
         private void Formateurs_listBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Get nb_heures_total from formateur
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT nb_heures_total FROM formateur WHERE id=@id";
                     command.Parameters.AddWithValue("@id", formateurs_listBox.SelectedValue);
@@ -236,10 +264,10 @@ namespace Gestion_emploi
         private void Groupes_listBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Get nb_heures_total from groupe
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT nb_heures_total FROM groupe WHERE id=@id";
                     command.Parameters.AddWithValue("@id", groupes_listBox.SelectedValue);
@@ -257,36 +285,42 @@ namespace Gestion_emploi
 
         private void RemplirListBoxesDeFiltre()
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 // Remplir formateurs_listBox
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, nom FROM formateur";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                   
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        formateurs_listBox.ValueMember = "id";
-                        formateurs_listBox.DisplayMember = "nom";
-                        formateurs_listBox.DataSource = binder;
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            formateurs_listBox.ValueMember = "id";
+                            formateurs_listBox.DisplayMember = "nom";
+                            formateurs_listBox.DataSource = binder;
+                        } 
                     }
                 }
 
                 // Remplir groupes_listBox
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     command.CommandText = "SELECT id, chaine FROM groupe";
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                   
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        groupes_listBox.ValueMember = "id";
-                        groupes_listBox.DisplayMember = "chaine";
-                        groupes_listBox.DataSource = binder;
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            groupes_listBox.ValueMember = "id";
+                            groupes_listBox.DisplayMember = "chaine";
+                            groupes_listBox.DataSource = binder;
+                        } 
                     }
                 }
             }
@@ -294,63 +328,69 @@ namespace Gestion_emploi
 
         private void RemplirDataGridViewParGroupe(int id_groupe)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     //here you have the 3 id's of formateur,module,and groupe , all of them hidden if you need'em , only module name and group name are shown
                     command.CommandText = "SELECT g.chaine as groupe, m.nom as module, f.nom as formateur, a.id , a.id_formateur , a.id_module , a.id_groupe from affectation a join groupe g on a.id_groupe = g.id join module m on a.id_module = m.id JOIN formateur f ON f.id=a.id_formateur where id_groupe=@id_groupe";
                     command.Parameters.AddWithValue("@id_groupe", id_groupe);
-                    MySqlDataReader reader = command.ExecuteReader();
-                    // if no affectations, the gridView will be empty
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        affectations_dataGridView.DataSource = binder;
+                        // if no affectations, the gridView will be empty
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            affectations_dataGridView.DataSource = binder;
 
-                        // Hide the id columns
-                        affectations_dataGridView.Columns["id"].Visible = false;
-                        affectations_dataGridView.Columns["id_formateur"].Visible = false;
-                        affectations_dataGridView.Columns["id_module"].Visible = false;
-                        affectations_dataGridView.Columns["id_groupe"].Visible = false;
+                            // Hide the id columns
+                            affectations_dataGridView.Columns["id"].Visible = false;
+                            affectations_dataGridView.Columns["id_formateur"].Visible = false;
+                            affectations_dataGridView.Columns["id_module"].Visible = false;
+                            affectations_dataGridView.Columns["id_groupe"].Visible = false;
+                        }
+                        else
+                        {
+                            affectations_dataGridView.DataSource = null;
+                        }
                     }
-                    else
-                    {
-                        affectations_dataGridView.DataSource = null;
-                    }
+                    
                 }
             }
         }
 
         private void RemplirDataGridViewParFormateur(int id_formateur)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand("", connection))
+                using (SqlCommand command = new SqlCommand("", connection))
                 {
                     //here you have the 3 id's of formateur,module,and groupe , all of them hidden if you need'em , only module name and group name are shown
                     command.CommandText = "SELECT g.chaine as groupe, m.nom as module, m.mass_horaire as mass_horaire, a.id , a.id_formateur , a.id_module , a.id_groupe from affectation a join groupe g on a.id_groupe = g.id join module m on a.id_module = m.id where id_formateur=@id_formateur";
                     command.Parameters.AddWithValue("@id_formateur", id_formateur);
-                    MySqlDataReader reader = command.ExecuteReader();
+                   
                     // if no affectations, the gridView will be empty
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        BindingSource binder = new BindingSource();
-                        binder.DataSource = reader;
-                        affectations_dataGridView.DataSource = binder;
+                        if (reader.HasRows)
+                        {
+                            BindingSource binder = new BindingSource();
+                            binder.DataSource = reader;
+                            affectations_dataGridView.DataSource = binder;
 
-                        // Hide the id columns
-                        affectations_dataGridView.Columns["id"].Visible = false;
-                        affectations_dataGridView.Columns["id_formateur"].Visible = false;
-                        affectations_dataGridView.Columns["id_module"].Visible = false;
-                        affectations_dataGridView.Columns["id_groupe"].Visible = false;
-                    }
-                    else
-                    {
-                        affectations_dataGridView.DataSource = null;
+                            // Hide the id columns
+                            affectations_dataGridView.Columns["id"].Visible = false;
+                            affectations_dataGridView.Columns["id_formateur"].Visible = false;
+                            affectations_dataGridView.Columns["id_module"].Visible = false;
+                            affectations_dataGridView.Columns["id_groupe"].Visible = false;
+                        }
+                        else
+                        {
+                            affectations_dataGridView.DataSource = null;
+                        } 
                     }
                 }
             }

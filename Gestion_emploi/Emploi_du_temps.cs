@@ -388,8 +388,47 @@ namespace Gestion_emploi
                         {
                             int jour = int.Parse(reader[1].ToString()) - 1;
                             int seance = int.Parse(reader[2].ToString());
-
+                            
                             emploi_dataGridView.Rows[jour].Cells[seance].Value = reader[0].ToString();
+                        }
+                    }
+                }
+            }
+
+            NotifyInvalidSeances();
+        }
+
+        private void NotifyInvalidSeances()
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("", connection))
+                {
+                    if (parFormateur)
+                    {
+                        command.CommandText = "SELECT a.nb_heures_semaine, a.nb_utilise, e.chaine_salle FROM affectation a join emploi e on a.id = e.id_affectation WHERE id_formateur = @id_formateur";
+                        command.Parameters.AddWithValue("@id_formateur", formateur_comboBox.SelectedValue); 
+                    }
+                    else if (parGroupe)
+                    {
+                        command.CommandText = "SELECT a.nb_heures_semaine, a.nb_utilise, e.chaine_salle FROM affectation a join emploi e on a.id = e.id_affectation WHERE id_groupe = @id_groupe";
+                        command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
+                    }
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int nbSeances = (int)(float.Parse(reader[0].ToString()) / 2.5f);
+                            int nbUtilise = int.Parse(reader[1].ToString());
+
+                            if (nbUtilise > nbSeances)
+                            {
+                                int difference = nbUtilise - nbSeances;
+                                MessageBox.Show("Veuillez supprimer " + difference + " seance: " + reader[2].ToString() + " de l'emploi");
+                                return;
+                            }
                         }
                     }
                 }

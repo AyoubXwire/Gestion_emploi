@@ -40,6 +40,9 @@
             this.Seance2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Seance3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Seance4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.listBox3 = new System.Windows.Forms.ListBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.emploi_dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,19 +66,19 @@
             // 
             // exporter_button
             // 
-            this.exporter_button.Location = new System.Drawing.Point(1044, 82);
+            this.exporter_button.Location = new System.Drawing.Point(184, 261);
             this.exporter_button.Name = "exporter_button";
-            this.exporter_button.Size = new System.Drawing.Size(139, 54);
+            this.exporter_button.Size = new System.Drawing.Size(147, 54);
             this.exporter_button.TabIndex = 64;
-            this.exporter_button.Text = "Exporter";
+            this.exporter_button.Text = "Exporter Groupe";
             this.exporter_button.UseVisualStyleBackColor = true;
             this.exporter_button.Click += new System.EventHandler(this.exporter_button_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1044, 142);
+            this.button1.Location = new System.Drawing.Point(29, 261);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(139, 60);
+            this.button1.Size = new System.Drawing.Size(138, 54);
             this.button1.TabIndex = 65;
             this.button1.Text = "Exporter Tous(Par Filiere)";
             this.button1.UseVisualStyleBackColor = true;
@@ -91,7 +94,7 @@
             this.Seance2,
             this.Seance3,
             this.Seance4});
-            this.emploi_dataGridView.Location = new System.Drawing.Point(394, 82);
+            this.emploi_dataGridView.Location = new System.Drawing.Point(542, 82);
             this.emploi_dataGridView.MultiSelect = false;
             this.emploi_dataGridView.Name = "emploi_dataGridView";
             this.emploi_dataGridView.ReadOnly = true;
@@ -135,11 +138,43 @@
             this.Seance4.ReadOnly = true;
             this.Seance4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // listBox3
+            // 
+            this.listBox3.FormattingEnabled = true;
+            this.listBox3.Location = new System.Drawing.Point(347, 82);
+            this.listBox3.Name = "listBox3";
+            this.listBox3.Size = new System.Drawing.Size(147, 173);
+            this.listBox3.TabIndex = 67;
+            this.listBox3.SelectedIndexChanged += new System.EventHandler(this.listBox3_SelectedIndexChanged);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(347, 261);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(147, 54);
+            this.button2.TabIndex = 68;
+            this.button2.Text = "Exporter Formateur";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(347, 321);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(147, 54);
+            this.button3.TabIndex = 69;
+            this.button3.Text = "Exporter Tous Formateur";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Emploi_extract
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1198, 514);
+            this.ClientSize = new System.Drawing.Size(1240, 514);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.listBox3);
             this.Controls.Add(this.emploi_dataGridView);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.exporter_button);
@@ -165,5 +200,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Seance4;
+        private System.Windows.Forms.ListBox listBox3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
     }
 }

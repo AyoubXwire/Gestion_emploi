@@ -148,7 +148,7 @@ namespace Gestion_emploi
         private void Affecter_button_Click(object sender, EventArgs e)
         {
             int commandOutput = 0;
-
+            
             // Add affectaions to db
             isIndexChangedBlocked = true;
             for (int i = 0; i < groupe_listBox.Items.Count; i++)

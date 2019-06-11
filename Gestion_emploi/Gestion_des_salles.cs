@@ -81,21 +81,24 @@ namespace Gestion_emploi
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (SqlCommand command = new SqlCommand("", connection))
+                    if (salles_dataGridView.CurrentRow != null)
                     {
-                        command.CommandText = "update salle set nom = @nom ,id_type_salle = @id_type_salle WHERE id = @id";
-                        command.Parameters.AddWithValue("@id", salles_dataGridView.CurrentRow.Cells["id"].Value);
-                        command.Parameters.AddWithValue("@nom", nom_textBox.Text);
-                        command.Parameters.AddWithValue("@id_type_salle", int.Parse(type_comboBox.SelectedValue.ToString()));
+                        using (SqlCommand command = new SqlCommand("", connection))
+                        {
+                            command.CommandText = "update salle set nom = @nom ,id_type_salle = @id_type_salle WHERE id = @id";
+                            command.Parameters.AddWithValue("@id", salles_dataGridView.CurrentRow.Cells["id"].Value);
+                            command.Parameters.AddWithValue("@nom", nom_textBox.Text);
+                            command.Parameters.AddWithValue("@id_type_salle", int.Parse(type_comboBox.SelectedValue.ToString()));
 
-                        if (command.ExecuteNonQuery() > 0)
-                        {
-                            MessageBox.Show("Salle modifié");
-                        }
-                        else
-                        {
-                            MessageBox.Show("erreur");
-                        }
+                            if (command.ExecuteNonQuery() > 0)
+                            {
+                                MessageBox.Show("Salle modifié");
+                            }
+                            else
+                            {
+                                MessageBox.Show("erreur");
+                            }
+                        } 
                     }
                 }
 
@@ -111,18 +114,21 @@ namespace Gestion_emploi
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (SqlCommand command = new SqlCommand("", connection))
+                    if (salles_dataGridView.CurrentRow != null)
                     {
-                        command.CommandText = "DELETE FROM salle WHERE id = @id";
-                        command.Parameters.AddWithValue("@id", salles_dataGridView.CurrentRow.Cells["id"].Value);
-                        if (command.ExecuteNonQuery() > 0)
+                        using (SqlCommand command = new SqlCommand("", connection))
                         {
-                            MessageBox.Show("Salle supprimé");
-                        }
-                        else
-                        {
-                            MessageBox.Show("erreur");
-                        }
+                            command.CommandText = "DELETE FROM salle WHERE id = @id";
+                            command.Parameters.AddWithValue("@id", salles_dataGridView.CurrentRow.Cells["id"].Value);
+                            if (command.ExecuteNonQuery() > 0)
+                            {
+                                MessageBox.Show("Salle supprimé");
+                            }
+                            else
+                            {
+                                MessageBox.Show("erreur");
+                            }
+                        } 
                     }
                 }
 

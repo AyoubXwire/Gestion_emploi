@@ -110,40 +110,43 @@ namespace Gestion_emploi
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (SqlCommand command = new SqlCommand("", connection))
+                if (module_dataGridView.CurrentRow!=null)
                 {
-                    command.CommandText = "update module set nom = @nom , niveau = @niveau , mass_horaire = @mass_horaire ,id_metier = @id_metier, id_filiere = @id_filiere WHERE id = @id";
-                    command.Parameters.AddWithValue("@id", module_dataGridView.CurrentRow.Cells["id"].Value);
-                    command.Parameters.AddWithValue("@nom", nom_textBox.Text);
-                    command.Parameters.AddWithValue("@niveau", niveau_numericUpDown.Value);
-                    command.Parameters.AddWithValue("@mass_horaire", mass_horaire_numericUpDown.Value);
-                    command.Parameters.AddWithValue("@id_metier", metier_comboBox.SelectedValue);
-                    command.Parameters.AddWithValue("@id_filiere", filiere_comboBox.SelectedValue);
-
-                    if (command.ExecuteNonQuery() > 0)
+                    using (SqlCommand command = new SqlCommand("", connection))
                     {
-                        MessageBox.Show("le Module a été bien modifié");
-                        //update date_fin in affectation
+                        command.CommandText = "update module set nom = @nom , niveau = @niveau , mass_horaire = @mass_horaire ,id_metier = @id_metier, id_filiere = @id_filiere WHERE id = @id";
+                        command.Parameters.AddWithValue("@id", module_dataGridView.CurrentRow.Cells["id"].Value);
+                        command.Parameters.AddWithValue("@nom", nom_textBox.Text);
+                        command.Parameters.AddWithValue("@niveau", niveau_numericUpDown.Value);
+                        command.Parameters.AddWithValue("@mass_horaire", mass_horaire_numericUpDown.Value);
+                        command.Parameters.AddWithValue("@id_metier", metier_comboBox.SelectedValue);
+                        command.Parameters.AddWithValue("@id_filiere", filiere_comboBox.SelectedValue);
 
-                        Gestion_des_seances seances = new Gestion_des_seances();
-                        using (SqlCommand command2 = new SqlCommand("", connection))
+                        if (command.ExecuteNonQuery() > 0)
                         {
-                            command2.CommandText = "select id from affectation where id_module = @module";
-                            command2.Parameters.AddWithValue("@module", module_dataGridView.CurrentRow.Cells["id"].Value);
+                            MessageBox.Show("le Module a été bien modifié");
+                            //update date_fin in affectation
 
-                            using (SqlDataReader reader = command2.ExecuteReader())
+                            Gestion_des_seances seances = new Gestion_des_seances();
+                            using (SqlCommand command2 = new SqlCommand("", connection))
                             {
-                                while (reader.Read())
+                                command2.CommandText = "select id from affectation where id_module = @module";
+                                command2.Parameters.AddWithValue("@module", module_dataGridView.CurrentRow.Cells["id"].Value);
+
+                                using (SqlDataReader reader = command2.ExecuteReader())
                                 {
-                                    seances.UpdateDateFin(int.Parse(reader[0].ToString()));
+                                    while (reader.Read())
+                                    {
+                                        seances.UpdateDateFin(int.Parse(reader[0].ToString()));
+                                    }
                                 }
                             }
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("erreur");
-                    }
+                        else
+                        {
+                            MessageBox.Show("erreur");
+                        }
+                    } 
                 }
             }
             
@@ -155,32 +158,35 @@ namespace Gestion_emploi
             string confirmationMessage = "Supprimer un module cause la suppression de tous ses affectations";
             if (MessageBox.Show(confirmationMessage, "Voulez-vous continuer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                if (module_dataGridView.CurrentRow!=null)
                 {
-                    connection.Open();
-                    // Remove all his affectations
-                    using (SqlCommand command = new SqlCommand("", connection))
+                    using (SqlConnection connection = new SqlConnection(connectionString))
                     {
-                        command.CommandText = "DELETE FROM affectation WHERE id_module = @id_module";
-                        command.Parameters.AddWithValue("@id_module", module_dataGridView.CurrentRow.Cells["id"].Value);
-                        command.ExecuteNonQuery();
-                    }
-
-                    // Remove module
-                    using (SqlCommand command = new SqlCommand("", connection))
-                    {
-                        command.CommandText = "DELETE FROM module WHERE id = @id";
-                        command.Parameters.AddWithValue("@id", module_dataGridView.CurrentRow.Cells["id"].Value);
-
-                        if (command.ExecuteNonQuery() > 0)
+                        connection.Open();
+                        // Remove all his affectations
+                        using (SqlCommand command = new SqlCommand("", connection))
                         {
-                            MessageBox.Show("le module a été bien supprimé");
+                            command.CommandText = "DELETE FROM affectation WHERE id_module = @id_module";
+                            command.Parameters.AddWithValue("@id_module", module_dataGridView.CurrentRow.Cells["id"].Value);
+                            command.ExecuteNonQuery();
                         }
-                        else
+
+                        // Remove module
+                        using (SqlCommand command = new SqlCommand("", connection))
                         {
-                            MessageBox.Show("erreur");
+                            command.CommandText = "DELETE FROM module WHERE id = @id";
+                            command.Parameters.AddWithValue("@id", module_dataGridView.CurrentRow.Cells["id"].Value);
+
+                            if (command.ExecuteNonQuery() > 0)
+                            {
+                                MessageBox.Show("le module a été bien supprimé");
+                            }
+                            else
+                            {
+                                MessageBox.Show("erreur");
+                            }
                         }
-                    }
+                    } 
                 }
 
                 RemplirDataGridView();

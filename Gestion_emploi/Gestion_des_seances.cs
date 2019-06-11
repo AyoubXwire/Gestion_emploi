@@ -24,7 +24,10 @@ namespace Gestion_emploi
 
         private void Formateurs_listBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RemplirDataGridViewParFormateur((int) formateurs_listBox.SelectedValue);
+            if (seances_dataGridView.CurrentRow != null)
+            {
+                RemplirDataGridViewParFormateur((int)formateurs_listBox.SelectedValue); 
+            }
 
             // Nombre heures par semaine
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -356,15 +359,21 @@ namespace Gestion_emploi
                     command.CommandText = "UPDATE affectation set avancement = @avancement where id = @id";
 
                     float avancement = float.Parse(avancement_numericUpDown.Value.ToString());
-                    if(avancement > float.Parse(seances_dataGridView.CurrentRow.Cells["mass_horaire"].Value.ToString()))
+                    if (seances_dataGridView.CurrentRow != null)
                     {
-                        avancement = float.Parse(seances_dataGridView.CurrentRow.Cells["mass_horaire"].Value.ToString());
+                        if (avancement > float.Parse(seances_dataGridView.CurrentRow.Cells["mass_horaire"].Value.ToString()))
+                        {
+                            avancement = float.Parse(seances_dataGridView.CurrentRow.Cells["mass_horaire"].Value.ToString());
+                        } 
                     }
 
-                    command.Parameters.Clear();
-                    command.Parameters.AddWithValue("@avancement", avancement);
-                    command.Parameters.AddWithValue("@id", (int)seances_dataGridView.CurrentRow.Cells["id"].Value);
-                    command.ExecuteNonQuery();
+                    if (seances_dataGridView.CurrentRow!=null)
+                    {
+                        command.Parameters.Clear();
+                        command.Parameters.AddWithValue("@avancement", avancement);
+                        command.Parameters.AddWithValue("@id", (int)seances_dataGridView.CurrentRow.Cells["id"].Value);
+                        command.ExecuteNonQuery(); 
+                    }
 
                     RemplirDataGridViewAccordingly();
                 }

@@ -309,10 +309,10 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Data\emploi_du_temps.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\emploi_du_temps_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>emploi_du_temps.mdf</DependentUpon>
     </Content>
     <Content Include="Data\mainicon.ico" />

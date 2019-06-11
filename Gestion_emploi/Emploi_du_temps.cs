@@ -314,57 +314,60 @@ namespace Gestion_emploi
                         command.Parameters.AddWithValue("@id_formateur", formateur_comboBox.SelectedValue);
                     }
 
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    if (affectations_dataGridView.CurrentRow != null)
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            int nbSeances = (int)(float.Parse(reader["nb_heures_semaine"].ToString()) / 2.5f);
-                            int nbUtilise = int.Parse(reader["nb_utilise"].ToString());
-
-                            for (int i = nbUtilise; i < nbSeances; i++)
+                            while (reader.Read())
                             {
-                                DataGridViewRow row = (DataGridViewRow)affectations_dataGridView.Rows[0].Clone();
+                                int nbSeances = (int)(float.Parse(reader["nb_heures_semaine"].ToString()) / 2.5f);
+                                int nbUtilise = int.Parse(reader["nb_utilise"].ToString());
 
-                                row.Cells[0].Value = reader[0].ToString();
-                                row.Cells[1].Value = reader[1].ToString();
-                                row.Cells[2].Value = reader[2].ToString();
-                                row.Cells[3].Value = reader[3].ToString();
-
-                                string dateDebut;
-                                string dateFin;
-
-                                if (reader[4].ToString() == "" || reader[5].ToString() == "")
+                                for (int i = nbUtilise; i < nbSeances; i++)
                                 {
-                                    dateDebut = "";
-                                    dateFin = "";
-                                }
-                                else
-                                {
-                                    dateDebut = ((DateTime)reader[4]).ToShortDateString();
-                                    dateFin = ((DateTime)reader[5]).ToShortDateString();
+                                    DataGridViewRow row = (DataGridViewRow)affectations_dataGridView.Rows[0].Clone();
+
+                                    row.Cells[0].Value = reader[0].ToString();
+                                    row.Cells[1].Value = reader[1].ToString();
+                                    row.Cells[2].Value = reader[2].ToString();
+                                    row.Cells[3].Value = reader[3].ToString();
+
+                                    string dateDebut;
+                                    string dateFin;
+
+                                    if (reader[4].ToString() == "" || reader[5].ToString() == "")
+                                    {
+                                        dateDebut = "";
+                                        dateFin = "";
+                                    }
+                                    else
+                                    {
+                                        dateDebut = ((DateTime)reader[4]).ToShortDateString();
+                                        dateFin = ((DateTime)reader[5]).ToShortDateString();
+                                    }
+
+                                    row.Cells[4].Value = dateDebut;
+                                    row.Cells[5].Value = dateFin;
+
+                                    if (dateDebut == "" || dateFin == "")
+                                    {
+                                        row.DefaultCellStyle.BackColor = Color.LightGray;
+                                    }
+                                    else if ((DateTime.Parse(dateFin + " 00:00:00")) < DateTime.Now)
+                                    {
+                                        row.DefaultCellStyle.BackColor = Color.LightPink;
+                                    }
+                                    else
+                                    {
+                                        row.DefaultCellStyle.BackColor = Color.White;
+                                    }
+
+                                    affectations_dataGridView.Rows.Add(row);
                                 }
 
-                                row.Cells[4].Value = dateDebut;
-                                row.Cells[5].Value = dateFin;
-
-                                if (dateDebut == "" || dateFin == "")
-                                {
-                                    row.DefaultCellStyle.BackColor = Color.LightGray;
-                                }
-                                else if ((DateTime.Parse(dateFin + " 00:00:00")) < DateTime.Now)
-                                {
-                                    row.DefaultCellStyle.BackColor = Color.LightPink;
-                                }
-                                else
-                                {
-                                    row.DefaultCellStyle.BackColor = Color.White;
-                                }
-
-                                affectations_dataGridView.Rows.Add(row);
+                                affectations_dataGridView.Columns["id"].Visible = false;
                             }
-
-                            affectations_dataGridView.Columns["id"].Visible = false;
-                        }
+                        } 
                     }
 
                 }
@@ -394,18 +397,21 @@ namespace Gestion_emploi
                         command.Parameters.AddWithValue("@id_formateur", formateur_comboBox.SelectedValue);
                     }
 
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    if (affectations_dataGridView.CurrentRow != null)
                     {
-                        if (reader.HasRows)
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            while (reader.Read())
+                            if (reader.HasRows)
                             {
-                                int jour = int.Parse(reader[1].ToString()) - 1;
-                                int seance = int.Parse(reader[2].ToString());
+                                while (reader.Read())
+                                {
+                                    int jour = int.Parse(reader[1].ToString()) - 1;
+                                    int seance = int.Parse(reader[2].ToString());
 
-                                emploi_dataGridView.Rows[jour].Cells[seance].Value = reader[0].ToString();
+                                    emploi_dataGridView.Rows[jour].Cells[seance].Value = reader[0].ToString();
+                                }
                             }
-                        }
+                        } 
                     }
                     
                 }
@@ -432,20 +438,23 @@ namespace Gestion_emploi
                         command.Parameters.AddWithValue("@id_groupe", groupe_comboBox.SelectedValue);
                     }
 
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    if (affectations_dataGridView.CurrentRow != null)
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            int nbSeances = (int)(float.Parse(reader[0].ToString()) / 2.5f);
-                            int nbUtilise = int.Parse(reader[1].ToString());
-
-                            if (nbUtilise > nbSeances)
+                            while (reader.Read())
                             {
-                                int difference = nbUtilise - nbSeances;
-                                MessageBox.Show("Veuillez supprimer " + difference + " seance: " + reader[2].ToString() + " de l'emploi");
-                                return;
+                                int nbSeances = (int)(float.Parse(reader[0].ToString()) / 2.5f);
+                                int nbUtilise = int.Parse(reader[1].ToString());
+
+                                if (nbUtilise > nbSeances)
+                                {
+                                    int difference = nbUtilise - nbSeances;
+                                    MessageBox.Show("Veuillez supprimer " + difference + " seance: " + reader[2].ToString() + " de l'emploi");
+                                    return;
+                                }
                             }
-                        }
+                        } 
                     }
                 }
             }
@@ -722,7 +731,10 @@ namespace Gestion_emploi
                             command.Parameters.AddWithValue("@id_formateur", formateur_comboBox.SelectedValue);
                         }
 
-                        command.ExecuteNonQuery();
+                        if (formateur_comboBox.SelectedValue != null || groupe_comboBox.SelectedValue != null)
+                        {
+                            command.ExecuteNonQuery(); 
+                        }
                     }
 
                     // Update the affectation nb_utilise
@@ -739,7 +751,10 @@ namespace Gestion_emploi
                             command.Parameters.AddWithValue("@id_formateur", formateur_comboBox.SelectedValue);
                         }
 
-                        command.ExecuteNonQuery();
+                        if (formateur_comboBox.SelectedValue != null || groupe_comboBox.SelectedValue != null)
+                        {
+                            command.ExecuteNonQuery();
+                        }
                     }
 
                     RemplirAffectations();
